@@ -39,6 +39,9 @@
     skip.className = 'skip-link';
     skip.href = `#${main.id}`;
     skip.textContent = 'Skip to content';
+    skip.style.cssText = 'position:fixed;left:1rem;top:1rem;z-index:1000;padding:.75rem 1rem;border-radius:8px;background:#f7f0ec;color:#171515;font-weight:850;text-decoration:none;transform:translateY(-200%);transition:transform .15s ease;';
+    skip.addEventListener('focus', () => { skip.style.transform = 'translateY(0)'; });
+    skip.addEventListener('blur', () => { skip.style.transform = 'translateY(-200%)'; });
     document.body.prepend(skip);
   }
 

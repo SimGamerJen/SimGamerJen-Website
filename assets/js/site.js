@@ -49,4 +49,15 @@
       // Leave malformed or non-standard links untouched.
     }
   });
+
+  if (window.location.pathname === '/mods/' || window.location.pathname.startsWith('/mods/')) {
+    ensureLink('stylesheet', '/assets/css/dds-icons.css');
+    if (!document.querySelector('script[data-sgj-dds-icons]')) {
+      const script = document.createElement('script');
+      script.src = '/assets/js/dds-icons.js';
+      script.defer = true;
+      script.dataset.sgjDdsIcons = 'true';
+      document.head.appendChild(script);
+    }
+  }
 })();

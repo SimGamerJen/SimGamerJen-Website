@@ -1,0 +1,41 @@
+{
+  "maxItems": 4,
+  "items": [
+    {
+      "code": "FS25",
+      "title": "Farming Simulator 25",
+      "description": "Farm series, realism projects, guides and longer-running FS25 worlds on SimGamerJen.",
+      "url": "https://www.youtube.com/@SimGamerJen/playlists",
+      "cta": "Explore FS25 playlists ↗",
+      "channel": "SimGamerJen",
+      "keywords": ["fs25", "farming simulator", "farm", "ranch", "courseplay", "autodrive", "crop", "helper"]
+    },
+    {
+      "code": "TRUCK",
+      "title": "Truck Simulation",
+      "description": "American Truck Simulator, Euro Truck Simulator 2 and the road-focused SGJ series.",
+      "url": "https://www.youtube.com/@SimGamerJen/playlists",
+      "cta": "Explore truck-sim playlists ↗",
+      "channel": "SimGamerJen",
+      "keywords": ["ats", "ets2", "american truck", "euro truck", "truck", "silent miles"]
+    },
+    {
+      "code": "FOUND",
+      "title": "Foundation",
+      "description": "Jensbury and the ongoing city-building sessions from the StreamGamerJen side of SGJ.",
+      "url": "https://www.youtube.com/@StreamGamerJen/playlists",
+      "cta": "Explore Foundation playlists ↗",
+      "channel": "StreamGamerJen",
+      "keywords": ["foundation", "jensbury"]
+    },
+    {
+      "code": "STREAM",
+      "title": "StreamGamerJen Playlists",
+      "description": "Non-simulation streams, VODs and side projects collected on the second YouTube channel.",
+      "url": "https://www.youtube.com/@StreamGamerJen/playlists",
+      "cta": "Browse StreamGamerJen playlists ↗",
+      "channel": "StreamGamerJen",
+      "keywords": ["star wars", "zero company", "arc raiders", "streamgamerjen"]
+    }
+  ]
+}

@@ -13,8 +13,9 @@
     const typeLabel=mod.type==='utility'?'Desktop utility':'';
     const featuredLabel=featured?'Featured':'';
     const metaLabels=[featuredLabel,typeLabel].filter(Boolean).map(label=>`<span class="status">${escapeHtml(label)}</span>`).join('');
+    const iconAttr=mod.iconDds?` data-dds-icon="${escapeHtml(mod.iconDds)}"`:'';
     return `<a class="catalogue-card${featured?' featured':''}" href="${escapeHtml(href)}" data-github-release-card="${escapeHtml(mod.repo)}"${external?' target="_blank" rel="noopener noreferrer"':''}>
-      <span class="catalogue-mark">${escapeHtml(mod.code||'SGJ')}</span>
+      <span class="catalogue-mark"${iconAttr}><span class="dds-fallback">${escapeHtml(mod.code||'SGJ')}</span></span>
       <div>
         <div class="catalogue-meta">${metaLabels}<span class="release-chip" data-card-release-label>Checking…</span><span class="release-chip-version" data-card-release-version></span></div>
         <h2>${escapeHtml(mod.name)}</h2>
@@ -54,6 +55,8 @@
     const featuredRepo=data.featuredRepo;
     root.innerHTML=mods.map(mod=>makeCard(mod,mod.repo===featuredRepo)).join('');
     root.querySelectorAll('[data-github-release-card]').forEach(hydrateRelease);
+    document.dispatchEvent(new CustomEvent('sgj:mods-rendered'));
+    if(window.SGJDDSIcons)window.SGJDDSIcons.hydrate(root);
   }catch(error){
     root.innerHTML='<div class="catalogue-error"><h2>Mod catalogue unavailable</h2><p>The project list could not be loaded. Please try again shortly.</p></div>';
   }

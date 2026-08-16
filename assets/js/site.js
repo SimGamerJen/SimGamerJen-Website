@@ -51,13 +51,19 @@
   });
 
   if (window.location.pathname === '/mods/' || window.location.pathname.startsWith('/mods/')) {
-    ensureLink('stylesheet', '/assets/css/dds-icons.css');
+    if (!head.querySelector('link[data-sgj-dds-icons]')) {
+      const css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = '/assets/css/dds-icons.css';
+      css.dataset.sgjDdsIcons = 'true';
+      head.appendChild(css);
+    }
     if (!document.querySelector('script[data-sgj-dds-icons]')) {
       const script = document.createElement('script');
       script.src = '/assets/js/dds-icons.js';
       script.defer = true;
       script.dataset.sgjDdsIcons = 'true';
-      document.head.appendChild(script);
+      head.appendChild(script);
     }
   }
 })();

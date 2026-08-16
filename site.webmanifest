@@ -1,0 +1,17 @@
+{
+  "name": "SimGamerJen",
+  "short_name": "SGJ",
+  "description": "Simulation gaming, livestreams, Farming Simulator mods and creator projects. Fun first, skills later.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#171515",
+  "theme_color": "#171515",
+  "icons": [
+    {
+      "src": "/assets/images/sgj-logo-square.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "eyebrow": "Featured",
+  "heading": "What SGJ is highlighting right now.",
+  "intro": "This section is editorial and changes with the channel — a current series, a new guide, an upcoming stream or anything else worth putting front and centre.",
+  "items": [
+    {
+      "code": "BRR",
+      "label": "FS25 · Series",
+      "title": "Buffalo Ridge Ranch",
+      "description": "Judith Plains, Montana: beef cattle, sheep, crop rotations and the daily operational reality of running a large ranch.",
+      "artLabel": "MONTANA · CATTLE · REALISM",
+      "tone": "ranch"
+    },
+    {
+      "code": "AI",
+      "label": "FS25 · Series",
+      "title": "AI Directed Series",
+      "description": "A farming save where field priorities, workload and hired labour are shaped by an AI farm-management layer.",
+      "artLabel": "DIRECTED FARMING · OHIO",
+      "tone": "ai"
+    },
+    {
+      "code": "MILES",
+      "label": "Ambient",
+      "title": "Silent Miles",
+      "description": "No talking, no music: just the road, the truck and the ambient soundscape of long-distance driving.",
+      "artLabel": "ATS · ETS2 · AMBIENCE",
+      "tone": "miles"
+    }
+  ]
+}

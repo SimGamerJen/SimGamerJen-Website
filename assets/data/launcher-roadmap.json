@@ -1,0 +1,23 @@
+{
+  "status": "Early development",
+  "updated": "2026-08-16",
+  "principles": [
+    {"title":"Prepare before launch","description":"Make save, mod and environment choices in a desktop app before Farming Simulator starts."},
+    {"title":"Save-specific by design","description":"Treat each Farming Simulator save as its own managed setup rather than forcing one global configuration onto every map."},
+    {"title":"Use proven SGJ systems","description":"Reuse existing SGJ concepts and APIs where practical instead of duplicating working game-side logic."}
+  ],
+  "capabilities": [
+    {"title":"Mod folder management","state":"Planned","description":"Create, select and organise separate mod folders for different saves, maps and testing scenarios."},
+    {"title":"Save-game generator","state":"Designing","description":"Create the initial save structure and player-defined setup before the first in-game load."},
+    {"title":"First-load world setup","state":"Designing","description":"A lightweight FS25 bootstrap component applies the requested starting world when the generated save is loaded for the first time."},
+    {"title":"Crop policy at creation","state":"Planned","description":"Expose a deliberately simplified CCO-style setup so crop rules can be chosen before the save begins."},
+    {"title":"Full field regeneration","state":"Chosen approach","description":"Reset and regenerate the map on first load from the app-defined configuration instead of trying to infer which initial fields the player should preserve."},
+    {"title":"Save inspection and diagnostics","state":"Planned","description":"Bring useful SGJ utilities together for mod-version comparison, active-mod review and save troubleshooting."}
+  ],
+  "phases": [
+    {"name":"Foundation","state":"Current","items":["Desktop application shell","Game and documents path discovery","Mod-folder profiles","Save discovery and metadata"]},
+    {"name":"Save generation","state":"Next","items":["New-save configuration model","Generated save structure","First-run marker and bootstrap handoff","Basic world-start options"]},
+    {"name":"World configuration","state":"Planned","items":["Whole-map first-load regeneration","Simplified crop-rule setup","CCO integration/handoff","Validation and recovery safeguards"]},
+    {"name":"Management suite","state":"Later","items":["Mod comparison and version visibility","Per-save mod activation tooling","Backup/restore workflows","Additional SGJ utility integration"]}
+  ]
+}

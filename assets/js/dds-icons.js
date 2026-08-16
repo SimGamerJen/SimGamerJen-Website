@@ -107,6 +107,41 @@
     return p;
   }
 
+  function constrainRenderedIcon(target,canvas){
+    canvas.style.display='block';
+    canvas.style.maxWidth='100%';
+    canvas.style.maxHeight='100%';
+    canvas.style.objectFit='contain';
+    canvas.style.margin='0 auto';
+
+    if(target.classList.contains('catalogue-mark')){
+      target.style.width='110px';
+      target.style.height='110px';
+      target.style.minWidth='110px';
+      target.style.aspectRatio='1 / 1';
+      target.style.overflow='hidden';
+      target.style.padding='6px';
+      target.style.display='grid';
+      target.style.placeItems='center';
+      canvas.style.width='98px';
+      canvas.style.height='98px';
+    }else if(target.classList.contains('detail-mark')){
+      target.style.width='min(100%, 390px)';
+      target.style.maxWidth='390px';
+      target.style.aspectRatio='1 / 1';
+      target.style.overflow='hidden';
+      target.style.padding='18px';
+      target.style.display='grid';
+      target.style.placeItems='center';
+      canvas.style.width='100%';
+      canvas.style.height='100%';
+    }
+
+    target.querySelectorAll('.dds-fallback,strong,span').forEach(el=>{
+      if(el!==canvas)el.style.display='none';
+    });
+  }
+
   async function renderTarget(target,url){
     if(!url||target.dataset.ddsRendered==='true')return;
     target.dataset.ddsRendered='true';
@@ -117,10 +152,12 @@
       canvas.className='dds-icon-canvas';
       const ctx=canvas.getContext('2d',{alpha:true});
       ctx.putImageData(new ImageData(image.pixels,image.width,image.height),0,0);
+      constrainRenderedIcon(target,canvas);
       target.prepend(canvas);
       target.classList.add('has-dds-icon');
     }catch(error){
       target.classList.add('dds-icon-error');
+      target.dataset.ddsRendered='false';
       console.warn('[SGJ] Could not render DDS icon',url,error);
     }
   }

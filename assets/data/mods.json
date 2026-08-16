@@ -9,6 +9,7 @@
       "path": "/mods/crop-control-override/",
       "summary": "Crop availability, NPC field regeneration and regional crop-calendar control.",
       "type": "mod",
+      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_CropControlOverride/main/icon_CropControlOverride.dds",
       "visible": true,
       "order": 10
     },
@@ -19,6 +20,7 @@
       "path": "/mods/helper-profiles/",
       "summary": "Create and manage a custom worker roster with roles and availability.",
       "type": "mod",
+      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_HelperProfiles/main/icon_helperProfiles.dds",
       "visible": true,
       "order": 20
     },
@@ -29,6 +31,7 @@
       "path": "/mods/helper-payroll/",
       "summary": "Give hired labour a meaningful payroll cost tied to your worker system.",
       "type": "mod",
+      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_HelperPayroll/main/HelperPayroll_icon.dds",
       "visible": true,
       "order": 30
     },
@@ -39,6 +42,7 @@
       "path": "/mods/precision-nutrition/",
       "summary": "More depth and visibility for livestock nutrition and feeding.",
       "type": "mod",
+      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_PrecisionNutrition/main/PrecisionNutrition.dds",
       "visible": true,
       "order": 40
     },
@@ -49,6 +53,7 @@
       "path": "/mods/avatar-switcher/",
       "summary": "Save, organise and reuse player appearances through an in-game preset system.",
       "type": "mod",
+      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_AvatarSwitcher/main/icon_AvatarSwitcher.dds",
       "visible": true,
       "order": 50
     },
@@ -59,6 +64,7 @@
       "path": "/mods/save-unit-profiles/",
       "summary": "Apply regional currency and measurement profiles independently to each savegame.",
       "type": "mod",
+      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_SaveUnitProfiles/main/icon_SaveUnitProfiles.dds",
       "visible": true,
       "order": 60
     },
@@ -69,6 +75,7 @@
       "path": "/mods/stop-time/",
       "summary": "Stop the in-game clock instantly and resume at the previous time scale.",
       "type": "mod",
+      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_StopTime/main/StopTime.dds",
       "visible": true,
       "order": 70
     },

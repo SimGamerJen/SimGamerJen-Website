@@ -1,0 +1,10 @@
+# Repository/build metadata should never be published as static site assets.
+README.md
+*.md
+wrangler.jsonc
+_headers
+.assetsignore
+.github/
+**/.git
+**/node_modules
+**/.DS_Store

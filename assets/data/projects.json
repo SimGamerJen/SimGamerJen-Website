@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "status": "Utility",
+      "title": "FS25 Mod Compare",
+      "description": "Compare mod folders, versions and savegame activity to help diagnose differences between installations.",
+      "url": "https://github.com/SimGamerJen/FS25_Mod_Compare",
+      "cta": "GitHub ↗"
+    },
+    {
+      "status": "Utility",
+      "title": "SaveUnitProfiles",
+      "description": "Apply persistent regional unit profiles to individual Farming Simulator saves.",
+      "url": "https://github.com/SimGamerJen/FS25_SaveUnitProfiles",
+      "cta": "GitHub ↗"
+    },
+    {
+      "status": "Mod development",
+      "title": "AvatarSwitcher",
+      "description": "Save and switch player appearances, with integration points used by the wider SGJ worker-management ecosystem.",
+      "url": "https://github.com/SimGamerJen/FS25_AvatarSwitcher",
+      "cta": "GitHub ↗"
+    },
+    {
+      "status": "Utility",
+      "title": "StopTime",
+      "description": "A focused quality-of-life project for controlling time progression while working in and around vehicles.",
+      "url": "https://github.com/SimGamerJen/FS25_StopTime",
+      "cta": "GitHub ↗"
+    }
+  ]
+}

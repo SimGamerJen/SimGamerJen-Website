@@ -1,0 +1,86 @@
+{
+  "featuredRepo": "SimGamerJen/FS25_CropControlOverride",
+  "intro": "Farming Simulator 25 projects focused on realism, control and quality of life, plus companion utilities for managing and understanding the worlds behind the game.",
+  "mods": [
+    {
+      "repo": "SimGamerJen/FS25_CropControlOverride",
+      "name": "Crop Control Override",
+      "code": "CCO",
+      "path": "/mods/crop-control-override/",
+      "summary": "Crop availability, NPC field regeneration and regional crop-calendar control.",
+      "type": "mod",
+      "visible": true,
+      "order": 10
+    },
+    {
+      "repo": "SimGamerJen/FS25_HelperProfiles",
+      "name": "HelperProfiles",
+      "code": "HP",
+      "path": "/mods/helper-profiles/",
+      "summary": "Create and manage a custom worker roster with roles and availability.",
+      "type": "mod",
+      "visible": true,
+      "order": 20
+    },
+    {
+      "repo": "SimGamerJen/FS25_HelperPayroll",
+      "name": "HelperPayroll",
+      "code": "£",
+      "path": "/mods/helper-payroll/",
+      "summary": "Give hired labour a meaningful payroll cost tied to your worker system.",
+      "type": "mod",
+      "visible": true,
+      "order": 30
+    },
+    {
+      "repo": "SimGamerJen/FS25_PrecisionNutrition",
+      "name": "PrecisionNutrition",
+      "code": "PN",
+      "path": "/mods/precision-nutrition/",
+      "summary": "More depth and visibility for livestock nutrition and feeding.",
+      "type": "mod",
+      "visible": true,
+      "order": 40
+    },
+    {
+      "repo": "SimGamerJen/FS25_AvatarSwitcher",
+      "name": "AvatarSwitcher",
+      "code": "AS",
+      "path": "/mods/avatar-switcher/",
+      "summary": "Save, organise and reuse player appearances through an in-game preset system.",
+      "type": "mod",
+      "visible": true,
+      "order": 50
+    },
+    {
+      "repo": "SimGamerJen/FS25_SaveUnitProfiles",
+      "name": "SaveUnitProfiles",
+      "code": "SUP",
+      "path": "/mods/save-unit-profiles/",
+      "summary": "Apply regional currency and measurement profiles independently to each savegame.",
+      "type": "mod",
+      "visible": true,
+      "order": 60
+    },
+    {
+      "repo": "SimGamerJen/FS25_StopTime",
+      "name": "StopTime",
+      "code": "0",
+      "path": "/mods/stop-time/",
+      "summary": "Stop the in-game clock instantly and resume at the previous time scale.",
+      "type": "mod",
+      "visible": true,
+      "order": 70
+    },
+    {
+      "repo": "SimGamerJen/FS25_ExportLivestockInfo",
+      "name": "ExportLivestockInfo",
+      "code": "XL",
+      "path": "/mods/export-livestock-info/",
+      "summary": "Export FS25 livestock data to structured CSV or Excel reports for analysis and record keeping.",
+      "type": "utility",
+      "visible": true,
+      "order": 80
+    }
+  ]
+}

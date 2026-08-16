@@ -107,6 +107,10 @@
     return p;
   }
 
+  function hideFallback(target){
+    target.querySelectorAll('.dds-fallback').forEach(el=>el.style.display='none');
+  }
+
   function constrainRenderedIcon(target,canvas){
     canvas.style.display='block';
     canvas.style.maxWidth='100%';
@@ -125,6 +129,7 @@
       target.style.placeItems='center';
       canvas.style.width='98px';
       canvas.style.height='98px';
+      hideFallback(target);
     }else if(target.classList.contains('detail-mark')){
       target.style.width='min(100%, 390px)';
       target.style.maxWidth='390px';
@@ -135,11 +140,26 @@
       target.style.placeItems='center';
       canvas.style.width='100%';
       canvas.style.height='100%';
+      target.querySelectorAll('strong,span').forEach(el=>el.style.display='none');
+    }else if(target.classList.contains('mini-mark')){
+      target.style.width='58px';
+      target.style.height='58px';
+      target.style.minWidth='58px';
+      target.style.padding='4px';
+      target.style.overflow='hidden';
+      target.style.display='grid';
+      target.style.placeItems='center';
+      canvas.style.width='50px';
+      canvas.style.height='50px';
+      hideFallback(target);
+    }else if(target.classList.contains('mod-visual')){
+      target.style.overflow='hidden';
+      canvas.style.width='min(78%, 260px)';
+      canvas.style.height='auto';
+      hideFallback(target);
+    }else{
+      hideFallback(target);
     }
-
-    target.querySelectorAll('.dds-fallback,strong,span').forEach(el=>{
-      if(el!==canvas)el.style.display='none';
-    });
   }
 
   async function renderTarget(target,url){

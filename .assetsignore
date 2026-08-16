@@ -2,7 +2,6 @@
 README.md
 *.md
 wrangler.jsonc
-_headers
 .assetsignore
 .github/
 **/.git

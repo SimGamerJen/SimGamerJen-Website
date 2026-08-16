@@ -3,6 +3,7 @@ README.md
 *.md
 wrangler.jsonc
 .assetsignore
+src/
 .github/
 **/.git
 **/node_modules

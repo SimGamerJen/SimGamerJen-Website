@@ -1,0 +1,141 @@
+{
+  "galleries": {
+    "crop-control-override": {
+      "visible": true,
+      "eyebrow": "In game",
+      "heading": "See the controls before you install.",
+      "intro": "Real screenshots from the current CCO documentation, showing the rule table, crop details and NPC-field validation workflow.",
+      "images": [
+        {
+          "id": "all-rules",
+          "source": "https://github.com/user-attachments/assets/b00e0e57-61a6-47db-ab90-568538857f5f",
+          "localSource": "",
+          "alt": "Crop Control Override all-rules interface",
+          "title": "All rules",
+          "caption": "The main crop-policy view.",
+          "type": "UI",
+          "featured": true,
+          "visible": true,
+          "order": 10
+        },
+        {
+          "id": "crop-details",
+          "source": "https://github.com/user-attachments/assets/042f22eb-5eeb-4652-8b4f-b6dd47718b6e",
+          "localSource": "",
+          "alt": "Crop Control Override selected crop details",
+          "title": "Crop details",
+          "caption": "Edit the selected crop policy.",
+          "type": "UI",
+          "featured": false,
+          "visible": true,
+          "order": 20
+        },
+        {
+          "id": "validation",
+          "source": "https://github.com/user-attachments/assets/285f6ed4-956b-4031-8146-e94d11d6c6fa",
+          "localSource": "",
+          "alt": "Crop Control Override validation screen",
+          "title": "Validation",
+          "caption": "Find NPC fields that no longer comply.",
+          "type": "Workflow",
+          "featured": false,
+          "visible": true,
+          "order": 30
+        }
+      ]
+    },
+    "helper-profiles": {
+      "visible": true,
+      "eyebrow": "In game",
+      "heading": "A worker roster you can actually see and manage.",
+      "intro": "Current HelperProfiles screenshots showing the operational overlay, appearance bindings and the A–T roster-management interface.",
+      "images": [
+        {
+          "id": "roster-management",
+          "source": "https://github.com/user-attachments/assets/6fa61f24-825a-4aa7-88ea-7e072f0ee95f",
+          "localSource": "",
+          "alt": "HelperProfiles roster management interface",
+          "title": "Roster management",
+          "caption": "Manage the permanent A–T worker pool.",
+          "type": "UI",
+          "featured": true,
+          "visible": true,
+          "order": 10
+        },
+        {
+          "id": "appearances",
+          "source": "https://github.com/user-attachments/assets/b691afde-548c-42d6-9907-e2bcfa8713e3",
+          "localSource": "",
+          "alt": "HelperProfiles appearance binding interface",
+          "title": "Appearances",
+          "caption": "Bind AvatarSwitcher presets to workers.",
+          "type": "UI",
+          "featured": false,
+          "visible": true,
+          "order": 20
+        },
+        {
+          "id": "operational-overlay",
+          "source": "https://github.com/user-attachments/assets/20485d9f-3368-4fc1-992b-d85eea2c3d8e",
+          "localSource": "",
+          "alt": "HelperProfiles worker overlay",
+          "title": "Operational overlay",
+          "caption": "Only active roster workers are shown.",
+          "type": "Overlay",
+          "featured": false,
+          "visible": true,
+          "order": 30
+        }
+      ]
+    },
+    "save-unit-profiles": {
+      "visible": true,
+      "eyebrow": "In game",
+      "heading": "Regional units without leaving the settings menu.",
+      "intro": "SaveUnitProfiles is integrated directly into FS25’s native settings flow, including contextual profile details and save-specific custom presets.",
+      "images": [
+        {
+          "id": "regional-profile",
+          "source": "https://github.com/user-attachments/assets/095df622-e87d-42ee-9c1f-06fe52ee0b36",
+          "localSource": "",
+          "alt": "SaveUnitProfiles predefined regional profile with tooltip",
+          "title": "Regional profile",
+          "caption": "Choose a preset and see exactly what it changes.",
+          "type": "Settings",
+          "featured": true,
+          "visible": true,
+          "order": 10
+        },
+        {
+          "id": "custom-profile",
+          "source": "https://github.com/user-attachments/assets/254aae2b-a8a2-45eb-ad62-bcf4975796de",
+          "localSource": "",
+          "alt": "SaveUnitProfiles custom profile interface",
+          "title": "Custom save profile",
+          "caption": "Capture the active save’s own unit setup.",
+          "type": "Settings",
+          "featured": false,
+          "visible": true,
+          "order": 20
+        },
+        {
+          "id": "native-selector",
+          "source": "https://github.com/user-attachments/assets/5fa3855c-974a-46c1-bdcc-b56ed5334fa0",
+          "localSource": "",
+          "alt": "SaveUnitProfiles predefined profile selection",
+          "title": "Native selector",
+          "caption": "Profiles live alongside the normal FS25 unit settings.",
+          "type": "Settings",
+          "featured": false,
+          "visible": true,
+          "order": 30
+        }
+      ]
+    },
+    "helper-payroll": { "visible": false, "images": [] },
+    "precision-nutrition": { "visible": false, "images": [] },
+    "avatar-switcher": { "visible": false, "images": [] },
+    "stop-time": { "visible": false, "images": [] },
+    "export-livestock-info": { "visible": false, "images": [] }
+  }
+}

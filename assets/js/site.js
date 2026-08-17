@@ -45,19 +45,40 @@
     document.body.prepend(skip);
   }
 
+  // Keep Partners available site-wide without editing every static page by hand.
+  document.querySelectorAll('header nav').forEach(nav => {
+    if (!nav.querySelector('a[href="/partners/"]')) {
+      const partners = document.createElement('a');
+      partners.href = '/partners/';
+      partners.textContent = 'Partners';
+      const about = nav.querySelector('a[href="/about/"]');
+      if (about) nav.insertBefore(partners, about); else nav.appendChild(partners);
+    }
+  });
+
   // Mark the current navigation destination for assistive technology.
   document.querySelectorAll('nav a.active').forEach(link => link.setAttribute('aria-current', 'page'));
 
-  // Add a low-key support link to the shared footer without duplicating markup on every page.
+  // Add low-key shared footer links without duplicating markup on every page.
   const footerGrid = document.querySelector('.site-footer .footer-grid');
-  if (footerGrid && !footerGrid.querySelector('.footer-support')) {
-    const support = document.createElement('a');
-    support.className = 'footer-support';
-    support.href = 'https://buymeacoffee.com/simgamerjen';
-    support.textContent = 'Buy Me a Coffee ↗';
-    support.style.cssText = 'color:var(--rose-light);font-weight:800;text-decoration:none;';
+  if (footerGrid) {
     const copyright = footerGrid.querySelector('p');
-    if (copyright) footerGrid.insertBefore(support, copyright); else footerGrid.appendChild(support);
+    if (!footerGrid.querySelector('.footer-partners')) {
+      const partners = document.createElement('a');
+      partners.className = 'footer-partners';
+      partners.href = '/partners/';
+      partners.textContent = 'Partners';
+      partners.style.cssText = 'color:var(--muted);font-weight:750;text-decoration:none;';
+      if (copyright) footerGrid.insertBefore(partners, copyright); else footerGrid.appendChild(partners);
+    }
+    if (!footerGrid.querySelector('.footer-support')) {
+      const support = document.createElement('a');
+      support.className = 'footer-support';
+      support.href = 'https://buymeacoffee.com/simgamerjen';
+      support.textContent = 'Buy Me a Coffee ↗';
+      support.style.cssText = 'color:var(--rose-light);font-weight:800;text-decoration:none;';
+      if (copyright) footerGrid.insertBefore(support, copyright); else footerGrid.appendChild(support);
+    }
   }
 
   // External links consistently open separately, including links rendered after page load.

@@ -48,6 +48,18 @@
   // Mark the current navigation destination for assistive technology.
   document.querySelectorAll('nav a.active').forEach(link => link.setAttribute('aria-current', 'page'));
 
+  // Add a low-key support link to the shared footer without duplicating markup on every page.
+  const footerGrid = document.querySelector('.site-footer .footer-grid');
+  if (footerGrid && !footerGrid.querySelector('.footer-support')) {
+    const support = document.createElement('a');
+    support.className = 'footer-support';
+    support.href = 'https://buymeacoffee.com/simgamerjen';
+    support.textContent = 'Buy Me a Coffee ↗';
+    support.style.cssText = 'color:var(--rose-light);font-weight:800;text-decoration:none;';
+    const copyright = footerGrid.querySelector('p');
+    if (copyright) footerGrid.insertBefore(support, copyright); else footerGrid.appendChild(support);
+  }
+
   // External links consistently open separately, including links rendered after page load.
   const prepareExternalLinks = (scope = document) => {
     scope.querySelectorAll?.('a[href^="http://"], a[href^="https://"]').forEach((link) => {

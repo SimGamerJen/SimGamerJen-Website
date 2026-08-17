@@ -10,8 +10,7 @@
       "url": "https://g-portal.com/?ref=simgamerjen",
       "cta": "Rent your server",
       "code": "",
-      "imageBase64": "/assets/images/partners/gportal-600x600.txt",
-      "imageMime": "image/webp",
+      "image": "/assets/images/partners/gportal-600x600.png",
       "imageAlt": "GPORTAL partner offer: 10% discount on your game server",
       "featured": true,
       "placements": ["partners", "projects", "footer"]

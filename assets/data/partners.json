@@ -1,0 +1,19 @@
+{
+  "partners": [
+    {
+      "id": "gportal",
+      "name": "GPORTAL",
+      "relationship": "Server partner",
+      "status": "active",
+      "description": "GPORTAL supports SimGamerJen with game-server infrastructure for multiplayer testing, community sessions and development work around Farming Simulator and other multiplayer projects.",
+      "disclosure": "This is a partner/referral link. Using it can support SimGamerJen, and the current GPORTAL creative advertises 10% off a game server. Partnership does not affect editorial or development decisions.",
+      "url": "https://g-portal.com/?ref=simgamerjen",
+      "cta": "Rent your server",
+      "code": "",
+      "image": "/assets/images/partners/gportal-600x600.png",
+      "imageAlt": "GPORTAL partner offer: 10% discount on your game server",
+      "featured": true,
+      "placements": ["partners", "projects", "footer"]
+    }
+  ]
+}

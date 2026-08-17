@@ -1,0 +1,17 @@
+{
+  "partners": [
+    {
+      "id": "gportal",
+      "name": "GPORTAL",
+      "relationship": "Server partner",
+      "status": "active",
+      "description": "GPORTAL supports SimGamerJen with game-server infrastructure for multiplayer testing, community sessions and development work around Farming Simulator and other multiplayer projects.",
+      "disclosure": "Partner links help support SimGamerJen. Any commercial relationship is clearly identified and does not affect editorial or development decisions.",
+      "url": "",
+      "cta": "Visit GPORTAL",
+      "code": "",
+      "featured": true,
+      "placements": ["partners", "projects", "footer"]
+    }
+  ]
+}

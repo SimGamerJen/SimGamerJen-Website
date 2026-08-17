@@ -96,10 +96,20 @@
     return {width,height,pixels:out};
   }
 
+  function proxiedDDSUrl(url){
+    try{
+      const parsed=new URL(url,window.location.href);
+      if(parsed.hostname==='raw.githubusercontent.com'&&parsed.pathname.startsWith('/SimGamerJen/')&&parsed.pathname.toLowerCase().endsWith('.dds')){
+        return `/api/mod-icon?src=${encodeURIComponent(parsed.href)}`;
+      }
+    }catch(_){ }
+    return url;
+  }
+
   async function getDDS(url){
     if(cache.has(url))return cache.get(url);
     const p=(async()=>{
-      const response=await fetch(url,{mode:'cors',cache:'force-cache'});
+      const response=await fetch(proxiedDDSUrl(url),{cache:'force-cache'});
       if(!response.ok)throw new Error(`DDS fetch failed: ${response.status}`);
       return decodeDDS(await response.arrayBuffer());
     })();

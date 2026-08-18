@@ -1,19 +1,19 @@
 {
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "label": "Community Preview",
-  "released": "2026-08-16",
+  "released": "2026-08-19",
   "platform": "Windows x64",
   "status": "pre-release",
   "downloadsEnabled": true,
   "installer": {
-    "filename": "FarmSimManager-0.1.0-beta.1-win-x64-setup.exe",
+    "filename": "FarmSimManager-0.1.0-beta.2-win-x64-setup.exe",
     "url": "/download/farm-sim-manager/installer",
-    "sha256": "2aa913062fb2e5b072582f04965b67efa62768841697c8478d8c7beb134a9fd4"
+    "sha256": "2899ec00cb146d7c7b118e014e07cad62df3f74309a2ce0536d3bd1aba0fec8d"
   },
   "portable": {
-    "filename": "FarmSimManager-0.1.0-beta.1-win-x64-portable.zip",
+    "filename": "FarmSimManager-0.1.0-beta.2-win-x64-portable.zip",
     "url": "/download/farm-sim-manager/portable",
-    "sha256": "44409f915dcbd62b21067c9058c444dafcde0005f49046f43e0a0f1025f404a7"
+    "sha256": "f6af8626209e7f13a0563d5c334a0a2f24ff61a3959a976a4c986a16fbf52540"
   },
   "releaseNotes": "/farm-sim-manager/release-notes/",
   "quickStart": "/farm-sim-manager/docs/#quick-start",

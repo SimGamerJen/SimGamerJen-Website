@@ -31,6 +31,19 @@
   ensureMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: description });
   ensureMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: socialImage });
 
+  // Reduce repeated SGJ/tagline branding in the sticky header while preserving the hero and footer artwork.
+  document.querySelectorAll('.site-header .brand').forEach(brand => {
+    const logo = brand.querySelector('.brand-logo');
+    if (logo && !brand.querySelector('.header-wordmark')) {
+      logo.remove();
+      const wordmark = document.createElement('span');
+      wordmark.className = 'header-wordmark';
+      wordmark.textContent = 'SIMGAMERJEN';
+      wordmark.style.cssText = 'display:block;color:var(--rose-light);font-size:clamp(1.7rem,2.35vw,2.35rem);font-weight:950;font-style:italic;line-height:1;letter-spacing:-.055em;text-transform:uppercase;white-space:nowrap;text-shadow:0 0 24px rgba(213,160,143,.10);';
+      brand.appendChild(wordmark);
+    }
+  });
+
   // Give keyboard users a direct route past the repeated navigation.
   if (!document.querySelector('.skip-link') && document.querySelector('main')) {
     const main = document.querySelector('main');

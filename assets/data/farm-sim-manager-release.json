@@ -7,12 +7,12 @@
   "downloadsEnabled": true,
   "installer": {
     "filename": "FarmSimManager-0.1.0-beta.1-win-x64-setup.exe",
-    "url": "https://downloads.simgamerjen.com/farm-sim-manager/0.1.0-beta.1/FarmSimManager-0.1.0-beta.1-win-x64-setup.exe",
+    "url": "/download/farm-sim-manager/installer",
     "sha256": "2aa913062fb2e5b072582f04965b67efa62768841697c8478d8c7beb134a9fd4"
   },
   "portable": {
     "filename": "FarmSimManager-0.1.0-beta.1-win-x64-portable.zip",
-    "url": "https://downloads.simgamerjen.com/farm-sim-manager/0.1.0-beta.1/FarmSimManager-0.1.0-beta.1-win-x64-portable.zip",
+    "url": "/download/farm-sim-manager/portable",
     "sha256": "44409f915dcbd62b21067c9058c444dafcde0005f49046f43e0a0f1025f404a7"
   },
   "releaseNotes": "/farm-sim-manager/release-notes/",

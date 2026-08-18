@@ -15,18 +15,44 @@
     return mins ? `${hours} hr ${mins} min` : `${hours} hr`;
   };
 
-  function demoStatus() {
+  const demoBase = () => ({
+    configured: true,
+    live: true,
+    title: 'Coffee Empire | The Roastery Goes Live | Farming Simulator 25',
+    game: 'Farming Simulator 25',
+    startedAt: new Date(Date.now() - 47 * 60000).toISOString(),
+    thumbnail: '',
+    demo: true,
+  });
+
+  function demoStatus(mode = 'twitch') {
+    const base = demoBase();
+    const twitch = { live: true, viewers: 42, url: 'https://www.twitch.tv/simgamerjen' };
+    const sgj = { live: true, channel: 'SimGamerJen', viewers: 57, url: 'https://www.youtube.com/@SimGamerJen/live' };
+    const stream = { live: true, channel: 'StreamGamerJen', viewers: 31, url: 'https://www.youtube.com/@StreamGamerJen/live' };
+
+    if (mode === 'youtube-sgj') return { ...base, platforms: { twitch: { live: false }, youtube: sgj } };
+    if (mode === 'youtube-stream') return { ...base, platforms: { twitch: { live: false }, youtube: stream } };
+    if (mode === 'both-sgj') return { ...base, platforms: { twitch, youtube: sgj } };
+    if (mode === 'both-stream') return { ...base, platforms: { twitch, youtube: stream } };
+    return { ...base, platforms: { twitch, youtube: { live: false } } };
+  }
+
+  function normalise(data) {
+    if (data.platforms) return data;
     return {
-      configured: true,
-      live: true,
-      title: 'Coffee Empire | The Roastery Goes Live | Farming Simulator 25',
-      game: 'Farming Simulator 25',
-      viewers: 42,
-      startedAt: new Date(Date.now() - 47 * 60000).toISOString(),
-      twitchUrl: 'https://www.twitch.tv/simgamerjen',
-      youtubeUrl: 'https://www.youtube.com/@SimGamerJen/live',
-      thumbnail: '',
-      demo: true,
+      ...data,
+      platforms: {
+        twitch: {
+          live: Boolean(data.live),
+          viewers: Number.isFinite(data.viewers) ? data.viewers : undefined,
+          url: data.twitchUrl || 'https://www.twitch.tv/simgamerjen',
+        },
+        youtube: {
+          live: false,
+          url: data.youtubeUrl || '',
+        },
+      },
     };
   }
 
@@ -37,22 +63,40 @@
     lastLive = false;
   }
 
-  function renderLive(data) {
+  function renderLive(raw) {
+    const data = normalise(raw);
+    const twitch = data.platforms?.twitch || { live: false };
+    const youtube = data.platforms?.youtube || { live: false };
+    const livePlatforms = [];
+    if (twitch.live) livePlatforms.push('Twitch');
+    if (youtube.live) livePlatforms.push(youtube.channel || 'YouTube');
+
     const liveFor = duration(data.startedAt);
-    const meta = [data.game, liveFor ? `Live for ${liveFor}` : '', Number.isFinite(data.viewers) ? `${data.viewers.toLocaleString()} watching` : ''].filter(Boolean);
+    const viewers = [];
+    if (twitch.live && Number.isFinite(twitch.viewers)) viewers.push(`${twitch.viewers.toLocaleString()} Twitch`);
+    if (youtube.live && Number.isFinite(youtube.viewers)) viewers.push(`${youtube.viewers.toLocaleString()} YouTube`);
+    const meta = [data.game, liveFor ? `Live for ${liveFor}` : '', viewers.length ? `${viewers.join(' + ')} watching` : ''].filter(Boolean);
+    const platformChips = livePlatforms.map(name => `<span class="live-platform-chip">${esc(name)}</span>`).join('');
     const art = data.thumbnail ? `<div class="live-now-art"><img src="${esc(data.thumbnail)}" alt="Current SimGamerJen livestream preview"></div>` : `<div class="live-now-art live-now-art-demo"><strong>LIVE</strong><span>SIM GAMER JEN</span></div>`;
+
+    const actions = [];
+    if (twitch.live) actions.push(`<a class="button primary" href="${esc(twitch.url || 'https://www.twitch.tv/simgamerjen')}">Watch on Twitch ↗</a>`);
+    if (youtube.live) actions.push(`<a class="button ${twitch.live ? 'secondary' : 'primary'}" href="${esc(youtube.url || '#')}">Watch on ${esc(youtube.channel || 'YouTube')} ↗</a>`);
+
+    const where = livePlatforms.length > 1
+      ? `SGJ is live right now on ${esc(livePlatforms.join(' and '))}.`
+      : `SGJ is live right now on ${esc(livePlatforms[0] || 'stream')}.`;
+
     block.classList.add('is-live');
     block.innerHTML = `
       ${art}
       <div class="live-now-copy">
         <p class="eyebrow"><span class="live-pulse" aria-hidden="true"></span> Live now</p>
+        <div class="live-platforms" aria-label="Live platforms">${platformChips}</div>
         <h2>${esc(data.title || 'SimGamerJen is live')}</h2>
         <p class="live-now-meta">${meta.map(esc).join(' · ')}</p>
-        <p>SGJ is live right now. Jump into the stream on Twitch${data.youtubeUrl ? ' or YouTube' : ''}.</p>
-        <div class="live-now-actions">
-          <a class="button primary" href="${esc(data.twitchUrl || 'https://www.twitch.tv/simgamerjen')}">Watch on Twitch ↗</a>
-          ${data.youtubeUrl ? `<a class="button secondary" href="${esc(data.youtubeUrl)}">Watch on YouTube ↗</a>` : ''}
-        </div>
+        <p>${where} Jump into the stream on the platform you prefer.</p>
+        <div class="live-now-actions">${actions.join('')}</div>
       </div>`;
     lastLive = true;
   }
@@ -60,8 +104,9 @@
   async function refresh() {
     try {
       const params = new URLSearchParams(window.location.search);
-      if (params.get('liveDemo') === '1') {
-        renderLive(demoStatus());
+      const demo = params.get('liveDemo');
+      if (demo) {
+        renderLive(demoStatus(demo === '1' ? 'twitch' : demo));
         return;
       }
       const response = await fetch('/api/live-status', { cache: 'no-store' });

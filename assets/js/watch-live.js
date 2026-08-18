@@ -25,16 +25,26 @@
     demo: true,
   });
 
+  function normaliseDemoMode(mode = 'twitch') {
+    let value = String(mode || 'twitch').trim().toLowerCase();
+    if (value === '1') return 'twitch';
+    if (value.startsWith('youtube=')) value = value.slice('youtube='.length);
+    if (value === 'sgj' || value === 'youtube-simgamerjen') return 'youtube-sgj';
+    if (value === 'stream' || value === 'streamgamerjen' || value === 'youtube-streamgamerjen') return 'youtube-stream';
+    return value;
+  }
+
   function demoStatus(mode = 'twitch') {
     const base = demoBase();
     const twitch = { live: true, viewers: 42, url: 'https://www.twitch.tv/simgamerjen' };
     const sgj = { live: true, channel: 'SimGamerJen', viewers: 57, url: 'https://www.youtube.com/@SimGamerJen/live' };
     const stream = { live: true, channel: 'StreamGamerJen', viewers: 31, url: 'https://www.youtube.com/@StreamGamerJen/live' };
+    const resolved = normaliseDemoMode(mode);
 
-    if (mode === 'youtube-sgj') return { ...base, platforms: { twitch: { live: false }, youtube: sgj } };
-    if (mode === 'youtube-stream') return { ...base, platforms: { twitch: { live: false }, youtube: stream } };
-    if (mode === 'both-sgj') return { ...base, platforms: { twitch, youtube: sgj } };
-    if (mode === 'both-stream') return { ...base, platforms: { twitch, youtube: stream } };
+    if (resolved === 'youtube-sgj') return { ...base, platforms: { twitch: { live: false }, youtube: sgj } };
+    if (resolved === 'youtube-stream') return { ...base, platforms: { twitch: { live: false }, youtube: stream } };
+    if (resolved === 'both-sgj') return { ...base, platforms: { twitch, youtube: sgj } };
+    if (resolved === 'both-stream') return { ...base, platforms: { twitch, youtube: stream } };
     return { ...base, platforms: { twitch, youtube: { live: false } } };
   }
 
@@ -106,7 +116,7 @@
       const params = new URLSearchParams(window.location.search);
       const demo = params.get('liveDemo');
       if (demo) {
-        renderLive(demoStatus(demo === '1' ? 'twitch' : demo));
+        renderLive(demoStatus(demo));
         return;
       }
       const response = await fetch('/api/live-status', { cache: 'no-store' });

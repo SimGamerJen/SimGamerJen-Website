@@ -60,7 +60,15 @@ async function getGoogleAccessToken(request, env, ctx, channelKey, refreshToken,
 
 async function youtubeApi(url, token) { return fetch(url, { headers: { Authorization: `Bearer ${token}` } }); }
 function bestYouTubeThumbnail(snippet = {}) { const thumbs = snippet.thumbnails || {}; return (thumbs.maxres || thumbs.standard || thumbs.high || thumbs.medium || thumbs.default || {}).url || ''; }
-function broadcastsUrl() { const url = new URL('https://www.googleapis.com/youtube/v3/liveBroadcasts'); url.searchParams.set('part', 'id,snippet,status'); url.searchParams.set('mine', 'true'); url.searchParams.set('broadcastStatus', 'active'); url.searchParams.set('broadcastType', 'all'); url.searchParams.set('maxResults', '1'); return url; }
+function broadcastsUrl() {
+  const url = new URL('https://www.googleapis.com/youtube/v3/liveBroadcasts');
+  url.searchParams.set('part', 'id,snippet,status');
+  url.searchParams.set('mine', 'true');
+  url.searchParams.set('broadcastType', 'all');
+  url.searchParams.set('maxResults', '50');
+  return url;
+}
+function activeBroadcast(items = []) { return items.find(item => item?.status?.lifeCycleStatus === 'live') || null; }
 
 async function getYouTubeChannelStatus(request, env, ctx, channelKey, config) {
   const refreshToken = env[config.refreshSecret];
@@ -71,7 +79,7 @@ async function getYouTubeChannelStatus(request, env, ctx, channelKey, config) {
     let response = await youtubeApi(broadcastsUrl(), token);
     if (response.status === 401) { token = await getGoogleAccessToken(request, env, ctx, channelKey, refreshToken, true); response = await youtubeApi(broadcastsUrl(), token); }
     if (!response.ok) throw new Error(`youtube-broadcasts-${channelKey}-${response.status}`);
-    const broadcast = (await response.json()).items?.[0];
+    const broadcast = activeBroadcast((await response.json()).items || []);
     if (!broadcast?.id) return { configured: true, live: false, channel: config.label, url: config.url };
     const videosUrl = new URL('https://www.googleapis.com/youtube/v3/videos'); videosUrl.searchParams.set('part', 'snippet,liveStreamingDetails'); videosUrl.searchParams.set('id', broadcast.id);
     const videoResponse = await youtubeApi(videosUrl, token); const video = videoResponse.ok ? (await videoResponse.json()).items?.[0] || {} : {};
@@ -99,7 +107,8 @@ async function diagnoseYouTubeChannel(env, channelKey, config) {
   const response = await youtubeApi(broadcastsUrl(), tokenPayload.access_token);
   if (!response.ok) return { channel: config.label, configured: true, ok: false, stage: 'liveBroadcasts', ...(await safeGoogleError(response)) };
   const payload = await response.json();
-  return { channel: config.label, configured: true, ok: true, stage: 'liveBroadcasts', live: Boolean(payload.items?.[0]?.id), activeBroadcasts: payload.items?.length || 0 };
+  const broadcast = activeBroadcast(payload.items || []);
+  return { channel: config.label, configured: true, ok: true, stage: 'liveBroadcasts', live: Boolean(broadcast?.id), activeBroadcasts: broadcast ? 1 : 0, returnedBroadcasts: payload.items?.length || 0 };
 }
 
 async function getLiveData(request, env, ctx) {

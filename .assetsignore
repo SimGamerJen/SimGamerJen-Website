@@ -4,6 +4,7 @@ README.md
 wrangler.jsonc
 .assetsignore
 src/
+cloudflare/
 .github/
 **/.git
 **/node_modules

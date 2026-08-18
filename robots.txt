@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /download/
+Disallow: /download-stats/
 
 Sitemap: https://simgamerjen.com/sitemap.xml

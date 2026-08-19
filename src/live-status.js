@@ -70,10 +70,11 @@ function broadcastsUrl() {
   url.searchParams.set('maxResults', '50');
   return url;
 }
-function activeBroadcast(items = []) { return items.find(item => item?.status?.lifeCycleStatus === 'live') || null; }
+function publiclyVisibleBroadcast(item) { return item?.status?.privacyStatus === 'public' || item?.status?.privacyStatus === 'unlisted'; }
+function activeBroadcast(items = []) { return items.find(item => item?.status?.lifeCycleStatus === 'live' && publiclyVisibleBroadcast(item)) || null; }
 function upcomingBroadcast(items = [], now = Date.now()) {
   return items
-    .filter(item => item?.status?.lifeCycleStatus === 'ready')
+    .filter(item => item?.status?.lifeCycleStatus === 'ready' && publiclyVisibleBroadcast(item))
     .map(item => ({ item, time: Date.parse(item?.snippet?.scheduledStartTime || '') }))
     .filter(entry => Number.isFinite(entry.time) && entry.time >= now - UPCOMING_GRACE_MS && entry.time <= now + UPCOMING_WINDOW_MS)
     .sort((a, b) => a.time - b.time)[0]?.item || null;

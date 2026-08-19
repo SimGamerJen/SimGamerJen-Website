@@ -1,5 +1,7 @@
 const TWITCH_LOGIN = 'simgamerjen';
 const TWITCH_URL = `https://www.twitch.tv/${TWITCH_LOGIN}`;
+const UPCOMING_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
+const UPCOMING_GRACE_MS = 2 * 60 * 60 * 1000;
 const YOUTUBE_CHANNELS = {
   sgj: { label: 'SimGamerJen', url: 'https://www.youtube.com/@SimGamerJen/live', refreshSecret: 'YOUTUBE_REFRESH_TOKEN_SGJ' },
   stream: { label: 'StreamGamerJen', url: 'https://www.youtube.com/@StreamGamerJen/live', refreshSecret: 'YOUTUBE_REFRESH_TOKEN_STREAMGAMERJEN' },
@@ -68,7 +70,28 @@ function broadcastsUrl() {
   url.searchParams.set('maxResults', '50');
   return url;
 }
-function activeBroadcast(items = []) { return items.find(item => item?.status?.lifeCycleStatus === 'live') || null; }
+function publiclyVisibleBroadcast(item) { return item?.status?.privacyStatus === 'public' || item?.status?.privacyStatus === 'unlisted'; }
+function activeBroadcast(items = []) { return items.find(item => item?.status?.lifeCycleStatus === 'live' && publiclyVisibleBroadcast(item)) || null; }
+function upcomingBroadcast(items = [], now = Date.now()) {
+  return items
+    .filter(item => item?.status?.lifeCycleStatus === 'ready' && publiclyVisibleBroadcast(item))
+    .map(item => ({ item, time: Date.parse(item?.snippet?.scheduledStartTime || '') }))
+    .filter(entry => Number.isFinite(entry.time) && entry.time >= now - UPCOMING_GRACE_MS && entry.time <= now + UPCOMING_WINDOW_MS)
+    .sort((a, b) => a.time - b.time)[0]?.item || null;
+}
+function upcomingSummary(broadcast, config) {
+  if (!broadcast?.id) return null;
+  return {
+    channel: config.label,
+    videoId: broadcast.id,
+    title: broadcast.snippet?.title || `${config.label} livestream`,
+    scheduledStartTime: broadcast.snippet?.scheduledStartTime || '',
+    url: `https://www.youtube.com/watch?v=${encodeURIComponent(broadcast.id)}`,
+    channelUrl: config.url,
+    thumbnail: bestYouTubeThumbnail(broadcast.snippet),
+    privacyStatus: broadcast.status?.privacyStatus || '',
+  };
+}
 
 async function getYouTubeChannelStatus(request, env, ctx, channelKey, config) {
   const refreshToken = env[config.refreshSecret];
@@ -79,12 +102,14 @@ async function getYouTubeChannelStatus(request, env, ctx, channelKey, config) {
     let response = await youtubeApi(broadcastsUrl(), token);
     if (response.status === 401) { token = await getGoogleAccessToken(request, env, ctx, channelKey, refreshToken, true); response = await youtubeApi(broadcastsUrl(), token); }
     if (!response.ok) throw new Error(`youtube-broadcasts-${channelKey}-${response.status}`);
-    const broadcast = activeBroadcast((await response.json()).items || []);
-    if (!broadcast?.id) return { configured: true, live: false, channel: config.label, url: config.url };
+    const items = (await response.json()).items || [];
+    const broadcast = activeBroadcast(items);
+    const upcoming = upcomingSummary(upcomingBroadcast(items), config);
+    if (!broadcast?.id) return { configured: true, live: false, channel: config.label, url: config.url, upcoming };
     const videosUrl = new URL('https://www.googleapis.com/youtube/v3/videos'); videosUrl.searchParams.set('part', 'snippet,liveStreamingDetails'); videosUrl.searchParams.set('id', broadcast.id);
     const videoResponse = await youtubeApi(videosUrl, token); const video = videoResponse.ok ? (await videoResponse.json()).items?.[0] || {} : {};
     const snippet = video.snippet || broadcast.snippet || {}; const liveDetails = video.liveStreamingDetails || {}; const concurrent = Number(liveDetails.concurrentViewers);
-    return { configured: true, live: true, channel: config.label, videoId: broadcast.id, title: snippet.title || broadcast.snippet?.title || `${config.label} is live`, viewers: Number.isFinite(concurrent) ? concurrent : undefined, startedAt: liveDetails.actualStartTime || broadcast.snippet?.actualStartTime || '', url: `https://www.youtube.com/watch?v=${encodeURIComponent(broadcast.id)}`, channelUrl: config.url, thumbnail: bestYouTubeThumbnail(snippet) || bestYouTubeThumbnail(broadcast.snippet) };
+    return { configured: true, live: true, channel: config.label, videoId: broadcast.id, title: snippet.title || broadcast.snippet?.title || `${config.label} is live`, viewers: Number.isFinite(concurrent) ? concurrent : undefined, startedAt: liveDetails.actualStartTime || broadcast.snippet?.actualStartTime || '', url: `https://www.youtube.com/watch?v=${encodeURIComponent(broadcast.id)}`, channelUrl: config.url, thumbnail: bestYouTubeThumbnail(snippet) || bestYouTubeThumbnail(broadcast.snippet), upcoming };
   } catch (error) { return { configured: true, live: false, unavailable: true, error: String(error?.message || error), channel: config.label, url: config.url }; }
 }
 
@@ -107,21 +132,56 @@ async function diagnoseYouTubeChannel(env, channelKey, config) {
   const response = await youtubeApi(broadcastsUrl(), tokenPayload.access_token);
   if (!response.ok) return { channel: config.label, configured: true, ok: false, stage: 'liveBroadcasts', ...(await safeGoogleError(response)) };
   const payload = await response.json();
-  const broadcast = activeBroadcast(payload.items || []);
-  return { channel: config.label, configured: true, ok: true, stage: 'liveBroadcasts', live: Boolean(broadcast?.id), activeBroadcasts: broadcast ? 1 : 0, returnedBroadcasts: payload.items?.length || 0 };
+  const items = payload.items || [];
+  const broadcast = activeBroadcast(items);
+  const upcoming = upcomingBroadcast(items);
+  return { channel: config.label, configured: true, ok: true, stage: 'liveBroadcasts', live: Boolean(broadcast?.id), activeBroadcasts: broadcast ? 1 : 0, upcomingBroadcasts: upcoming ? 1 : 0, nextScheduledStartTime: upcoming?.snippet?.scheduledStartTime || '', returnedBroadcasts: items.length };
+}
+
+function nearestUpcoming(...candidates) {
+  return candidates
+    .filter(Boolean)
+    .map(item => ({ item, time: Date.parse(item.scheduledStartTime || '') }))
+    .filter(entry => Number.isFinite(entry.time))
+    .sort((a, b) => a.time - b.time)[0]?.item || null;
 }
 
 async function getLiveData(request, env, ctx) {
-  const cache = caches.default; const key = new Request(new URL('/api/live-status-v2', request.url), { method: 'GET' }); const cached = await cache.match(key); if (cached) return cached.json();
+  const cache = caches.default; const key = new Request(new URL('/api/live-status-v3', request.url), { method: 'GET' }); const cached = await cache.match(key); if (cached) return cached.json();
   const [twitch, sgjYouTube, streamYouTube] = await Promise.all([getTwitchStatus(request, env, ctx), getYouTubeChannelStatus(request, env, ctx, 'sgj', YOUTUBE_CHANNELS.sgj), getYouTubeChannelStatus(request, env, ctx, 'stream', YOUTUBE_CHANNELS.stream)]);
-  const activeYouTube = sgjYouTube.live ? sgjYouTube : (streamYouTube.live ? streamYouTube : null); const live = Boolean(twitch.live || activeYouTube);
-  const data = { configured: Boolean(twitch.configured || sgjYouTube.configured || streamYouTube.configured), live, checkedAt: new Date().toISOString(), title: twitch.live ? twitch.title : (activeYouTube?.title || ''), game: twitch.live ? twitch.game : '', startedAt: twitch.live ? twitch.startedAt : (activeYouTube?.startedAt || ''), thumbnail: twitch.live ? twitch.thumbnail : (activeYouTube?.thumbnail || ''), platforms: { twitch, youtube: activeYouTube || { configured: Boolean(sgjYouTube.configured || streamYouTube.configured), live: false, channels: { SimGamerJen: { configured: sgjYouTube.configured, unavailable: Boolean(sgjYouTube.unavailable) }, StreamGamerJen: { configured: streamYouTube.configured, unavailable: Boolean(streamYouTube.unavailable) } } } } };
+  const activeYouTube = sgjYouTube.live ? sgjYouTube : (streamYouTube.live ? streamYouTube : null);
+  const live = Boolean(twitch.live || activeYouTube);
+  const upcoming = live ? null : nearestUpcoming(sgjYouTube.upcoming, streamYouTube.upcoming);
+  const state = live ? 'live' : (upcoming ? 'upcoming' : 'offline');
+  const data = {
+    configured: Boolean(twitch.configured || sgjYouTube.configured || streamYouTube.configured),
+    live,
+    state,
+    checkedAt: new Date().toISOString(),
+    title: live ? (twitch.live ? twitch.title : (activeYouTube?.title || '')) : (upcoming?.title || ''),
+    game: twitch.live ? twitch.game : '',
+    startedAt: twitch.live ? twitch.startedAt : (activeYouTube?.startedAt || ''),
+    scheduledStartTime: upcoming?.scheduledStartTime || '',
+    thumbnail: live ? (twitch.live ? twitch.thumbnail : (activeYouTube?.thumbnail || '')) : (upcoming?.thumbnail || ''),
+    upcoming,
+    platforms: {
+      twitch,
+      youtube: activeYouTube || {
+        configured: Boolean(sgjYouTube.configured || streamYouTube.configured),
+        live: false,
+        channels: {
+          SimGamerJen: { configured: sgjYouTube.configured, unavailable: Boolean(sgjYouTube.unavailable), upcoming: sgjYouTube.upcoming || null },
+          StreamGamerJen: { configured: streamYouTube.configured, unavailable: Boolean(streamYouTube.unavailable), upcoming: streamYouTube.upcoming || null },
+        },
+      },
+    },
+  };
   const cachedResponse = json(data, 200, 'public, max-age=20, s-maxage=45'); ctx.waitUntil(cache.put(key, cachedResponse.clone())); return data;
 }
 
 export async function handleLiveStatus(request, env, ctx) {
   const url = new URL(request.url); if (request.method !== 'GET') return null;
-  if (url.pathname === '/api/live-status') { try { return json(await getLiveData(request, env, ctx)); } catch (error) { return json({ configured: false, live: false, unavailable: true, error: String(error?.message || error) }, 503, 'no-store'); } }
+  if (url.pathname === '/api/live-status') { try { return json(await getLiveData(request, env, ctx)); } catch (error) { return json({ configured: false, live: false, state: 'offline', unavailable: true, error: String(error?.message || error) }, 503, 'no-store'); } }
   if (url.pathname === '/api/live-status/diagnostics') {
     try { const [sgj, stream] = await Promise.all([diagnoseYouTubeChannel(env, 'sgj', YOUTUBE_CHANNELS.sgj), diagnoseYouTubeChannel(env, 'stream', YOUTUBE_CHANNELS.stream)]); return json({ checkedAt: new Date().toISOString(), youtube: { SimGamerJen: sgj, StreamGamerJen: stream } }, 200, 'no-store'); }
     catch (error) { return json({ unavailable: true, stage: 'diagnostics', error: String(error?.message || error) }, 503, 'no-store'); }

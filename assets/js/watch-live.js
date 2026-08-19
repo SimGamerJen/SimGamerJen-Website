@@ -3,7 +3,7 @@
   if (!block) return;
 
   const offlineMarkup = block.innerHTML;
-  let lastLive = false;
+  let lastState = 'offline';
 
   const esc = (value = '') => String(value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
   const duration = startedAt => {
@@ -22,6 +22,32 @@
       .filter(entry => Number.isFinite(entry.time))
       .sort((a, b) => a.time - b.time);
     return parsed[0]?.value || '';
+  };
+
+  const formatScheduled = value => {
+    const when = new Date(value || '');
+    if (!Number.isFinite(when.getTime())) return '';
+    return new Intl.DateTimeFormat(undefined, {
+      weekday: 'short',
+      day: 'numeric',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZoneName: 'short',
+    }).format(when);
+  };
+
+  const startsIn = value => {
+    const time = Date.parse(value || '');
+    if (!Number.isFinite(time)) return '';
+    const minutes = Math.ceil((time - Date.now()) / 60000);
+    if (minutes <= 0) return 'Scheduled start time reached';
+    if (minutes === 1) return 'Starts in 1 min';
+    if (minutes < 60) return `Starts in ${minutes} min`;
+    const hours = Math.floor(minutes / 60), mins = minutes % 60;
+    if (hours < 24) return mins ? `Starts in ${hours} hr ${mins} min` : `Starts in ${hours} hr`;
+    const days = Math.floor(hours / 24), remainingHours = hours % 24;
+    return remainingHours ? `Starts in ${days} day${days === 1 ? '' : 's'} ${remainingHours} hr` : `Starts in ${days} day${days === 1 ? '' : 's'}`;
   };
 
   const demoBase = () => ({
@@ -50,6 +76,30 @@
     const stream = { live: true, channel: 'StreamGamerJen', viewers: 31, startedAt: new Date(Date.now() - 49 * 60000).toISOString(), url: 'https://www.youtube.com/@StreamGamerJen/live' };
     const resolved = normaliseDemoMode(mode);
 
+    if (resolved === 'upcoming-sgj' || resolved === 'up-next-sgj') return {
+      configured: true,
+      live: false,
+      state: 'upcoming',
+      upcoming: {
+        channel: 'SimGamerJen',
+        title: 'Coffee Empire | The Roastery Goes Live | Farming Simulator 25',
+        scheduledStartTime: new Date(Date.now() + 2 * 60 * 60000 + 14 * 60000).toISOString(),
+        url: 'https://www.youtube.com/@SimGamerJen/live',
+        thumbnail: '',
+      },
+    };
+    if (resolved === 'upcoming-stream' || resolved === 'up-next-stream') return {
+      configured: true,
+      live: false,
+      state: 'upcoming',
+      upcoming: {
+        channel: 'StreamGamerJen',
+        title: 'Foundation | Back to Jensbury',
+        scheduledStartTime: new Date(Date.now() + 19 * 60 * 60000).toISOString(),
+        url: 'https://www.youtube.com/@StreamGamerJen/live',
+        thumbnail: '',
+      },
+    };
     if (resolved === 'youtube-sgj') return { ...base, startedAt: sgj.startedAt, platforms: { twitch: { live: false }, youtube: sgj } };
     if (resolved === 'youtube-stream') return { ...base, startedAt: stream.startedAt, platforms: { twitch: { live: false }, youtube: stream } };
     if (resolved === 'both-sgj') return { ...base, platforms: { twitch, youtube: sgj } };
@@ -76,11 +126,40 @@
     };
   }
 
+  function setState(state) {
+    block.classList.toggle('is-live', state === 'live');
+    block.classList.toggle('is-upcoming', state === 'upcoming');
+    lastState = state;
+  }
+
   function renderOffline() {
-    if (!lastLive) return;
-    block.classList.remove('is-live');
+    if (lastState === 'offline') return;
     block.innerHTML = offlineMarkup;
-    lastLive = false;
+    setState('offline');
+  }
+
+  function renderUpcoming(data) {
+    const upcoming = data.upcoming;
+    if (!upcoming) return renderOffline();
+    const channel = upcoming.channel || 'YouTube';
+    const scheduled = formatScheduled(upcoming.scheduledStartTime);
+    const countdown = startsIn(upcoming.scheduledStartTime);
+    const meta = [scheduled, countdown].filter(Boolean);
+    const art = upcoming.thumbnail
+      ? `<div class="live-now-art upcoming-art"><img src="${esc(upcoming.thumbnail)}" alt="Scheduled ${esc(channel)} livestream preview"></div>`
+      : `<div class="live-now-art live-now-art-demo upcoming-art-demo"><strong>UP</strong><span>NEXT · SIMGAMERJEN</span></div>`;
+
+    block.innerHTML = `
+      ${art}
+      <div class="live-now-copy upcoming-copy">
+        <p class="eyebrow">Up next</p>
+        <div class="live-platforms" aria-label="Scheduled platform"><span class="live-platform-chip upcoming-platform-chip">YouTube · ${esc(channel)}</span></div>
+        <h2>${esc(upcoming.title || 'Next SimGamerJen livestream')}</h2>
+        <p class="live-now-meta">${meta.map(esc).join(' · ')}</p>
+        <p>The next SGJ livestream is scheduled on ${esc(channel)}. When it goes live, this panel will switch automatically to the active stream.</p>
+        <div class="live-now-actions"><a class="button primary" href="${esc(upcoming.url || '#')}">View scheduled stream ↗</a></div>
+      </div>`;
+    setState('upcoming');
   }
 
   function renderLive(raw) {
@@ -113,7 +192,6 @@
       ? `SGJ is live right now on ${esc(prosePlatforms.join(' and '))}.`
       : `SGJ is live right now on ${esc(prosePlatforms[0] || 'stream')}.`;
 
-    block.classList.add('is-live');
     block.innerHTML = `
       ${art}
       <div class="live-now-copy">
@@ -124,7 +202,7 @@
         <p>${where} Jump into the stream on the platform you prefer.</p>
         <div class="live-now-actions">${actions.join('')}</div>
       </div>`;
-    lastLive = true;
+    setState('live');
   }
 
   async function refresh() {
@@ -132,15 +210,18 @@
       const params = new URLSearchParams(window.location.search);
       const demo = params.get('liveDemo');
       if (demo) {
-        renderLive(demoStatus(demo));
+        const data = demoStatus(demo);
+        if (data.live) renderLive(data); else if (data.upcoming) renderUpcoming(data); else renderOffline();
         return;
       }
       const response = await fetch('/api/live-status', { cache: 'no-store' });
       if (!response.ok) return;
       const data = await response.json();
-      if (data.live) renderLive(data); else renderOffline();
+      if (data.live) renderLive(data);
+      else if (data.upcoming) renderUpcoming(data);
+      else renderOffline();
     } catch (_) {
-      // Keep the static offline presentation if the live service is temporarily unavailable.
+      // Keep the last successful presentation if the live service is temporarily unavailable.
     }
   }
 

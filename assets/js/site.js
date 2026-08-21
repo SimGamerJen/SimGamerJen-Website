@@ -100,10 +100,10 @@
     const watchSection = document.querySelector('.watch-section');
     if (quickStrip && watchSection) {
       const updates = document.createElement('section');
-      updates.className = 'section shell sgj-updates';
+      updates.className = 'section dark-panel sgj-updates';
       updates.hidden = true;
       updates.setAttribute('data-sgj-updates', '');
-      updates.innerHTML = '<div class="section-head"><div><p class="eyebrow">Latest from SGJ</p><h2>Between the videos.</h2></div><p>Stream plans, behind-the-scenes updates, polls and whatever is currently being tinkered with across the SGJ YouTube channels.</p></div><div class="sgj-updates-grid" data-sgj-updates-grid></div><p class="sgj-updates-note">Latest public posts from SimGamerJen and StreamGamerJen on YouTube.</p>';
+      updates.innerHTML = '<div class="shell sgj-updates-inner"><div class="section-head"><div><p class="eyebrow">Latest from SGJ</p><h2>Between the videos.</h2></div><p>Stream plans, behind-the-scenes updates, polls and whatever is currently being tinkered with across the SGJ YouTube channels.</p></div><div class="sgj-updates-grid" data-sgj-updates-grid></div><p class="sgj-updates-note">Latest public posts from SimGamerJen and StreamGamerJen on YouTube.</p></div>';
       watchSection.parentNode.insertBefore(updates, watchSection);
 
       const css = document.createElement('link');

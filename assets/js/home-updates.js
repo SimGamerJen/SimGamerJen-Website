@@ -38,7 +38,7 @@
     section.hidden = false;
     grid.innerHTML = posts.slice(0, 3).map(post => {
       const image = post.image
-        ? `<a class="sgj-update-art" href="${esc(post.url)}" target="_blank" rel="noopener"><img src="${esc(post.image)}" alt="" loading="lazy"></a>`
+        ? `<a class="sgj-update-art" href="${esc(post.url)}" target="_blank" rel="noopener"><img src="/api/update-image?id=${encodeURIComponent(post.id)}" alt="" loading="lazy"></a>`
         : '';
       const poll = post.poll?.choices?.length
         ? `<div class="sgj-update-poll">${post.poll.choices.slice(0, 4).map(choice => `<span>${esc(choice)}</span>`).join('')}</div>`

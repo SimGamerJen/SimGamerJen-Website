@@ -6,6 +6,7 @@ const CHANNELS = [
 const CACHE_SECONDS = 600;
 const MAX_PER_CHANNEL = 6;
 const MAX_MERGED = 6;
+const IMAGE_HOSTS = new Set(['yt3.ggpht.com', 'i.ytimg.com', 'ytimg.com']);
 
 function json(data, status = 200, cache = `public, max-age=120, s-maxage=${CACHE_SECONDS}`) {
   return Response.json(data, {
@@ -55,6 +56,7 @@ function extractInitialData(html) {
 
 function textValue(value) {
   if (!value) return '';
+  if (typeof value === 'string') return value;
   if (typeof value.simpleText === 'string') return value.simpleText;
   if (Array.isArray(value.runs)) return value.runs.map(run => run?.text || '').join('');
   return '';
@@ -116,19 +118,29 @@ function pollSummary(node) {
   return null;
 }
 
-function normaliseRenderer(renderer, channel) {
+function rendererAuthor(renderer) {
+  const label = textValue(renderer.authorText || renderer.author || renderer.authorName);
+  const endpoint = renderer.authorEndpoint || renderer.navigationEndpoint || {};
+  const url = endpoint?.commandMetadata?.webCommandMetadata?.url || endpoint?.browseEndpoint?.canonicalBaseUrl || '';
+  const handle = String(url).match(/\/@([^/?]+)/)?.[1] || '';
+  const normalised = `${label} ${handle}`.toLowerCase();
+  return CHANNELS.find(channel => normalised.includes(channel.label.toLowerCase()) || normalised.includes(channel.handle.slice(1).toLowerCase())) || null;
+}
+
+function normaliseRenderer(renderer, pageChannel) {
   const postId = renderer.postId || renderer.id || renderer.navigationEndpoint?.browseEndpoint?.browseId || '';
   const content = textValue(renderer.contentText || renderer.content || renderer.text);
   const publishedText = textValue(renderer.publishedTimeText || renderer.publishedTime || renderer.timestampText);
   const image = findFirstImage(renderer);
   const poll = pollSummary(renderer);
   if (!postId || (!content && !image && !poll)) return null;
+  const author = rendererAuthor(renderer) || pageChannel;
   return {
     id: postId,
     source: 'youtube',
-    channel: channel.label,
-    channelKey: channel.key,
-    handle: channel.handle,
+    channel: author.label,
+    channelKey: author.key,
+    handle: author.handle,
     type: poll ? 'poll' : (image ? 'image' : 'text'),
     text: content,
     publishedText,
@@ -179,7 +191,12 @@ async function fetchChannelPosts(channel) {
 }
 
 function mergePosts(groups) {
-  return groups.flat()
+  const unique = new Map();
+  groups.flat().forEach(post => {
+    const existing = unique.get(post.id);
+    if (!existing || (existing.channelKey !== post.channelKey && post.channelKey === 'sgj')) unique.set(post.id, post);
+  });
+  return [...unique.values()]
     .map((post, index) => ({ ...post, _index: index, _time: Date.parse(post.publishedAt || '') }))
     .sort((a, b) => {
       const aTime = Number.isFinite(a._time) ? a._time : 0;
@@ -192,7 +209,7 @@ function mergePosts(groups) {
 
 async function getUpdates(request, ctx) {
   const cache = caches.default;
-  const key = new Request(new URL('/api/updates-v1', request.url), { method: 'GET' });
+  const key = new Request(new URL('/api/updates-v2', request.url), { method: 'GET' });
   const cached = await cache.match(key);
   if (cached) return cached.json();
 
@@ -220,9 +237,60 @@ async function getUpdates(request, ctx) {
   return data;
 }
 
+function allowedImageUrl(raw) {
+  try {
+    const url = new URL(raw);
+    if (url.protocol !== 'https:') return null;
+    if (IMAGE_HOSTS.has(url.hostname) || url.hostname.endsWith('.ggpht.com') || url.hostname.endsWith('.ytimg.com')) return url;
+  } catch {}
+  return null;
+}
+
+async function handleUpdateImage(request, ctx) {
+  const url = new URL(request.url);
+  const id = url.searchParams.get('id') || '';
+  if (!id) return new Response('Missing post id', { status: 400 });
+  const data = await getUpdates(request, ctx);
+  const post = data.posts.find(item => item.id === id);
+  const upstreamUrl = allowedImageUrl(post?.image || '');
+  if (!upstreamUrl) return new Response('Image unavailable', { status: 404, headers: { 'Cache-Control': 'public, max-age=120' } });
+
+  const cache = caches.default;
+  const key = new Request(new URL(`/api/update-image-v1?id=${encodeURIComponent(id)}`, request.url), { method: 'GET' });
+  const cached = await cache.match(key);
+  if (cached) return cached;
+
+  const upstream = await fetch(upstreamUrl, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (compatible; SimGamerJenWebsite/1.0; +https://simgamerjen.com)',
+      Referer: 'https://www.youtube.com/',
+      Accept: 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+    },
+    cf: { cacheEverything: true, cacheTtl: CACHE_SECONDS },
+  });
+  if (!upstream.ok) return new Response('Image unavailable', { status: 404, headers: { 'Cache-Control': 'public, max-age=120' } });
+  const contentType = upstream.headers.get('Content-Type') || 'image/jpeg';
+  if (!contentType.toLowerCase().startsWith('image/')) return new Response('Invalid image response', { status: 502 });
+
+  const response = new Response(upstream.body, {
+    headers: {
+      'Content-Type': contentType,
+      'Cache-Control': `public, max-age=${CACHE_SECONDS}, s-maxage=${CACHE_SECONDS}`,
+      'X-Content-Type-Options': 'nosniff',
+    },
+  });
+  ctx.waitUntil(cache.put(key, response.clone()));
+  return response;
+}
+
 export async function handleUpdates(request, env, ctx) {
   const url = new URL(request.url);
-  if (request.method !== 'GET' || url.pathname !== '/api/updates') return null;
+  if (request.method !== 'GET') return null;
+  if (url.pathname === '/api/update-image') {
+    try { return await handleUpdateImage(request, ctx); }
+    catch { return new Response('Image unavailable', { status: 404, headers: { 'Cache-Control': 'public, max-age=60' } }); }
+  }
+  if (url.pathname !== '/api/updates') return null;
   try {
     return json(await getUpdates(request, ctx));
   } catch (error) {

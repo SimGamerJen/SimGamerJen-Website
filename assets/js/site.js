@@ -103,7 +103,7 @@
       updates.className = 'section shell sgj-updates';
       updates.hidden = true;
       updates.setAttribute('data-sgj-updates', '');
-      updates.innerHTML = '<div class="section-head"><div><p class="eyebrow">Latest from SGJ</p><h2>Between the videos.</h2></div><p>Stream plans, behind-the-scenes updates, polls and whatever is currently being tinkered with across the SGJ YouTube channels.</p></div><div class="sgj-updates-grid" data-sgj-updates-grid></div><p class="sgj-updates-note">Pulled from public YouTube Posts. If YouTube changes the feed, this section simply steps out of the way.</p>';
+      updates.innerHTML = '<div class="section-head"><div><p class="eyebrow">Latest from SGJ</p><h2>Between the videos.</h2></div><p>Stream plans, behind-the-scenes updates, polls and whatever is currently being tinkered with across the SGJ YouTube channels.</p></div><div class="sgj-updates-grid" data-sgj-updates-grid></div><p class="sgj-updates-note">Latest public posts from SimGamerJen and StreamGamerJen on YouTube.</p>';
       watchSection.parentNode.insertBefore(updates, watchSection);
 
       const css = document.createElement('link');

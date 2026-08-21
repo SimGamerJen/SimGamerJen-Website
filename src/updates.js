@@ -209,7 +209,7 @@ function mergePosts(groups) {
 
 async function getUpdates(request, ctx) {
   const cache = caches.default;
-  const key = new Request(new URL('/api/updates-v2', request.url), { method: 'GET' });
+  const key = new Request(new URL('/api/updates-v3', request.url), { method: 'GET' });
   const cached = await cache.match(key);
   if (cached) return cached.json();
 
@@ -220,16 +220,21 @@ async function getUpdates(request, ctx) {
     const channel = CHANNELS[index];
     if (result.status === 'fulfilled') {
       groups.push(result.value);
-      channels[channel.label] = { ok: true, posts: result.value.length };
+      channels[channel.label] = { ok: true, fetchedPosts: result.value.length, posts: 0 };
     } else {
-      channels[channel.label] = { ok: false, posts: 0, error: String(result.reason?.message || result.reason) };
+      channels[channel.label] = { ok: false, fetchedPosts: 0, posts: 0, error: String(result.reason?.message || result.reason) };
     }
+  });
+
+  const posts = mergePosts(groups);
+  CHANNELS.forEach(channel => {
+    if (channels[channel.label]) channels[channel.label].posts = posts.filter(post => post.channelKey === channel.key).length;
   });
 
   const data = {
     source: 'youtube-public-posts',
     checkedAt: new Date().toISOString(),
-    posts: mergePosts(groups),
+    posts,
     channels,
   };
   const response = json(data);

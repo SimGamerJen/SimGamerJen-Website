@@ -2,6 +2,7 @@ import siteWorker from './index.js';
 import { handleDownload, handleDownloadStats } from './download-tracking.js';
 import { handleLiveStatus } from './live-status.js';
 import { handleYouTubeOAuth } from './youtube-oauth.js';
+import { handleUpdates } from './updates.js';
 
 export default {
   async fetch(request, env, ctx) {
@@ -16,6 +17,9 @@ export default {
 
     const liveResponse = await handleLiveStatus(request, env, ctx);
     if (liveResponse) return liveResponse;
+
+    const updatesResponse = await handleUpdates(request, env, ctx);
+    if (updatesResponse) return updatesResponse;
 
     return siteWorker.fetch(request, env, ctx);
   },

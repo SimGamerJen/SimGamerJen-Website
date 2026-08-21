@@ -94,6 +94,30 @@
     }
   }
 
+  // Homepage-only SGJ updates component. It owns its presentation and disappears cleanly if the upstream feed is unavailable.
+  if (window.location.pathname === '/' && !document.querySelector('[data-sgj-updates]')) {
+    const quickStrip = document.querySelector('.quick-strip');
+    const watchSection = document.querySelector('.watch-section');
+    if (quickStrip && watchSection) {
+      const updates = document.createElement('section');
+      updates.className = 'section shell sgj-updates';
+      updates.hidden = true;
+      updates.setAttribute('data-sgj-updates', '');
+      updates.innerHTML = '<div class="section-head"><div><p class="eyebrow">Latest from SGJ</p><h2>Between the videos.</h2></div><p>Stream plans, behind-the-scenes updates, polls and whatever is currently being tinkered with across the SGJ YouTube channels.</p></div><div class="sgj-updates-grid" data-sgj-updates-grid></div><p class="sgj-updates-note">Latest public posts from SimGamerJen and StreamGamerJen on YouTube.</p>';
+      watchSection.parentNode.insertBefore(updates, watchSection);
+
+      const css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = '/assets/css/home-updates.css';
+      head.appendChild(css);
+
+      const script = document.createElement('script');
+      script.src = '/assets/js/home-updates.js';
+      script.defer = true;
+      document.body.appendChild(script);
+    }
+  }
+
   // External links consistently open separately, including links rendered after page load.
   const prepareExternalLinks = (scope = document) => {
     scope.querySelectorAll?.('a[href^="http://"], a[href^="https://"]').forEach((link) => {

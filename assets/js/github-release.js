@@ -5,6 +5,30 @@ function releaseTime(release){
   return Date.parse(release?.published_at||release?.created_at||'')||0;
 }
 
+function releaseVersionParts(release){
+  const raw=String(release?.tag_name||release?.name||'').trim().replace(/^v/i,'');
+  const match=raw.match(/^(\d+(?:\.\d+)*)/);
+  if(!match)return null;
+  return match[1].split('.').map(Number);
+}
+
+function compareVersionParts(a,b){
+  const length=Math.max(a.length,b.length);
+  for(let i=0;i<length;i+=1){
+    const left=a[i]??0;
+    const right=b[i]??0;
+    if(left!==right)return left>right?1:-1;
+  }
+  return 0;
+}
+
+function isPrereleaseNewerThanStable(prerelease,stable){
+  const preParts=releaseVersionParts(prerelease);
+  const stableParts=releaseVersionParts(stable);
+  if(preParts&&stableParts)return compareVersionParts(preParts,stableParts)>0;
+  return releaseTime(prerelease)>releaseTime(stable);
+}
+
 async function getPreferredGithubRelease(repo){
   if(githubReleaseCache.has(repo))return githubReleaseCache.get(repo);
   const request=(async()=>{
@@ -101,7 +125,7 @@ document.querySelectorAll('[data-github-release]').forEach(async panel=>{
     if(!release.prerelease){
       try{
         const prerelease=await getLatestGithubPrerelease(repo);
-        if(prerelease&&releaseTime(prerelease)>releaseTime(release)){
+        if(prerelease&&isPrereleaseNewerThanStable(prerelease,release)){
           panel.insertAdjacentElement('afterend',createPrereleasePanel(prerelease));
         }
       }catch(_){/* Stable release remains valid if prerelease discovery fails. */}

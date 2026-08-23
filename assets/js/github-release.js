@@ -1,28 +1,39 @@
 const githubReleaseCache=new Map();
+const githubPrereleaseCache=new Map();
 
 function releaseTime(release){
   return Date.parse(release?.published_at||release?.created_at||'')||0;
 }
 
-async function getGithubReleases(repo){
+async function getPreferredGithubRelease(repo){
   if(githubReleaseCache.has(repo))return githubReleaseCache.get(repo);
   const request=(async()=>{
     const headers={Accept:'application/vnd.github+json'};
-    const list=await fetch(`https://api.github.com/repos/${repo}/releases?per_page=30`,{headers});
+    const latest=await fetch(`https://api.github.com/repos/${repo}/releases/latest`,{headers});
+    if(latest.ok)return await latest.json();
+    const list=await fetch(`https://api.github.com/repos/${repo}/releases?per_page=20`,{headers});
     if(!list.ok)throw new Error(String(list.status));
-    const releases=(await list.json()).filter(r=>!r.draft).sort((a,b)=>releaseTime(b)-releaseTime(a));
+    const releases=(await list.json()).filter(r=>!r.draft);
     if(!releases.length)throw new Error('no-releases');
-    const stable=releases.find(r=>!r.prerelease)||null;
-    const prerelease=releases.find(r=>r.prerelease)||null;
-    return{releases,stable,prerelease};
+    return releases[0];
   })();
   githubReleaseCache.set(repo,request);
   return request;
 }
 
-async function getPreferredGithubRelease(repo){
-  const{stable,prerelease}=await getGithubReleases(repo);
-  return stable||prerelease;
+async function getLatestGithubPrerelease(repo){
+  if(githubPrereleaseCache.has(repo))return githubPrereleaseCache.get(repo);
+  const request=(async()=>{
+    const headers={Accept:'application/vnd.github+json'};
+    const list=await fetch(`https://api.github.com/repos/${repo}/releases?per_page=30`,{headers});
+    if(!list.ok)throw new Error(String(list.status));
+    const prereleases=(await list.json())
+      .filter(r=>!r.draft&&r.prerelease)
+      .sort((a,b)=>releaseTime(b)-releaseTime(a));
+    return prereleases[0]||null;
+  })();
+  githubPrereleaseCache.set(repo,request);
+  return request;
 }
 
 function secureExternal(link){
@@ -36,10 +47,6 @@ function formatReleaseDate(release){
   return published?published.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'';
 }
 
-function releaseVersion(release){
-  return release?.tag_name||release?.name||'Release';
-}
-
 function findZipAsset(release){
   return(release?.assets||[]).find(a=>/\.zip$/i.test(a.name));
 }
@@ -51,7 +58,7 @@ function populateReleasePanel(panel,release,label){
   const download=panel.querySelector('[data-release-download]');
   const releaseLink=panel.querySelector('[data-release-link]');
   status.textContent=label;
-  version.textContent=releaseVersion(release);
+  version.textContent=release.name||release.tag_name;
   date.textContent=formatReleaseDate(release);
   releaseLink.href=release.html_url;
   releaseLink.textContent='Release notes ↗';
@@ -87,13 +94,18 @@ document.querySelectorAll('[data-github-release]').forEach(async panel=>{
   const download=panel.querySelector('[data-release-download]');
   const releaseLink=panel.querySelector('[data-release-link]');
   try{
-    const{stable,prerelease}=await getGithubReleases(repo);
-    const primary=stable||prerelease;
-    populateReleasePanel(panel,primary,stable?'Latest release':'Latest pre-release');
-    panel.classList.toggle('release-panel-prerelease',!stable&&Boolean(prerelease));
-    const showNewerPrerelease=Boolean(stable&&prerelease&&releaseTime(prerelease)>releaseTime(stable));
+    const release=await getPreferredGithubRelease(repo);
+    populateReleasePanel(panel,release,release.prerelease?'Latest pre-release':'Latest release');
+    panel.classList.toggle('release-panel-prerelease',release.prerelease);
     panel.parentNode?.querySelector('[data-github-prerelease]')?.remove();
-    if(showNewerPrerelease)panel.insertAdjacentElement('afterend',createPrereleasePanel(prerelease));
+    if(!release.prerelease){
+      try{
+        const prerelease=await getLatestGithubPrerelease(repo);
+        if(prerelease&&releaseTime(prerelease)>releaseTime(release)){
+          panel.insertAdjacentElement('afterend',createPrereleasePanel(prerelease));
+        }
+      }catch(_){/* Stable release remains valid if prerelease discovery fails. */}
+    }
   }catch(error){
     status.textContent='Development repository';
     version.textContent='No published GitHub release';
@@ -114,7 +126,7 @@ document.querySelectorAll('[data-github-release-card]').forEach(async card=>{
     const release=await getPreferredGithubRelease(repo);
     label.textContent=release.prerelease?'Pre-release':'Released';
     label.classList.toggle('prerelease',release.prerelease);
-    version.textContent=releaseVersion(release);
+    version.textContent=release.name||release.tag_name;
   }catch(error){
     label.textContent='Development';
     label.classList.add('development');

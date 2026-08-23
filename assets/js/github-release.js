@@ -36,6 +36,10 @@ function formatReleaseDate(release){
   return published?published.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'';
 }
 
+function releaseVersion(release){
+  return release?.tag_name||release?.name||'Release';
+}
+
 function findZipAsset(release){
   return(release?.assets||[]).find(a=>/\.zip$/i.test(a.name));
 }
@@ -47,7 +51,7 @@ function populateReleasePanel(panel,release,label){
   const download=panel.querySelector('[data-release-download]');
   const releaseLink=panel.querySelector('[data-release-link]');
   status.textContent=label;
-  version.textContent=release.name||release.tag_name;
+  version.textContent=releaseVersion(release);
   date.textContent=formatReleaseDate(release);
   releaseLink.href=release.html_url;
   releaseLink.textContent='Release notes ↗';
@@ -110,7 +114,7 @@ document.querySelectorAll('[data-github-release-card]').forEach(async card=>{
     const release=await getPreferredGithubRelease(repo);
     label.textContent=release.prerelease?'Pre-release':'Released';
     label.classList.toggle('prerelease',release.prerelease);
-    version.textContent=release.name||release.tag_name;
+    version.textContent=releaseVersion(release);
   }catch(error){
     label.textContent='Development';
     label.classList.add('development');

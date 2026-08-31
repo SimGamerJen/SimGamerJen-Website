@@ -44,7 +44,7 @@
       "type": "mod",
       "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_AvatarSwitcher/main/icon_AvatarSwitcher.dds",
       "visible": true,
-      "order": 50
+      "order": 40
     },
     {
       "repo": "SimGamerJen/FS25_RemoteDispatcher",
@@ -55,7 +55,7 @@
       "type": "mod",
       "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_RemoteDispatcher/main/RemoteDispatcher.dds",
       "visible": true,
-      "order": 40
+      "order": 50
     },
     {
       "repo": "SimGamerJen/FS25_SaveUnitProfiles",
@@ -88,7 +88,7 @@
       "type": "mod",
       "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_PrecisionNutrition/main/PrecisionNutrition.dds",
       "visible": true,
-      "order": 40
+      "order": 80
     },
     {
       "repo": "SimGamerJen/FS25_ExportLivestockInfo",
@@ -98,7 +98,7 @@
       "summary": "Export FS25 livestock data to structured CSV or Excel reports for analysis and record keeping.",
       "type": "utility",
       "visible": true,
-      "order": 80
+      "order": 90
     }
   ]
 }

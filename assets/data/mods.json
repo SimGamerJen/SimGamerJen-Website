@@ -36,17 +36,6 @@
       "order": 30
     },
     {
-      "repo": "SimGamerJen/FS25_PrecisionNutrition",
-      "name": "PrecisionNutrition",
-      "code": "PN",
-      "path": "/mods/precision-nutrition/",
-      "summary": "More depth and visibility for livestock nutrition and feeding.",
-      "type": "mod",
-      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_PrecisionNutrition/main/PrecisionNutrition.dds",
-      "visible": true,
-      "order": 40
-    },
-    {
       "repo": "SimGamerJen/FS25_AvatarSwitcher",
       "name": "AvatarSwitcher",
       "code": "AS",
@@ -56,6 +45,17 @@
       "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_AvatarSwitcher/main/icon_AvatarSwitcher.dds",
       "visible": true,
       "order": 50
+    },
+    {
+      "repo": "SimGamerJen/FS25_RemoteDispatcher",
+      "name": "RemoteDispatcher",
+      "code": "RD",
+      "path": "/mods/remote-dispatcher/",
+      "summary": "Remotely start AutoDrive or CoursePlay for an AI Worker.",
+      "type": "mod",
+      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_RemoteDispatcher/main/RemoteDispatcher.dds",
+      "visible": true,
+      "order": 40
     },
     {
       "repo": "SimGamerJen/FS25_SaveUnitProfiles",
@@ -78,6 +78,17 @@
       "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_StopTime/main/StopTime.dds",
       "visible": true,
       "order": 70
+    },
+    {
+      "repo": "SimGamerJen/FS25_PrecisionNutrition",
+      "name": "PrecisionNutrition",
+      "code": "PN",
+      "path": "/mods/precision-nutrition/",
+      "summary": "More depth and visibility for livestock nutrition and feeding.",
+      "type": "mod",
+      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_PrecisionNutrition/main/PrecisionNutrition.dds",
+      "visible": true,
+      "order": 40
     },
     {
       "repo": "SimGamerJen/FS25_ExportLivestockInfo",

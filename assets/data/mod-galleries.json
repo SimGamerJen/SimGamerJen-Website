@@ -120,7 +120,7 @@
         },
         {
           "id": "native-selector",
-          "source": "https://github.com/user-attachments/assets/5fa3855c-974a-46c1-bdcc-b56ed5334fa0",
+          "source": "https://github.com/user-attachments/assets/5fa3855c-974a-46c-bdcc-b56ed5334fa0",
           "localSource": "",
           "alt": "SaveUnitProfiles predefined profile selection",
           "title": "Native selector",
@@ -135,6 +135,7 @@
     "helper-payroll": { "visible": false, "images": [] },
     "precision-nutrition": { "visible": false, "images": [] },
     "avatar-switcher": { "visible": false, "images": [] },
+    "remote-dispatcher": { "visible": false, "images": [] },
     "stop-time": { "visible": false, "images": [] },
     "export-livestock-info": { "visible": false, "images": [] }
   }

@@ -36,17 +36,6 @@
       "order": 30
     },
     {
-      "repo": "SimGamerJen/FS25_PrecisionNutrition",
-      "name": "PrecisionNutrition",
-      "code": "PN",
-      "path": "/mods/precision-nutrition/",
-      "summary": "More depth and visibility for livestock nutrition and feeding.",
-      "type": "mod",
-      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_PrecisionNutrition/main/PrecisionNutrition.dds",
-      "visible": true,
-      "order": 40
-    },
-    {
       "repo": "SimGamerJen/FS25_AvatarSwitcher",
       "name": "AvatarSwitcher",
       "code": "AS",
@@ -54,6 +43,17 @@
       "summary": "Save, organise and reuse player appearances through an in-game preset system.",
       "type": "mod",
       "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_AvatarSwitcher/main/icon_AvatarSwitcher.dds",
+      "visible": true,
+      "order": 40
+    },
+    {
+      "repo": "SimGamerJen/FS25_RemoteDispatcher",
+      "name": "RemoteDispatcher",
+      "code": "RD",
+      "path": "/mods/remote-dispatcher/",
+      "summary": "Remotely start AutoDrive or CoursePlay for an AI Worker.",
+      "type": "mod",
+      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_RemoteDispatcher/main/RemoteDispatcher.dds",
       "visible": true,
       "order": 50
     },
@@ -80,6 +80,17 @@
       "order": 70
     },
     {
+      "repo": "SimGamerJen/FS25_PrecisionNutrition",
+      "name": "PrecisionNutrition",
+      "code": "PN",
+      "path": "/mods/precision-nutrition/",
+      "summary": "More depth and visibility for livestock nutrition and feeding.",
+      "type": "mod",
+      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_PrecisionNutrition/main/PrecisionNutrition.dds",
+      "visible": true,
+      "order": 80
+    },
+    {
       "repo": "SimGamerJen/FS25_ExportLivestockInfo",
       "name": "ExportLivestockInfo",
       "code": "XL",
@@ -87,7 +98,7 @@
       "summary": "Export FS25 livestock data to structured CSV or Excel reports for analysis and record keeping.",
       "type": "utility",
       "visible": true,
-      "order": 80
+      "order": 90
     }
   ]
 }

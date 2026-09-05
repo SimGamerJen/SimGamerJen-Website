@@ -179,6 +179,12 @@
       if (gallery) main.insertBefore(section, gallery); else main.appendChild(section);
     }
   }
+  if (canonicalPath === '/mods/architecture/' && !document.querySelector('script[src="/assets/js/mod-architecture.js"]')) {
+    const script = document.createElement('script');
+    script.src = '/assets/js/mod-architecture.js';
+    script.defer = true;
+    document.body.appendChild(script);
+  }
 
   // External links consistently open separately, including links rendered after page load.
   const prepareExternalLinks = (scope = document) => {

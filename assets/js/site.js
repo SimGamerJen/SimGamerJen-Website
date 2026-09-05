@@ -118,6 +118,74 @@
     }
   }
 
+  // FS25 mod/tool architecture: a full web-native architecture page plus lightweight entry points from the catalogue and linked projects.
+  const architectureFits = {
+    '/mods/helper-profiles/': {
+      text: 'HelperProfiles is the worker-domain platform in the current architecture. HelperPayroll and RemoteDispatcher have confirmed integration points, while AvatarSwitcher sits in the planned identity/embodiment surface.',
+      links: ['HelperPayroll · confirmed', 'RemoteDispatcher · confirmed', 'AvatarSwitcher · planned']
+    },
+    '/mods/helper-payroll/': {
+      text: 'HelperPayroll depends on HelperProfiles worker/profile semantics for payroll modes, role retention and helper-slot identity, making worker schema and lifecycle changes a coordinated regression-testing concern.',
+      links: ['HelperProfiles · confirmed', 'Change risk · high']
+    },
+    '/mods/remote-dispatcher/': {
+      text: 'RemoteDispatcher spans worker-aware dispatch and external automation. It integrates with HelperProfiles, has a planned AvatarSwitcher touchpoint, and should keep AutoDrive and Courseplay behind narrow third-party adapters.',
+      links: ['HelperProfiles · confirmed', 'AvatarSwitcher · planned', 'AutoDrive · third-party', 'Courseplay · third-party']
+    },
+    '/mods/avatar-switcher/': {
+      text: 'AvatarSwitcher occupies the identity/embodiment domain alongside HelperProfiles, with a planned integration surface for RemoteDispatcher where remote workers may need avatar or vehicle entry/exit state.',
+      links: ['HelperProfiles · planned', 'RemoteDispatcher · planned', 'Change risk · medium']
+    },
+    '/mods/precision-nutrition/': {
+      text: 'PrecisionNutrition is the planned consumer of stable forage contracts. Silage Realism and Managed Pastures should publish quantity and quality data through shared interfaces rather than modify nutrition internals directly.',
+      links: ['Silage Realism · planned', 'Managed Pastures · planned', 'Change risk · medium']
+    },
+    '/mods/crop-control-override/': {
+      text: 'CropControlOverride has a tooling/support contract with Farm Sim Manager. CCO schema, reporting or data-representation changes therefore need companion-app parser, UI and compatibility testing as part of the public support surface.',
+      links: ['Farm Sim Manager · tooling contract', 'Change risk · high']
+    },
+    '/farm-sim-manager/': {
+      text: 'Farm Sim Manager is an external companion tool within the architecture rather than an FS25 mod. Its CropControlOverride support contract means CCO data, schema and reporting changes can require coordinated parser and UI compatibility work.',
+      links: ['CropControlOverride · tooling contract', 'Change risk · high']
+    }
+  };
+  const architectureFit = architectureFits[canonicalPath];
+  const onModsCatalogue = canonicalPath === '/mods/';
+  if ((architectureFit || onModsCatalogue) && !head.querySelector('link[href="/assets/css/mod-architecture.css"]')) {
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = '/assets/css/mod-architecture.css';
+    head.appendChild(css);
+  }
+  if (onModsCatalogue && !document.querySelector('[data-mod-architecture-teaser]')) {
+    const catalogue = document.querySelector('[data-mod-catalogue]');
+    const catalogueSection = catalogue?.closest('section');
+    if (catalogueSection) {
+      const teaser = document.createElement('section');
+      teaser.className = 'section shell mod-architecture-teaser';
+      teaser.setAttribute('data-mod-architecture-teaser', '');
+      teaser.innerHTML = '<div class="mod-architecture-teaser-inner"><div class="mod-architecture-teaser-copy"><p class="eyebrow">Mod architecture</p><h2>See how the pieces connect.</h2><p>Some SGJ projects stand alone. Others share worker identity, consume gameplay contracts, depend on third-party automation or require companion-tool support. The architecture map shows where a change in one project can affect another.</p><div class="actions"><a class="button primary" href="/mods/architecture/">Explore the architecture →</a></div></div><div class="architecture-mini" aria-label="Architecture areas"><div class="architecture-mini-card"><strong>Worker domain</strong><span>HelperProfiles · HelperPayroll · RemoteDispatcher · AvatarSwitcher</span></div><div class="architecture-mini-card"><strong>Agronomy</strong><span>PrecisionNutrition · forage and pasture contracts</span></div><div class="architecture-mini-card"><strong>Tooling</strong><span>CropControlOverride · Farm Sim Manager support contract</span></div></div></div>';
+      catalogueSection.insertAdjacentElement('afterend', teaser);
+    }
+  }
+  if (architectureFit && !document.querySelector('[data-architecture-fit]')) {
+    const main = document.querySelector('main');
+    if (main) {
+      const section = document.createElement('section');
+      section.className = 'section shell architecture-fit';
+      section.setAttribute('data-architecture-fit', '');
+      section.innerHTML = `<div class="architecture-fit-card"><div><p class="eyebrow">Where this fits</p><h2>Part of the wider SGJ architecture.</h2><p>${architectureFit.text}</p><div class="architecture-fit-links">${architectureFit.links.map(label => `<span>${label}</span>`).join('')}</div></div><a class="button" href="/mods/architecture/">View architecture →</a></div>`;
+      const gallery = main.querySelector('.mod-gallery');
+      if (gallery) main.insertBefore(section, gallery); else main.appendChild(section);
+    }
+  }
+  if (canonicalPath === '/mods/architecture/' && !document.querySelector('script[src="/assets/js/mod-architecture.js"]')) {
+    const script = document.createElement('script');
+    script.src = '/assets/js/mod-architecture.js';
+    script.defer = true;
+    document.body.appendChild(script);
+  }
+
   // External links consistently open separately, including links rendered after page load.
   const prepareExternalLinks = (scope = document) => {
     scope.querySelectorAll?.('a[href^="http://"], a[href^="https://"]').forEach((link) => {

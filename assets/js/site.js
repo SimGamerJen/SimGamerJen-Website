@@ -69,6 +69,18 @@
     }
   });
 
+  // Fourthwall handles the storefront and checkout; keep the entry point shared.
+  const shopUrl = 'https://simgamerjen-shop.fourthwall.com';
+  document.querySelectorAll('header nav').forEach(nav => {
+    if (nav.querySelector('[data-sgj-shop]')) return;
+    const shop = document.createElement('a');
+    shop.href = shopUrl;
+    shop.textContent = 'Shop';
+    shop.setAttribute('data-sgj-shop', '');
+    const partners = nav.querySelector('a[href="/partners/"]');
+    if (partners) nav.insertBefore(shop, partners); else nav.appendChild(shop);
+  });
+
   // Mark the current navigation destination for assistive technology.
   document.querySelectorAll('nav a.active').forEach(link => link.setAttribute('aria-current', 'page'));
 
@@ -76,6 +88,14 @@
   const footerGrid = document.querySelector('.site-footer .footer-grid');
   if (footerGrid) {
     const copyright = footerGrid.querySelector('p');
+    if (!footerGrid.querySelector('[data-sgj-shop]')) {
+      const shop = document.createElement('a');
+      shop.href = shopUrl;
+      shop.textContent = 'Shop';
+      shop.className = 'footer-shop';
+      shop.setAttribute('data-sgj-shop', '');
+      if (copyright) footerGrid.insertBefore(shop, copyright); else footerGrid.appendChild(shop);
+    }
     if (!footerGrid.querySelector('.footer-partners')) {
       const partners = document.createElement('a');
       partners.className = 'footer-partners';

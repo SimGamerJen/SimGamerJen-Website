@@ -70,7 +70,7 @@
   });
 
   // Fourthwall handles the storefront and checkout; keep the entry point shared.
-  const shopUrl = 'https://simgamerjen-shop.fourthwall.com';
+  const shopUrl = 'https://shop.simgamerjen.com';
   document.querySelectorAll('header nav').forEach(nav => {
     if (nav.querySelector('[data-sgj-shop]')) return;
     const shop = document.createElement('a');

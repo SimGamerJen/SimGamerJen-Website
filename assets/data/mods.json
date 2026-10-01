@@ -112,16 +112,6 @@
       "order": 90
     },
     {
-      "name": "Art Agent Bridge",
-      "code": "AAB",
-      "summary": "Private read-only telemetry bridge used by the Cline Ridge Farm AI Directed Series.",
-      "type": "mod",
-      "stage": "Private development",
-      "stageDetail": "v0.4.0.2",
-      "visible": true,
-      "order": 100
-    },
-    {
       "name": "Managed Pastures",
       "code": "MP",
       "summary": "In-development pasture and grazing system with planned shared forage and nutrition integration.",

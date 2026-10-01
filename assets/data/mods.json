@@ -1,6 +1,6 @@
 {
   "featuredRepo": "SimGamerJen/FS25_CropControlOverride",
-  "intro": "Farming Simulator 25 projects focused on realism, control and quality of life, plus companion utilities for managing and understanding the worlds behind the game.",
+  "intro": "Farming Simulator 25 mods and development projects focused on realism, control and quality of life, including released builds, active development and clearly labelled planned work.",
   "mods": [
     {
       "repo": "SimGamerJen/FS25_CropControlOverride",
@@ -91,6 +91,17 @@
       "order": 80
     },
     {
+      "repo": "SimGamerJen/FS25_CropCalendarSort",
+      "name": "Crop Calendar Sort",
+      "code": "CCS",
+      "path": "/mods/crop-calendar-sort/",
+      "summary": "Add selectable sorting modes to the native FS25 crop calendar without changing crop or seasonal data.",
+      "type": "mod",
+      "iconDds": "https://raw.githubusercontent.com/SimGamerJen/FS25_CropCalendarSort/main/icon_CropCalendarSort.dds",
+      "visible": true,
+      "order": 85
+    },
+    {
       "repo": "SimGamerJen/FS25_ExportLivestockInfo",
       "name": "ExportLivestockInfo",
       "code": "XL",
@@ -99,6 +110,43 @@
       "type": "utility",
       "visible": true,
       "order": 90
+    },
+    {
+      "name": "Art Agent Bridge",
+      "code": "AAB",
+      "summary": "Private read-only telemetry bridge used by the Cline Ridge Farm AI Directed Series.",
+      "type": "mod",
+      "stage": "Private development",
+      "stageDetail": "v0.4.0.2",
+      "visible": true,
+      "order": 100
+    },
+    {
+      "name": "Managed Pastures",
+      "code": "MP",
+      "summary": "In-development pasture and grazing system with planned shared forage and nutrition integration.",
+      "type": "mod",
+      "stage": "In development",
+      "visible": true,
+      "order": 110
+    },
+    {
+      "name": "Silage Realism",
+      "code": "SR",
+      "summary": "Planned forage-quality system intended to provide stable silage and forage data to related realism mods.",
+      "type": "mod",
+      "stage": "Planned",
+      "visible": true,
+      "order": 120
+    },
+    {
+      "name": "Realistic Contracting",
+      "code": "RC",
+      "summary": "Planned Farming Simulator 25 realism project. Public feature details will follow as implementation begins.",
+      "type": "mod",
+      "stage": "Planned",
+      "visible": true,
+      "order": 130
     }
   ]
 }

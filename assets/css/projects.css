@@ -1,0 +1,8 @@
+.crop-porter-banner{margin-top:1rem;background:linear-gradient(120deg,#252526,#1b1919)}
+.crop-porter-visual{position:relative;overflow:hidden;gap:.55rem}
+.crop-porter-visual:before{content:"";position:absolute;inset:12%;border:1px solid rgba(213,160,143,.24);border-radius:18px}
+.crop-porter-visual strong,.crop-porter-visual span,.crop-porter-visual small{position:relative}
+.crop-porter-visual strong{font-size:clamp(4.5rem,8vw,7rem);letter-spacing:-.08em}
+.crop-porter-visual span{font-size:.68rem;letter-spacing:.14em;font-weight:900;color:var(--rose-light)}
+.crop-porter-visual small{font-size:.58rem;letter-spacing:.16em;font-weight:850;color:var(--muted)}
+@media(max-width:900px){.crop-porter-banner{margin-top:1rem}}

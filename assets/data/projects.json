@@ -3,29 +3,36 @@
     {
       "status": "Utility",
       "title": "FS25 Mod Compare",
-      "description": "Compare mod folders, versions and savegame activity to help diagnose differences between installations.",
+      "description": "Compare active savegame mods or installed mod folders to isolate missing mods, version differences and troubleshooting suspects.",
       "url": "https://github.com/SimGamerJen/FS25_Mod_Compare",
       "cta": "GitHub ↗"
     },
     {
-      "status": "Utility",
-      "title": "SaveUnitProfiles",
-      "description": "Apply persistent regional unit profiles to individual Farming Simulator saves.",
-      "url": "https://github.com/SimGamerJen/FS25_SaveUnitProfiles",
+      "status": "Save utility",
+      "title": "FS25 Save Utilities",
+      "description": "Change days per month, preserve elapsed calendar progress, clear forecast caches and reset selected farm statistics or finances.",
+      "url": "https://github.com/SimGamerJen/FS25_set_days_per_month",
       "cta": "GitHub ↗"
     },
     {
-      "status": "Mod development",
-      "title": "AvatarSwitcher",
-      "description": "Save and switch player appearances, with integration points used by the wider SGJ worker-management ecosystem.",
-      "url": "https://github.com/SimGamerJen/FS25_AvatarSwitcher",
+      "status": "Save utility",
+      "title": "Pregnancy Patcher",
+      "description": "Patch livestock pregnancy data in FS25 savegames with configurable breeding age, duration, calf gender and twin-chance options.",
+      "url": "https://github.com/SimGamerJen/FS25_patch_pregnancies",
       "cta": "GitHub ↗"
     },
     {
-      "status": "Utility",
-      "title": "StopTime",
-      "description": "A focused quality-of-life project for controlling time progression while working in and around vehicles.",
-      "url": "https://github.com/SimGamerJen/FS25_StopTime",
+      "status": "Save utility",
+      "title": "Vehicle Condition Editor",
+      "description": "List and update FS25 vehicle age, operating time, dirt, wetness, wear and damage values with dry-run and backup safeguards.",
+      "url": "https://github.com/SimGamerJen/FS25_update_vehicle_condition",
+      "cta": "GitHub ↗"
+    },
+    {
+      "status": "Reference implementation",
+      "title": "FS25 CropPorter — Python",
+      "description": "The proven Python reference for structural custom-crop porting, package export/apply, compatibility planning and guarded map transformation.",
+      "url": "https://github.com/SimGamerJen/fs25_crop_porter",
       "cta": "GitHub ↗"
     }
   ]

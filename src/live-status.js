@@ -62,11 +62,12 @@ async function getGoogleAccessToken(request, env, ctx, channelKey, refreshToken,
 
 async function youtubeApi(url, token) { return fetch(url, { headers: { Authorization: `Bearer ${token}` } }); }
 function bestYouTubeThumbnail(snippet = {}) { const thumbs = snippet.thumbnails || {}; return (thumbs.maxres || thumbs.standard || thumbs.high || thumbs.medium || thumbs.default || {}).url || ''; }
-function broadcastsUrl() {
+function broadcastsUrl(status = 'all') {
   const url = new URL('https://www.googleapis.com/youtube/v3/liveBroadcasts');
   url.searchParams.set('part', 'id,snippet,status');
   url.searchParams.set('mine', 'true');
-  url.searchParams.set('broadcastType', 'all');
+  url.searchParams.set('broadcastType', status === 'upcoming' ? 'event' : 'all');
+  url.searchParams.set('broadcastStatus', status);
   url.searchParams.set('maxResults', '50');
   return url;
 }
@@ -99,12 +100,19 @@ async function getYouTubeChannelStatus(request, env, ctx, channelKey, config) {
   if (!configured) return { configured: false, live: false, channel: config.label, url: config.url };
   try {
     let token = await getGoogleAccessToken(request, env, ctx, channelKey, refreshToken);
-    let response = await youtubeApi(broadcastsUrl(), token);
-    if (response.status === 401) { token = await getGoogleAccessToken(request, env, ctx, channelKey, refreshToken, true); response = await youtubeApi(broadcastsUrl(), token); }
-    if (!response.ok) throw new Error(`youtube-broadcasts-${channelKey}-${response.status}`);
-    const items = (await response.json()).items || [];
-    const broadcast = activeBroadcast(items);
-    const upcoming = upcomingSummary(upcomingBroadcast(items), config);
+    let activeResponse = await youtubeApi(broadcastsUrl('active'), token);
+    let upcomingResponse = await youtubeApi(broadcastsUrl('upcoming'), token);
+    if (activeResponse.status === 401 || upcomingResponse.status === 401) {
+      token = await getGoogleAccessToken(request, env, ctx, channelKey, refreshToken, true);
+      activeResponse = await youtubeApi(broadcastsUrl('active'), token);
+      upcomingResponse = await youtubeApi(broadcastsUrl('upcoming'), token);
+    }
+    if (!activeResponse.ok) throw new Error(`youtube-broadcasts-active-${channelKey}-${activeResponse.status}`);
+    if (!upcomingResponse.ok) throw new Error(`youtube-broadcasts-upcoming-${channelKey}-${upcomingResponse.status}`);
+    const activeItems = (await activeResponse.json()).items || [];
+    const upcomingItems = (await upcomingResponse.json()).items || [];
+    const broadcast = activeBroadcast(activeItems);
+    const upcoming = upcomingSummary(upcomingBroadcast(upcomingItems), config);
     if (!broadcast?.id) return { configured: true, live: false, channel: config.label, url: config.url, upcoming };
     const videosUrl = new URL('https://www.googleapis.com/youtube/v3/videos'); videosUrl.searchParams.set('part', 'snippet,liveStreamingDetails'); videosUrl.searchParams.set('id', broadcast.id);
     const videoResponse = await youtubeApi(videosUrl, token); const video = videoResponse.ok ? (await videoResponse.json()).items?.[0] || {} : {};
@@ -129,13 +137,17 @@ async function diagnoseYouTubeChannel(env, channelKey, config) {
   if (!tokenResponse.ok) return { channel: config.label, configured: true, ok: false, stage: 'token', ...(await safeGoogleError(tokenResponse)) };
   const tokenPayload = await tokenResponse.json();
   if (!tokenPayload.access_token) return { channel: config.label, configured: true, ok: false, stage: 'token', reason: 'missing_access_token' };
-  const response = await youtubeApi(broadcastsUrl(), tokenPayload.access_token);
-  if (!response.ok) return { channel: config.label, configured: true, ok: false, stage: 'liveBroadcasts', ...(await safeGoogleError(response)) };
-  const payload = await response.json();
-  const items = payload.items || [];
-  const broadcast = activeBroadcast(items);
-  const upcoming = upcomingBroadcast(items);
-  return { channel: config.label, configured: true, ok: true, stage: 'liveBroadcasts', live: Boolean(broadcast?.id), activeBroadcasts: broadcast ? 1 : 0, upcomingBroadcasts: upcoming ? 1 : 0, nextScheduledStartTime: upcoming?.snippet?.scheduledStartTime || '', returnedBroadcasts: items.length };
+  const [activeResponse, upcomingResponse] = await Promise.all([
+    youtubeApi(broadcastsUrl('active'), tokenPayload.access_token),
+    youtubeApi(broadcastsUrl('upcoming'), tokenPayload.access_token),
+  ]);
+  if (!activeResponse.ok) return { channel: config.label, configured: true, ok: false, stage: 'liveBroadcasts-active', ...(await safeGoogleError(activeResponse)) };
+  if (!upcomingResponse.ok) return { channel: config.label, configured: true, ok: false, stage: 'liveBroadcasts-upcoming', ...(await safeGoogleError(upcomingResponse)) };
+  const activeItems = (await activeResponse.json()).items || [];
+  const upcomingItems = (await upcomingResponse.json()).items || [];
+  const broadcast = activeBroadcast(activeItems);
+  const upcoming = upcomingBroadcast(upcomingItems);
+  return { channel: config.label, configured: true, ok: true, stage: 'liveBroadcasts', live: Boolean(broadcast?.id), activeBroadcasts: activeItems.length, upcomingBroadcasts: upcomingItems.length, nextScheduledStartTime: upcoming?.snippet?.scheduledStartTime || '', returnedBroadcasts: activeItems.length + upcomingItems.length };
 }
 
 function nearestUpcoming(...candidates) {

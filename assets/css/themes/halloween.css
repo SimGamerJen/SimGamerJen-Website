@@ -1,0 +1,146 @@
+/* Halloween skin: deliberately preserves the SGJ rose brand palette and adds seasonal atmosphere around it. */
+html[data-season-theme="halloween"] {
+  --season-accent: #ef8b2c;
+  --season-accent-soft: #ffc06c;
+  --season-secondary: #7b5a91;
+  --season-night: #151018;
+  --season-line: rgba(239,139,44,.22);
+}
+
+html[data-season-theme="halloween"] body {
+  background:
+    radial-gradient(circle at 8% 18%, rgba(123,90,145,.08), transparent 26rem),
+    radial-gradient(circle at 92% 28%, rgba(239,139,44,.055), transparent 28rem),
+    var(--ink);
+}
+
+html[data-season-theme="halloween"] .site-header {
+  background: rgba(21,16,24,.92);
+  box-shadow: 0 12px 36px rgba(0,0,0,.18);
+}
+
+html[data-season-theme="halloween"] .header-wordmark {
+  text-shadow:
+    0 0 22px rgba(213,160,143,.16),
+    0 0 34px rgba(239,139,44,.08) !important;
+}
+
+html[data-season-theme="halloween"] .hero {
+  background:
+    radial-gradient(circle at 78% 17%, rgba(239,139,44,.09), transparent 24rem),
+    radial-gradient(circle at 18% 80%, rgba(123,90,145,.07), transparent 28rem);
+}
+
+html[data-season-theme="halloween"] .hero-glow {
+  background:
+    radial-gradient(circle at 45% 45%, rgba(213,160,143,.18), transparent 48%),
+    radial-gradient(circle, rgba(239,139,44,.11), transparent 69%);
+}
+
+html[data-season-theme="halloween"] .hero-logo {
+  filter:
+    drop-shadow(0 28px 44px rgba(0,0,0,.32))
+    drop-shadow(0 0 24px rgba(239,139,44,.07));
+}
+
+html[data-season-theme="halloween"] .quick-strip,
+html[data-season-theme="halloween"] .dark-panel,
+html[data-season-theme="halloween"] .ai-home-panel {
+  background-color: color-mix(in srgb, var(--ink-2) 88%, var(--season-night));
+}
+
+html[data-season-theme="halloween"] .button.primary {
+  box-shadow:
+    0 8px 22px rgba(0,0,0,.16),
+    0 0 0 1px rgba(239,139,44,.08);
+}
+
+html[data-season-theme="halloween"] .button:hover,
+html[data-season-theme="halloween"] .visual-card:hover,
+html[data-season-theme="halloween"] .mod-card:hover,
+html[data-season-theme="halloween"] .catalogue-card:hover,
+html[data-season-theme="halloween"] .project-banner:hover,
+html[data-season-theme="halloween"] .connect-grid a:hover {
+  border-color: color-mix(in srgb, var(--rose) 55%, var(--season-accent));
+  box-shadow: 0 14px 34px rgba(0,0,0,.17), 0 0 22px rgba(239,139,44,.06);
+}
+
+html[data-season-theme="halloween"] .home-latest-media,
+html[data-season-theme="halloween"] .mod-feature,
+html[data-season-theme="halloween"] .project-banner,
+html[data-season-theme="halloween"] .detail-mark,
+html[data-season-theme="halloween"] .project-visual {
+  box-shadow:
+    0 22px 48px rgba(0,0,0,.15),
+    0 0 0 1px rgba(239,139,44,.035);
+}
+
+html[data-season-theme="halloween"] .site-footer {
+  background:
+    radial-gradient(circle at 12% 0, rgba(123,90,145,.08), transparent 20rem),
+    #100d11;
+}
+
+html[data-season-theme="halloween"] .seasonal-decor::before {
+  content: "";
+  position: absolute;
+  top: 82px;
+  left: -46px;
+  width: 250px;
+  height: 250px;
+  opacity: .13;
+  background:
+    repeating-conic-gradient(from 0deg at 0 0, transparent 0deg 28deg, var(--season-accent-soft) 29deg 30deg),
+    repeating-radial-gradient(circle at 0 0, transparent 0 28px, var(--season-accent-soft) 29px 30px);
+  -webkit-mask-image: radial-gradient(circle at 0 0, #000 0 72%, transparent 73%);
+  mask-image: radial-gradient(circle at 0 0, #000 0 72%, transparent 73%);
+  transform: rotate(2deg);
+}
+
+html[data-season-theme="halloween"] .seasonal-decor::after {
+  content: "";
+  position: absolute;
+  top: 126px;
+  right: 4.5vw;
+  width: 112px;
+  height: 52px;
+  opacity: .1;
+  background: var(--season-accent-soft);
+  clip-path: polygon(0 52%, 15% 28%, 30% 43%, 43% 18%, 50% 40%, 57% 18%, 70% 43%, 85% 28%, 100% 52%, 83% 48%, 70% 68%, 54% 53%, 50% 84%, 46% 53%, 30% 68%, 17% 48%);
+  filter: drop-shadow(0 0 10px rgba(239,139,44,.18));
+}
+
+html[data-season-theme="halloween"] .seasonal-badge {
+  border-color: rgba(239,139,44,.32);
+  background:
+    linear-gradient(135deg, rgba(239,139,44,.08), rgba(123,90,145,.07)),
+    rgba(21,16,24,.78);
+}
+
+html[data-season-theme="halloween"] .seasonal-badge-mark {
+  background: var(--season-accent);
+}
+
+@media (max-width: 650px) {
+  html[data-season-theme="halloween"] .seasonal-decor::before {
+    top: 124px;
+    width: 170px;
+    height: 170px;
+    opacity: .09;
+  }
+
+  html[data-season-theme="halloween"] .seasonal-decor::after {
+    top: 160px;
+    right: 1rem;
+    width: 76px;
+    height: 36px;
+    opacity: .075;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-season-theme="halloween"] .seasonal-decor::before,
+  html[data-season-theme="halloween"] .seasonal-decor::after {
+    animation: none;
+  }
+}

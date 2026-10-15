@@ -1,0 +1,100 @@
+/* Shared seasonal-theme framework. Loaded only when a seasonal theme is active. */
+html[data-season-theme] {
+  --season-accent: var(--rose);
+  --season-accent-soft: var(--rose-light);
+  --season-secondary: var(--rose-dark);
+}
+
+html[data-season-theme] body {
+  position: relative;
+  isolation: isolate;
+}
+
+.seasonal-decor {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.seasonal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  width: fit-content;
+  margin: 0 0 1rem;
+  padding: .42rem .72rem;
+  border: 1px solid color-mix(in srgb, var(--season-accent) 58%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink-2) 82%, transparent);
+  box-shadow: 0 10px 28px rgba(0,0,0,.16);
+  color: var(--season-accent-soft);
+  font-size: .72rem;
+  line-height: 1.2;
+  letter-spacing: .02em;
+}
+
+.seasonal-badge strong {
+  color: var(--season-accent-soft);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .09em;
+}
+
+.seasonal-badge > span:last-child {
+  color: var(--muted);
+  font-weight: 750;
+}
+
+.seasonal-badge-mark {
+  width: .58rem;
+  height: .58rem;
+  flex: 0 0 .58rem;
+  border-radius: 50%;
+  background: var(--season-accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--season-accent) 12%, transparent), 0 0 18px color-mix(in srgb, var(--season-accent) 32%, transparent);
+}
+
+html[data-season-theme] .site-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rose), var(--season-accent), var(--rose), transparent);
+  opacity: .7;
+  pointer-events: none;
+}
+
+html[data-season-theme] .button,
+html[data-season-theme] .visual-card,
+html[data-season-theme] .mod-card,
+html[data-season-theme] .catalogue-card,
+html[data-season-theme] .project-banner,
+html[data-season-theme] .connect-grid a {
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+@media (max-width: 650px) {
+  .seasonal-badge {
+    flex-wrap: wrap;
+  }
+
+  .seasonal-badge > span:last-child {
+    width: 100%;
+    padding-left: 1.15rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-season-theme] .button,
+  html[data-season-theme] .visual-card,
+  html[data-season-theme] .mod-card,
+  html[data-season-theme] .catalogue-card,
+  html[data-season-theme] .project-banner,
+  html[data-season-theme] .connect-grid a {
+    transition: none;
+  }
+}

@@ -206,6 +206,15 @@
     document.body.appendChild(script);
   }
 
+  // Seasonal skins are opt-in overlays on top of the canonical SGJ design.
+  // The controller loads theme CSS only while a configured date window (or explicit preview) is active.
+  if (!document.querySelector('script[src="/assets/js/seasonal-theme.js"]')) {
+    const seasonal = document.createElement('script');
+    seasonal.src = '/assets/js/seasonal-theme.js';
+    seasonal.defer = true;
+    document.body.appendChild(seasonal);
+  }
+
   // External links consistently open separately, including links rendered after page load.
   const prepareExternalLinks = (scope = document) => {
     scope.querySelectorAll?.('a[href^="http://"], a[href^="https://"]').forEach((link) => {

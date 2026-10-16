@@ -37,12 +37,12 @@ html[data-season-theme="birthday"] .seasonal-badge-mark{
 html[data-season-theme="birthday"] .birthday-confetti{
   position:absolute;
   inset:90px 0 0;
-  opacity:.30;
+  opacity:0;
   background:
-    linear-gradient(70deg,transparent 49%,rgba(217,182,111,.92) 50% 52%,transparent 53%) 10% 10%/93px 117px,
-    linear-gradient(108deg,transparent 49%,rgba(213,160,143,.9) 50% 52%,transparent 53%) 55% 10%/127px 161px,
-    linear-gradient(82deg,transparent 49%,rgba(207,145,169,.85) 50% 52%,transparent 53%) 28% 10%/151px 181px;
-  animation:birthday-confetti 17s linear infinite;
+    linear-gradient(70deg,transparent 49%,rgba(217,182,111,.92) 50% 52%,transparent 53%) 10% 10%/145px 180px,
+    linear-gradient(108deg,transparent 49%,rgba(213,160,143,.9) 50% 52%,transparent 53%) 55% 10%/205px 245px,
+    linear-gradient(82deg,transparent 49%,rgba(207,145,169,.85) 50% 52%,transparent 53%) 28% 10%/255px 300px;
+  animation:birthday-confetti 36s ease-in-out infinite;
 }
 html[data-season-theme="birthday"] .birthday-balloon{
   position:absolute;
@@ -69,12 +69,12 @@ html[data-season-theme="birthday"] .birthday-balloon--three{top:32vh;right:18vw;
 html[data-season-theme="birthday"] .birthday-sparkles{
   position:absolute;
   inset:95px 0 35vh;
-  opacity:.34;
+  opacity:.27;
   background-image:
     radial-gradient(circle,rgba(244,219,162,.95) 0 1px,transparent 1.7px),
     radial-gradient(circle,rgba(242,199,184,.82) 0 1px,transparent 1.7px);
   background-size:113px 137px,177px 213px;
-  animation:birthday-sparkles 15s linear infinite;
+  animation:birthday-sparkles 24s linear infinite;
 }
 html[data-season-theme="birthday"] .button:hover,
 html[data-season-theme="birthday"] .visual-card:hover,
@@ -83,7 +83,13 @@ html[data-season-theme="birthday"] .catalogue-card:hover{
   border-color:color-mix(in srgb,var(--rose) 54%,#d9b66f);
   box-shadow:0 16px 38px rgba(0,0,0,.2),0 0 30px rgba(217,182,111,.09);
 }
-@keyframes birthday-confetti{from{background-position:10% -20%,55% -15%,28% -10%}to{background-position:16% 120%,50% 125%,34% 115%}}
+@keyframes birthday-confetti{
+  0%,20%{opacity:0;background-position:10% -6%,55% -4%,28% -2%}
+  30%{opacity:.09}
+  58%{opacity:.12;background-position:13% 34%,52% 38%,31% 30%}
+  72%{opacity:.04}
+  84%,100%{opacity:0;background-position:16% 62%,50% 66%,34% 58%}
+}
 @keyframes birthday-balloon{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-18px) rotate(3deg)}}
 @keyframes birthday-sparkles{from{background-position:12% 100%,65% 100%}to{background-position:16% -12%,61% -18%}}
 @media(max-width:650px){html[data-season-theme="birthday"] .birthday-balloon--three{display:none}}

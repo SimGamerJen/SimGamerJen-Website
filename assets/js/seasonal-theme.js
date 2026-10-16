@@ -42,7 +42,7 @@
       isActive(date) {
         const month = date.getMonth() + 1;
         const day = date.getDate();
-        return month === 11 && day >= 2 && day <= 6;
+        return month === 11 && day >= 2 && day <= 9;
       }
     },
     christmas: {
@@ -69,6 +69,11 @@
       badgeTitle: 'New Year at SGJ',
       badgeTagline: 'Same chaos. New calendar.',
       decorations: [
+        'christmas-lights',
+        'christmas-snow christmas-snow--near',
+        'christmas-snow christmas-snow--far',
+        'christmas-glow',
+        'christmas-star',
         'newyear-burst newyear-burst--one',
         'newyear-burst newyear-burst--two',
         'newyear-burst newyear-burst--three',

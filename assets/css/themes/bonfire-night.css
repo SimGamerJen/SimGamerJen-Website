@@ -1,0 +1,475 @@
+/* Bonfire Night / Guy Fawkes Night skin: recognisably SGJ, but unmistakably seasonal. */
+html[data-season-theme="bonfire-night"] {
+  --season-accent: #f0a249;
+  --season-accent-soft: #ffd28d;
+  --season-secondary: #6f82b0;
+  --season-night: #10131b;
+  --season-smoke: #1b1b22;
+  --season-line: rgba(240,162,73,.28);
+}
+
+html[data-season-theme="bonfire-night"] body {
+  background:
+    radial-gradient(circle at 8% 14%, rgba(111,130,176,.10), transparent 30rem),
+    radial-gradient(circle at 90% 24%, rgba(240,162,73,.075), transparent 32rem),
+    linear-gradient(180deg, #151418 0%, var(--ink) 38%, var(--ink) 100%);
+}
+
+html[data-season-theme="bonfire-night"] .site-header {
+  background: rgba(16,19,27,.94);
+  box-shadow:
+    0 12px 36px rgba(0,0,0,.24),
+    0 1px 0 rgba(240,162,73,.15);
+}
+
+html[data-season-theme="bonfire-night"] .header-wordmark {
+  text-shadow:
+    0 0 22px rgba(213,160,143,.20),
+    0 0 34px rgba(240,162,73,.13) !important;
+}
+
+html[data-season-theme="bonfire-night"] .hero {
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 81% 20%, rgba(240,162,73,.17), transparent 23rem),
+    radial-gradient(circle at 20% 80%, rgba(111,130,176,.10), transparent 30rem),
+    linear-gradient(180deg, rgba(255,255,255,.008), transparent 70%);
+}
+
+html[data-season-theme="bonfire-night"] .hero::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: -170px;
+  width: min(820px, 78vw);
+  height: 330px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at center, rgba(255,181,80,.22) 0 18%, rgba(240,105,39,.13) 30%, rgba(240,162,73,.055) 49%, transparent 72%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+html[data-season-theme="bonfire-night"] .hero::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 36% 0 0;
+  opacity: .34;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(255,210,132,.95) 0 1px, transparent 1.7px),
+    radial-gradient(circle, rgba(240,162,73,.8) 0 1.2px, transparent 1.9px),
+    radial-gradient(circle, rgba(242,199,184,.7) 0 1px, transparent 1.8px);
+  background-size: 83px 107px, 131px 149px, 173px 211px;
+  background-position: 12% 100%, 61% 100%, 88% 100%;
+  animation: bonfire-embers 8s linear infinite;
+}
+
+html[data-season-theme="bonfire-night"] .hero-grid {
+  position: relative;
+  z-index: 2;
+}
+
+html[data-season-theme="bonfire-night"] .hero-glow {
+  background:
+    radial-gradient(circle at 48% 46%, rgba(213,160,143,.20), transparent 47%),
+    radial-gradient(circle, rgba(240,162,73,.16), transparent 70%);
+}
+
+html[data-season-theme="bonfire-night"] .hero-logo {
+  filter:
+    drop-shadow(0 28px 44px rgba(0,0,0,.34))
+    drop-shadow(0 0 30px rgba(240,162,73,.13));
+}
+
+html[data-season-theme="bonfire-night"] .hero h1 span {
+  text-shadow: 0 0 32px rgba(240,162,73,.09);
+}
+
+html[data-season-theme="bonfire-night"] .quick-strip,
+html[data-season-theme="bonfire-night"] .dark-panel,
+html[data-season-theme="bonfire-night"] .ai-home-panel {
+  background-color: color-mix(in srgb, var(--ink-2) 86%, var(--season-night));
+}
+
+html[data-season-theme="bonfire-night"] .quick-strip {
+  box-shadow:
+    inset 0 1px 0 rgba(240,162,73,.16),
+    inset 0 -1px 0 rgba(111,130,176,.08);
+}
+
+html[data-season-theme="bonfire-night"] .quick-grid strong,
+html[data-season-theme="bonfire-night"] .eyebrow {
+  text-shadow: 0 0 16px rgba(240,162,73,.07);
+}
+
+html[data-season-theme="bonfire-night"] .button.primary {
+  box-shadow:
+    0 8px 22px rgba(0,0,0,.18),
+    0 0 20px rgba(240,162,73,.07);
+}
+
+html[data-season-theme="bonfire-night"] .button:hover,
+html[data-season-theme="bonfire-night"] .visual-card:hover,
+html[data-season-theme="bonfire-night"] .mod-card:hover,
+html[data-season-theme="bonfire-night"] .catalogue-card:hover,
+html[data-season-theme="bonfire-night"] .project-banner:hover,
+html[data-season-theme="bonfire-night"] .connect-grid a:hover {
+  border-color: color-mix(in srgb, var(--rose) 52%, var(--season-accent));
+  box-shadow:
+    0 16px 38px rgba(0,0,0,.20),
+    0 0 30px rgba(240,162,73,.095);
+}
+
+html[data-season-theme="bonfire-night"] .home-latest-media,
+html[data-season-theme="bonfire-night"] .mod-feature,
+html[data-season-theme="bonfire-night"] .project-banner,
+html[data-season-theme="bonfire-night"] .detail-mark,
+html[data-season-theme="bonfire-night"] .project-visual {
+  box-shadow:
+    0 22px 48px rgba(0,0,0,.18),
+    0 0 30px rgba(240,162,73,.05);
+}
+
+html[data-season-theme="bonfire-night"] .home-latest-media {
+  border-color: color-mix(in srgb, var(--line) 70%, rgba(240,162,73,.5));
+}
+
+html[data-season-theme="bonfire-night"] .site-footer {
+  background:
+    radial-gradient(circle at 14% 0, rgba(111,130,176,.09), transparent 21rem),
+    radial-gradient(circle at 88% 0, rgba(240,162,73,.06), transparent 20rem),
+    #0d0f15;
+}
+
+/* Larger background bursts provide the first impression. */
+html[data-season-theme="bonfire-night"] .seasonal-decor::before,
+html[data-season-theme="bonfire-night"] .seasonal-decor::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  opacity: .24;
+  filter: drop-shadow(0 0 14px rgba(240,162,73,.20));
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-decor::before {
+  top: 92px;
+  left: -26px;
+  width: 290px;
+  height: 290px;
+  background:
+    repeating-conic-gradient(from 4deg, transparent 0deg 13deg, rgba(255,210,141,.92) 14deg 15deg, transparent 16deg 29deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 0 18%, #000 20% 69%, transparent 71%);
+  mask-image: radial-gradient(circle, transparent 0 18%, #000 20% 69%, transparent 71%);
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-decor::after {
+  top: 105px;
+  right: 1.4vw;
+  width: 230px;
+  height: 230px;
+  background:
+    repeating-conic-gradient(from 10deg, transparent 0deg 17deg, rgba(242,199,184,.94) 18deg 19deg, transparent 20deg 36deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 0 22%, #000 24% 65%, transparent 67%);
+  mask-image: radial-gradient(circle, transparent 0 22%, #000 24% 65%, transparent 67%);
+}
+
+/* Extra animated fireworks are theme-specific children created by seasonal-theme.js. */
+html[data-season-theme="bonfire-night"] .seasonal-firework {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  opacity: 0;
+  background:
+    radial-gradient(circle, rgba(255,224,167,.96) 0 2px, transparent 3px),
+    repeating-conic-gradient(from 0deg, transparent 0deg 12deg, rgba(240,162,73,.88) 13deg 14deg, transparent 15deg 29deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 0 19%, #000 21% 66%, transparent 68%);
+  mask-image: radial-gradient(circle, transparent 0 19%, #000 21% 66%, transparent 68%);
+  filter: drop-shadow(0 0 16px rgba(240,162,73,.25));
+  animation: bonfire-firework 7.2s ease-out infinite;
+  transform-origin: center;
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework--one {
+  top: 20vh;
+  left: 14vw;
+  animation-delay: .7s;
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework--two {
+  top: 14vh;
+  right: 18vw;
+  width: 150px;
+  height: 150px;
+  animation-delay: 2.6s;
+  filter: drop-shadow(0 0 14px rgba(111,130,176,.28));
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework--three {
+  top: 42vh;
+  left: 4vw;
+  width: 130px;
+  height: 130px;
+  animation-delay: 4.6s;
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework--four {
+  top: 40vh;
+  right: 6vw;
+  width: 140px;
+  height: 140px;
+  animation-delay: 6.1s;
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-badge {
+  padding: .5rem .82rem;
+  border-color: rgba(240,162,73,.44);
+  background:
+    linear-gradient(135deg, rgba(240,162,73,.15), rgba(111,130,176,.08)),
+    rgba(17,19,26,.88);
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.18),
+    0 0 22px rgba(240,162,73,.07);
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-badge strong {
+  color: #ffd69a;
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-badge-mark {
+  background: var(--season-accent);
+  box-shadow:
+    0 0 0 5px rgba(240,162,73,.12),
+    0 0 20px rgba(240,162,73,.42);
+}
+
+html[data-season-theme="bonfire-night"] .quick-strip,
+html[data-season-theme="bonfire-night"] .dark-panel,
+html[data-season-theme="bonfire-night"] .about-panel,
+html[data-season-theme="bonfire-night"] .site-footer {
+  border-color: color-mix(in srgb, var(--line) 62%, var(--season-line));
+}
+
+@keyframes bonfire-firework {
+  0%, 68% {
+    opacity: 0;
+    transform: scale(.18) rotate(0deg);
+  }
+  73% {
+    opacity: .14;
+  }
+  78% {
+    opacity: .72;
+    transform: scale(1) rotate(6deg);
+  }
+  84% {
+    opacity: .34;
+    transform: scale(1.12) rotate(10deg);
+  }
+  92%, 100% {
+    opacity: 0;
+    transform: scale(1.24) rotate(14deg);
+  }
+}
+
+@keyframes bonfire-embers {
+  from {
+    background-position: 12% 110%, 61% 110%, 88% 110%;
+  }
+  to {
+    background-position: 10% -15%, 64% -25%, 84% -8%;
+  }
+}
+
+@media (max-width: 900px) {
+  html[data-season-theme="bonfire-night"] .seasonal-firework--one,
+  html[data-season-theme="bonfire-night"] .seasonal-firework--two {
+    opacity: .8;
+  }
+
+  html[data-season-theme="bonfire-night"] .seasonal-firework--three,
+  html[data-season-theme="bonfire-night"] .seasonal-firework--four {
+    display: none;
+  }
+}
+
+@media (max-width: 650px) {
+  html[data-season-theme="bonfire-night"] .seasonal-decor::before {
+    top: 130px;
+    left: -58px;
+    width: 210px;
+    height: 210px;
+    opacity: .16;
+  }
+
+  html[data-season-theme="bonfire-night"] .seasonal-decor::after {
+    top: 150px;
+    right: -48px;
+    width: 170px;
+    height: 170px;
+    opacity: .13;
+  }
+
+  html[data-season-theme="bonfire-night"] .seasonal-firework {
+    width: 120px;
+    height: 120px;
+  }
+
+  html[data-season-theme="bonfire-night"] .hero::after {
+    opacity: .23;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-season-theme="bonfire-night"] .seasonal-firework,
+  html[data-season-theme="bonfire-night"] .hero::after {
+    animation: none;
+  }
+
+  html[data-season-theme="bonfire-night"] .seasonal-firework {
+    opacity: .18;
+    transform: scale(1);
+  }
+}
+
+
+/* Final celebratory pass: more varied bursts, colour, and rocket trails. */
+html[data-season-theme="bonfire-night"] .seasonal-firework--one {
+  background:
+    radial-gradient(circle,rgba(255,235,194,.98) 0 2px,transparent 3px),
+    repeating-conic-gradient(from 0deg,transparent 0deg 10deg,rgba(255,184,84,.94) 11deg 12deg,transparent 13deg 24deg);
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework--two {
+  background:
+    radial-gradient(circle,rgba(242,199,184,.98) 0 2px,transparent 3px),
+    repeating-conic-gradient(from 7deg,transparent 0deg 14deg,rgba(213,160,143,.90) 15deg 16deg,transparent 17deg 31deg);
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework--three {
+  background:
+    radial-gradient(circle,rgba(220,228,255,.95) 0 2px,transparent 3px),
+    repeating-conic-gradient(from 3deg,transparent 0deg 16deg,rgba(126,153,215,.84) 17deg 18deg,transparent 19deg 34deg);
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework--four {
+  background:
+    radial-gradient(circle,rgba(255,226,171,.98) 0 2px,transparent 3px),
+    repeating-conic-gradient(from 12deg,transparent 0deg 11deg,rgba(240,162,73,.90) 12deg 13deg,transparent 14deg 27deg);
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework--five {
+  top:27vh;
+  left:39vw;
+  width:125px;
+  height:125px;
+  animation-delay:3.8s;
+  animation-duration:8.4s;
+  background:
+    radial-gradient(circle,rgba(255,231,188,.98) 0 2px,transparent 3px),
+    repeating-conic-gradient(from 4deg,transparent 0deg 19deg,rgba(242,199,184,.92) 20deg 21deg,transparent 22deg 39deg);
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework--six {
+  top:31vh;
+  right:35vw;
+  width:105px;
+  height:105px;
+  animation-delay:6.7s;
+  animation-duration:9.1s;
+  background:
+    radial-gradient(circle,rgba(230,236,255,.96) 0 2px,transparent 3px),
+    repeating-conic-gradient(from 9deg,transparent 0deg 17deg,rgba(111,130,176,.88) 18deg 19deg,transparent 20deg 35deg);
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework::after {
+  content:"";
+  position:absolute;
+  inset:18%;
+  border-radius:50%;
+  opacity:.7;
+  background:
+    repeating-conic-gradient(from 5deg,transparent 0deg 22deg,rgba(255,232,191,.62) 23deg 24deg,transparent 25deg 45deg);
+  -webkit-mask-image:radial-gradient(circle,transparent 0 24%,#000 26% 65%,transparent 67%);
+  mask-image:radial-gradient(circle,transparent 0 24%,#000 26% 65%,transparent 67%);
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-rocket {
+  position:absolute;
+  bottom:-18vh;
+  width:2px;
+  height:105px;
+  opacity:0;
+  border-radius:999px;
+  background:linear-gradient(to top,transparent 0 12%,rgba(255,211,139,.20) 30%,rgba(255,225,172,.94) 100%);
+  box-shadow:
+    0 0 8px rgba(240,162,73,.30),
+    0 -12px 18px rgba(240,162,73,.18);
+  animation:bonfire-rocket 8.6s ease-out infinite;
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-rocket::after {
+  content:"";
+  position:absolute;
+  top:-5px;
+  left:50%;
+  width:7px;
+  height:7px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:#ffe0a2;
+  box-shadow:0 0 12px rgba(255,196,99,.75);
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-rocket--one {
+  left:26vw;
+  animation-delay:1.9s;
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-rocket--two {
+  right:24vw;
+  animation-delay:5.2s;
+  animation-duration:9.4s;
+}
+
+@keyframes bonfire-rocket {
+  0%,62% {
+    opacity:0;
+    transform:translate3d(0,0,0) rotate(2deg);
+  }
+  65% {
+    opacity:.78;
+  }
+  77% {
+    opacity:.9;
+    transform:translate3d(10px,-62vh,0) rotate(-2deg);
+  }
+  80%,100% {
+    opacity:0;
+    transform:translate3d(12px,-68vh,0) rotate(-2deg);
+  }
+}
+
+@media(max-width:900px) {
+  html[data-season-theme="bonfire-night"] .seasonal-firework--five,
+  html[data-season-theme="bonfire-night"] .seasonal-firework--six,
+  html[data-season-theme="bonfire-night"] .seasonal-rocket--two {
+    display:none;
+  }
+}
+
+@media(max-width:650px) {
+  html[data-season-theme="bonfire-night"] .seasonal-rocket {
+    display:none;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  html[data-season-theme="bonfire-night"] .seasonal-rocket {
+    display:none;
+  }
+}

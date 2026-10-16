@@ -6,16 +6,56 @@
     halloween: {
       label: 'Halloween',
       stylesheet: '/assets/css/themes/halloween.css',
+      badgeTitle: 'Halloween at SGJ',
+      badgeTagline: 'Fun first. Frights later.',
+      decorations: [
+        'halloween-moon',
+        'halloween-mist halloween-mist--one',
+        'halloween-mist halloween-mist--two',
+        'halloween-bat halloween-bat--one',
+        'halloween-bat halloween-bat--two',
+        'halloween-bat halloween-bat--three',
+        'halloween-bat halloween-bat--four',
+        'halloween-motes'
+      ],
       isActive(date) {
         const month = date.getMonth() + 1;
         const day = date.getDate();
         return (month === 10 && day >= 20) || (month === 11 && day <= 1);
       }
+    },
+    'bonfire-night': {
+      label: 'Guy Fawkes Night',
+      stylesheet: '/assets/css/themes/bonfire-night.css',
+      badgeTitle: 'Bonfire Night at SGJ',
+      badgeTagline: 'Fun first. Fireworks later.',
+      decorations: [
+        'seasonal-firework seasonal-firework--one',
+        'seasonal-firework seasonal-firework--two',
+        'seasonal-firework seasonal-firework--three',
+        'seasonal-firework seasonal-firework--four',
+        'seasonal-firework seasonal-firework--five',
+        'seasonal-firework seasonal-firework--six',
+        'seasonal-rocket seasonal-rocket--one',
+        'seasonal-rocket seasonal-rocket--two'
+      ],
+      isActive(date) {
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return month === 11 && day >= 2 && day <= 6;
+      }
     }
   };
 
+  const themeAliases = {
+    'guy-fawkes': 'bonfire-night',
+    'guy-fawkes-night': 'bonfire-night',
+    'bonfire': 'bonfire-night'
+  };
+
   const params = new URLSearchParams(window.location.search);
-  const requested = (params.get(THEME_PARAM) || '').trim().toLowerCase();
+  const rawRequested = (params.get(THEME_PARAM) || '').trim().toLowerCase();
+  const requested = themeAliases[rawRequested] || rawRequested;
 
   let activeTheme = null;
   if (requested === 'default' || requested === 'off' || requested === 'none') {
@@ -50,6 +90,11 @@
     decor.className = 'seasonal-decor';
     decor.setAttribute('data-seasonal-decor', '');
     decor.setAttribute('aria-hidden', 'true');
+    (config.decorations || []).forEach(className => {
+      const effect = document.createElement('span');
+      effect.className = `seasonal-effect ${className}`;
+      decor.appendChild(effect);
+    });
     document.body.prepend(decor);
   }
 
@@ -60,7 +105,18 @@
       const badge = document.createElement('p');
       badge.className = 'seasonal-badge';
       badge.setAttribute('data-seasonal-badge', '');
-      badge.innerHTML = '<span class="seasonal-badge-mark" aria-hidden="true"></span><strong>Halloween at SGJ</strong><span>Fun first. Frights later.</span>';
+
+      const mark = document.createElement('span');
+      mark.className = 'seasonal-badge-mark';
+      mark.setAttribute('aria-hidden', 'true');
+
+      const title = document.createElement('strong');
+      title.textContent = config.badgeTitle || config.label;
+
+      const tagline = document.createElement('span');
+      tagline.textContent = config.badgeTagline || '';
+
+      badge.append(mark, title, tagline);
       eyebrow.insertAdjacentElement('afterend', badge);
     }
   }

@@ -19,6 +19,12 @@
       stylesheet: '/assets/css/themes/bonfire-night.css',
       badgeTitle: 'Bonfire Night at SGJ',
       badgeTagline: 'Fun first. Fireworks later.',
+      decorations: [
+        'seasonal-firework seasonal-firework--one',
+        'seasonal-firework seasonal-firework--two',
+        'seasonal-firework seasonal-firework--three',
+        'seasonal-firework seasonal-firework--four'
+      ],
       isActive(date) {
         const month = date.getMonth() + 1;
         const day = date.getDate();
@@ -70,6 +76,11 @@
     decor.className = 'seasonal-decor';
     decor.setAttribute('data-seasonal-decor', '');
     decor.setAttribute('aria-hidden', 'true');
+    (config.decorations || []).forEach(className => {
+      const effect = document.createElement('span');
+      effect.className = `seasonal-effect ${className}`;
+      decor.appendChild(effect);
+    });
     document.body.prepend(decor);
   }
 

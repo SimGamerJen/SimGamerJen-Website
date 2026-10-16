@@ -42,7 +42,82 @@
       isActive(date) {
         const month = date.getMonth() + 1;
         const day = date.getDate();
-        return month === 11 && day >= 2 && day <= 6;
+        return month === 11 && day >= 2 && day <= 9;
+      }
+    },
+    christmas: {
+      label: 'Christmas',
+      stylesheet: '/assets/css/themes/christmas.css',
+      badgeTitle: 'Christmas at SGJ',
+      badgeTagline: 'Fun first. Festive later.',
+      decorations: [
+        'christmas-lights',
+        'christmas-snow christmas-snow--near',
+        'christmas-snow christmas-snow--far',
+        'christmas-glow',
+        'christmas-star'
+      ],
+      isActive(date) {
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return month === 12 && day >= 1 && day <= 27;
+      }
+    },
+    'new-year': {
+      label: 'New Year',
+      stylesheet: '/assets/css/themes/new-year.css',
+      badgeTitle: 'New Year at SGJ',
+      badgeTagline: 'Same chaos. New calendar.',
+      decorations: [
+        'christmas-lights',
+        'christmas-snow christmas-snow--near',
+        'christmas-snow christmas-snow--far',
+        'christmas-glow',
+        'christmas-star',
+        'newyear-burst newyear-burst--one',
+        'newyear-burst newyear-burst--two',
+        'newyear-burst newyear-burst--three',
+        'newyear-sparkles',
+        'newyear-confetti'
+      ],
+      isActive(date) {
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return (month === 12 && day >= 28) || (month === 1 && day <= 2);
+      }
+    },
+    'st-davids-day': {
+      label: "St David's Day",
+      stylesheet: '/assets/css/themes/st-davids-day.css',
+      badgeTitle: "St David's Day at SGJ",
+      badgeTagline: 'Dydd Gŵyl Dewi Hapus.',
+      decorations: [
+        'stdavid-daffodil stdavid-daffodil--one',
+        'stdavid-daffodil stdavid-daffodil--two',
+        'stdavid-petals',
+        'stdavid-ribbon'
+      ],
+      isActive(date) {
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return (month === 2 && day >= 27) || (month === 3 && day <= 2);
+      }
+    },
+    birthday: {
+      label: 'Birthday',
+      stylesheet: '/assets/css/themes/birthday.css',
+      badgeTitle: 'Birthday at SGJ',
+      badgeTagline: 'Fun first. Cake later.',
+      decorations: [
+        'birthday-confetti',
+        'birthday-balloon birthday-balloon--one',
+        'birthday-balloon birthday-balloon--two',
+        'birthday-balloon birthday-balloon--three',
+        'birthday-sparkles'
+      ],
+      // Preview-only until the birthday date is configured.
+      isActive() {
+        return false;
       }
     }
   };
@@ -50,7 +125,14 @@
   const themeAliases = {
     'guy-fawkes': 'bonfire-night',
     'guy-fawkes-night': 'bonfire-night',
-    'bonfire': 'bonfire-night'
+    'bonfire': 'bonfire-night',
+    'xmas': 'christmas',
+    'newyear': 'new-year',
+    'ny': 'new-year',
+    'st-david': 'st-davids-day',
+    'st-davids': 'st-davids-day',
+    'stdavids': 'st-davids-day',
+    'bday': 'birthday'
   };
 
   const params = new URLSearchParams(window.location.search);

@@ -1,0 +1,171 @@
+/* Bonfire Night / Guy Fawkes Night skin: SGJ first, seasonal atmosphere second. */
+html[data-season-theme="bonfire-night"] {
+  --season-accent: #f0a249;
+  --season-accent-soft: #ffd28d;
+  --season-secondary: #667aa5;
+  --season-night: #11131a;
+  --season-smoke: #1a1b22;
+  --season-line: rgba(240,162,73,.22);
+}
+
+html[data-season-theme="bonfire-night"] body {
+  background:
+    radial-gradient(circle at 9% 16%, rgba(102,122,165,.07), transparent 28rem),
+    radial-gradient(circle at 88% 22%, rgba(240,162,73,.055), transparent 30rem),
+    var(--ink);
+}
+
+html[data-season-theme="bonfire-night"] .site-header {
+  background: rgba(17,19,26,.93);
+  box-shadow: 0 12px 36px rgba(0,0,0,.2);
+}
+
+html[data-season-theme="bonfire-night"] .header-wordmark {
+  text-shadow:
+    0 0 22px rgba(213,160,143,.16),
+    0 0 34px rgba(240,162,73,.08) !important;
+}
+
+html[data-season-theme="bonfire-night"] .hero {
+  background:
+    radial-gradient(circle at 80% 16%, rgba(240,162,73,.075), transparent 23rem),
+    radial-gradient(circle at 16% 78%, rgba(102,122,165,.06), transparent 30rem);
+}
+
+html[data-season-theme="bonfire-night"] .hero-glow {
+  background:
+    radial-gradient(circle at 48% 46%, rgba(213,160,143,.18), transparent 47%),
+    radial-gradient(circle, rgba(240,162,73,.10), transparent 70%);
+}
+
+html[data-season-theme="bonfire-night"] .hero-logo {
+  filter:
+    drop-shadow(0 28px 44px rgba(0,0,0,.32))
+    drop-shadow(0 0 24px rgba(240,162,73,.065));
+}
+
+html[data-season-theme="bonfire-night"] .quick-strip,
+html[data-season-theme="bonfire-night"] .dark-panel,
+html[data-season-theme="bonfire-night"] .ai-home-panel {
+  background-color: color-mix(in srgb, var(--ink-2) 89%, var(--season-night));
+}
+
+html[data-season-theme="bonfire-night"] .button.primary {
+  box-shadow:
+    0 8px 22px rgba(0,0,0,.16),
+    0 0 0 1px rgba(240,162,73,.07);
+}
+
+html[data-season-theme="bonfire-night"] .button:hover,
+html[data-season-theme="bonfire-night"] .visual-card:hover,
+html[data-season-theme="bonfire-night"] .mod-card:hover,
+html[data-season-theme="bonfire-night"] .catalogue-card:hover,
+html[data-season-theme="bonfire-night"] .project-banner:hover,
+html[data-season-theme="bonfire-night"] .connect-grid a:hover {
+  border-color: color-mix(in srgb, var(--rose) 58%, var(--season-accent));
+  box-shadow: 0 14px 34px rgba(0,0,0,.17), 0 0 22px rgba(240,162,73,.055);
+}
+
+html[data-season-theme="bonfire-night"] .home-latest-media,
+html[data-season-theme="bonfire-night"] .mod-feature,
+html[data-season-theme="bonfire-night"] .project-banner,
+html[data-season-theme="bonfire-night"] .detail-mark,
+html[data-season-theme="bonfire-night"] .project-visual {
+  box-shadow:
+    0 22px 48px rgba(0,0,0,.16),
+    0 0 0 1px rgba(240,162,73,.03);
+}
+
+html[data-season-theme="bonfire-night"] .site-footer {
+  background:
+    radial-gradient(circle at 14% 0, rgba(102,122,165,.07), transparent 21rem),
+    #0e0f14;
+}
+
+/* Two understated firework bursts sit outside the content flow. */
+html[data-season-theme="bonfire-night"] .seasonal-decor::before {
+  content: "";
+  position: absolute;
+  top: 104px;
+  left: 1.8vw;
+  width: 210px;
+  height: 210px;
+  opacity: .105;
+  background:
+    repeating-conic-gradient(
+      from 4deg,
+      transparent 0deg 17deg,
+      var(--season-accent-soft) 18deg 19deg,
+      transparent 20deg 39deg
+    );
+  -webkit-mask-image: radial-gradient(circle, transparent 0 18%, #000 20% 68%, transparent 70%);
+  mask-image: radial-gradient(circle, transparent 0 18%, #000 20% 68%, transparent 70%);
+  filter: drop-shadow(0 0 10px rgba(240,162,73,.14));
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-decor::after {
+  content: "";
+  position: absolute;
+  top: 116px;
+  right: 3.5vw;
+  width: 170px;
+  height: 170px;
+  opacity: .085;
+  background:
+    repeating-conic-gradient(
+      from 11deg,
+      transparent 0deg 22deg,
+      rgba(242,199,184,.95) 23deg 24deg,
+      transparent 25deg 44deg
+    );
+  -webkit-mask-image: radial-gradient(circle, transparent 0 22%, #000 24% 64%, transparent 66%);
+  mask-image: radial-gradient(circle, transparent 0 22%, #000 24% 64%, transparent 66%);
+  filter: drop-shadow(0 0 10px rgba(213,160,143,.13));
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-badge {
+  border-color: rgba(240,162,73,.3);
+  background:
+    linear-gradient(135deg, rgba(240,162,73,.075), rgba(102,122,165,.055)),
+    rgba(17,19,26,.8);
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-badge-mark {
+  background: var(--season-accent);
+  box-shadow:
+    0 0 0 5px rgba(240,162,73,.10),
+    0 0 18px rgba(240,162,73,.26);
+}
+
+/* Warm ember line on major section boundaries while preserving the original SGJ rose line system. */
+html[data-season-theme="bonfire-night"] .quick-strip,
+html[data-season-theme="bonfire-night"] .dark-panel,
+html[data-season-theme="bonfire-night"] .about-panel,
+html[data-season-theme="bonfire-night"] .site-footer {
+  border-color: color-mix(in srgb, var(--line) 72%, var(--season-line));
+}
+
+@media (max-width: 650px) {
+  html[data-season-theme="bonfire-night"] .seasonal-decor::before {
+    top: 145px;
+    left: -30px;
+    width: 145px;
+    height: 145px;
+    opacity: .075;
+  }
+
+  html[data-season-theme="bonfire-night"] .seasonal-decor::after {
+    top: 160px;
+    right: -16px;
+    width: 120px;
+    height: 120px;
+    opacity: .06;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-season-theme="bonfire-night"] .seasonal-decor::before,
+  html[data-season-theme="bonfire-night"] .seasonal-decor::after {
+    animation: none;
+  }
+}

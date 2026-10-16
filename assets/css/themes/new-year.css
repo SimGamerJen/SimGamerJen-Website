@@ -95,14 +95,14 @@ html[data-season-theme="new-year"] .christmas-snow{
   animation:newyear-snowfall linear infinite;
 }
 html[data-season-theme="new-year"] .christmas-snow--near{
-  opacity:.36;
-  background-size:110px 130px,170px 190px,230px 260px;
-  animation-duration:20s;
+  opacity:.22;
+  background-size:145px 175px,220px 255px,310px 350px;
+  animation-duration:32s;
 }
 html[data-season-theme="new-year"] .christmas-snow--far{
-  opacity:.20;
-  background-size:170px 210px,250px 290px,330px 370px;
-  animation-duration:32s;
+  opacity:.11;
+  background-size:230px 275px,330px 385px,430px 485px;
+  animation-duration:48s;
   transform:translateX(3vw);
 }
 html[data-season-theme="new-year"] .christmas-glow{
@@ -168,22 +168,22 @@ html[data-season-theme="new-year"] .newyear-burst--three{
 html[data-season-theme="new-year"] .newyear-sparkles{
   position:absolute;
   inset:88px 0 30vh;
-  opacity:.38;
+  opacity:.27;
   background-image:
     radial-gradient(circle,rgba(246,231,182,.95) 0 1.2px,transparent 1.8px),
     radial-gradient(circle,rgba(167,175,198,.82) 0 1px,transparent 1.7px);
   background-size:111px 133px,173px 211px;
-  animation:newyear-sparkles 16s linear infinite;
+  animation:newyear-sparkles 24s linear infinite;
 }
 html[data-season-theme="new-year"] .newyear-confetti{
   position:absolute;
   inset:92px 0 0;
-  opacity:.18;
+  opacity:0;
   background:
     linear-gradient(68deg,transparent 49%,rgba(214,189,120,.85) 50% 52%,transparent 53%) 12% 10%/93px 117px,
     linear-gradient(112deg,transparent 49%,rgba(213,160,143,.8) 50% 52%,transparent 53%) 62% 10%/127px 161px,
     linear-gradient(82deg,transparent 49%,rgba(167,175,198,.8) 50% 52%,transparent 53%) 30% 10%/151px 181px;
-  animation:newyear-confetti 18s linear infinite;
+  animation:newyear-confetti 34s ease-in-out infinite;
 }
 html[data-season-theme="new-year"] .button:hover,
 html[data-season-theme="new-year"] .visual-card:hover,
@@ -201,8 +201,14 @@ html[data-season-theme="new-year"] .project-banner:hover{
   90%,100%{opacity:0;transform:scale(1.22)}
 }
 @keyframes newyear-sparkles{from{background-position:10% 100%,65% 100%}to{background-position:14% -12%,61% -18%}}
-@keyframes newyear-confetti{from{background-position:12% -20%,62% -15%,30% -10%}to{background-position:16% 120%,58% 125%,34% 115%}}
-@keyframes newyear-snowfall{from{background-position:0 -120px,40px -180px,80px -240px}to{background-position:40px 110vh,0 120vh,120px 130vh}}
+@keyframes newyear-confetti{
+  0%,18%{opacity:0;background-position:12% -8%,62% -6%,30% -4%}
+  28%{opacity:.07}
+  56%{opacity:.09;background-position:14% 42%,60% 46%,32% 38%}
+  70%{opacity:.035}
+  82%,100%{opacity:0;background-position:16% 72%,58% 76%,34% 68%}
+}
+@keyframes newyear-snowfall{from{background-position:0 -80px,40px -120px,80px -160px}to{background-position:28px 108vh,10px 114vh,100px 120vh}}
 @keyframes newyear-twinkle{0%,100%{opacity:.48}50%{opacity:.82}}
 @keyframes newyear-star-pulse{0%,100%{transform:scale(.94);opacity:.34}50%{transform:scale(1.08);opacity:.62}}
 

@@ -8,6 +8,16 @@
       stylesheet: '/assets/css/themes/halloween.css',
       badgeTitle: 'Halloween at SGJ',
       badgeTagline: 'Fun first. Frights later.',
+      decorations: [
+        'halloween-moon',
+        'halloween-mist halloween-mist--one',
+        'halloween-mist halloween-mist--two',
+        'halloween-bat halloween-bat--one',
+        'halloween-bat halloween-bat--two',
+        'halloween-bat halloween-bat--three',
+        'halloween-bat halloween-bat--four',
+        'halloween-motes'
+      ],
       isActive(date) {
         const month = date.getMonth() + 1;
         const day = date.getDate();
@@ -23,7 +33,11 @@
         'seasonal-firework seasonal-firework--one',
         'seasonal-firework seasonal-firework--two',
         'seasonal-firework seasonal-firework--three',
-        'seasonal-firework seasonal-firework--four'
+        'seasonal-firework seasonal-firework--four',
+        'seasonal-firework seasonal-firework--five',
+        'seasonal-firework seasonal-firework--six',
+        'seasonal-rocket seasonal-rocket--one',
+        'seasonal-rocket seasonal-rocket--two'
       ],
       isActive(date) {
         const month = date.getMonth() + 1;

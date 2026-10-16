@@ -1,59 +1,115 @@
-/* Bonfire Night / Guy Fawkes Night skin: SGJ first, seasonal atmosphere second. */
+/* Bonfire Night / Guy Fawkes Night skin: recognisably SGJ, but unmistakably seasonal. */
 html[data-season-theme="bonfire-night"] {
   --season-accent: #f0a249;
   --season-accent-soft: #ffd28d;
-  --season-secondary: #667aa5;
-  --season-night: #11131a;
-  --season-smoke: #1a1b22;
-  --season-line: rgba(240,162,73,.22);
+  --season-secondary: #6f82b0;
+  --season-night: #10131b;
+  --season-smoke: #1b1b22;
+  --season-line: rgba(240,162,73,.28);
 }
 
 html[data-season-theme="bonfire-night"] body {
   background:
-    radial-gradient(circle at 9% 16%, rgba(102,122,165,.07), transparent 28rem),
-    radial-gradient(circle at 88% 22%, rgba(240,162,73,.055), transparent 30rem),
-    var(--ink);
+    radial-gradient(circle at 8% 14%, rgba(111,130,176,.10), transparent 30rem),
+    radial-gradient(circle at 90% 24%, rgba(240,162,73,.075), transparent 32rem),
+    linear-gradient(180deg, #151418 0%, var(--ink) 38%, var(--ink) 100%);
 }
 
 html[data-season-theme="bonfire-night"] .site-header {
-  background: rgba(17,19,26,.93);
-  box-shadow: 0 12px 36px rgba(0,0,0,.2);
+  background: rgba(16,19,27,.94);
+  box-shadow:
+    0 12px 36px rgba(0,0,0,.24),
+    0 1px 0 rgba(240,162,73,.15);
 }
 
 html[data-season-theme="bonfire-night"] .header-wordmark {
   text-shadow:
-    0 0 22px rgba(213,160,143,.16),
-    0 0 34px rgba(240,162,73,.08) !important;
+    0 0 22px rgba(213,160,143,.20),
+    0 0 34px rgba(240,162,73,.13) !important;
 }
 
 html[data-season-theme="bonfire-night"] .hero {
+  isolation: isolate;
   background:
-    radial-gradient(circle at 80% 16%, rgba(240,162,73,.075), transparent 23rem),
-    radial-gradient(circle at 16% 78%, rgba(102,122,165,.06), transparent 30rem);
+    radial-gradient(circle at 81% 20%, rgba(240,162,73,.17), transparent 23rem),
+    radial-gradient(circle at 20% 80%, rgba(111,130,176,.10), transparent 30rem),
+    linear-gradient(180deg, rgba(255,255,255,.008), transparent 70%);
+}
+
+html[data-season-theme="bonfire-night"] .hero::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 50%;
+  bottom: -170px;
+  width: min(820px, 78vw);
+  height: 330px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at center, rgba(255,181,80,.22) 0 18%, rgba(240,105,39,.13) 30%, rgba(240,162,73,.055) 49%, transparent 72%);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+html[data-season-theme="bonfire-night"] .hero::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 36% 0 0;
+  opacity: .34;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(255,210,132,.95) 0 1px, transparent 1.7px),
+    radial-gradient(circle, rgba(240,162,73,.8) 0 1.2px, transparent 1.9px),
+    radial-gradient(circle, rgba(242,199,184,.7) 0 1px, transparent 1.8px);
+  background-size: 83px 107px, 131px 149px, 173px 211px;
+  background-position: 12% 100%, 61% 100%, 88% 100%;
+  animation: bonfire-embers 8s linear infinite;
+}
+
+html[data-season-theme="bonfire-night"] .hero-grid {
+  position: relative;
+  z-index: 2;
 }
 
 html[data-season-theme="bonfire-night"] .hero-glow {
   background:
-    radial-gradient(circle at 48% 46%, rgba(213,160,143,.18), transparent 47%),
-    radial-gradient(circle, rgba(240,162,73,.10), transparent 70%);
+    radial-gradient(circle at 48% 46%, rgba(213,160,143,.20), transparent 47%),
+    radial-gradient(circle, rgba(240,162,73,.16), transparent 70%);
 }
 
 html[data-season-theme="bonfire-night"] .hero-logo {
   filter:
-    drop-shadow(0 28px 44px rgba(0,0,0,.32))
-    drop-shadow(0 0 24px rgba(240,162,73,.065));
+    drop-shadow(0 28px 44px rgba(0,0,0,.34))
+    drop-shadow(0 0 30px rgba(240,162,73,.13));
+}
+
+html[data-season-theme="bonfire-night"] .hero h1 span {
+  text-shadow: 0 0 32px rgba(240,162,73,.09);
 }
 
 html[data-season-theme="bonfire-night"] .quick-strip,
 html[data-season-theme="bonfire-night"] .dark-panel,
 html[data-season-theme="bonfire-night"] .ai-home-panel {
-  background-color: color-mix(in srgb, var(--ink-2) 89%, var(--season-night));
+  background-color: color-mix(in srgb, var(--ink-2) 86%, var(--season-night));
+}
+
+html[data-season-theme="bonfire-night"] .quick-strip {
+  box-shadow:
+    inset 0 1px 0 rgba(240,162,73,.16),
+    inset 0 -1px 0 rgba(111,130,176,.08);
+}
+
+html[data-season-theme="bonfire-night"] .quick-grid strong,
+html[data-season-theme="bonfire-night"] .eyebrow {
+  text-shadow: 0 0 16px rgba(240,162,73,.07);
 }
 
 html[data-season-theme="bonfire-night"] .button.primary {
   box-shadow:
-    0 8px 22px rgba(0,0,0,.16),
-    0 0 0 1px rgba(240,162,73,.07);
+    0 8px 22px rgba(0,0,0,.18),
+    0 0 20px rgba(240,162,73,.07);
 }
 
 html[data-season-theme="bonfire-night"] .button:hover,
@@ -62,8 +118,10 @@ html[data-season-theme="bonfire-night"] .mod-card:hover,
 html[data-season-theme="bonfire-night"] .catalogue-card:hover,
 html[data-season-theme="bonfire-night"] .project-banner:hover,
 html[data-season-theme="bonfire-night"] .connect-grid a:hover {
-  border-color: color-mix(in srgb, var(--rose) 58%, var(--season-accent));
-  box-shadow: 0 14px 34px rgba(0,0,0,.17), 0 0 22px rgba(240,162,73,.055);
+  border-color: color-mix(in srgb, var(--rose) 52%, var(--season-accent));
+  box-shadow:
+    0 16px 38px rgba(0,0,0,.20),
+    0 0 30px rgba(240,162,73,.095);
 }
 
 html[data-season-theme="bonfire-night"] .home-latest-media,
@@ -72,100 +130,208 @@ html[data-season-theme="bonfire-night"] .project-banner,
 html[data-season-theme="bonfire-night"] .detail-mark,
 html[data-season-theme="bonfire-night"] .project-visual {
   box-shadow:
-    0 22px 48px rgba(0,0,0,.16),
-    0 0 0 1px rgba(240,162,73,.03);
+    0 22px 48px rgba(0,0,0,.18),
+    0 0 30px rgba(240,162,73,.05);
+}
+
+html[data-season-theme="bonfire-night"] .home-latest-media {
+  border-color: color-mix(in srgb, var(--line) 70%, rgba(240,162,73,.5));
 }
 
 html[data-season-theme="bonfire-night"] .site-footer {
   background:
-    radial-gradient(circle at 14% 0, rgba(102,122,165,.07), transparent 21rem),
-    #0e0f14;
+    radial-gradient(circle at 14% 0, rgba(111,130,176,.09), transparent 21rem),
+    radial-gradient(circle at 88% 0, rgba(240,162,73,.06), transparent 20rem),
+    #0d0f15;
 }
 
-/* Two understated firework bursts sit outside the content flow. */
-html[data-season-theme="bonfire-night"] .seasonal-decor::before {
-  content: "";
-  position: absolute;
-  top: 104px;
-  left: 1.8vw;
-  width: 210px;
-  height: 210px;
-  opacity: .105;
-  background:
-    repeating-conic-gradient(
-      from 4deg,
-      transparent 0deg 17deg,
-      var(--season-accent-soft) 18deg 19deg,
-      transparent 20deg 39deg
-    );
-  -webkit-mask-image: radial-gradient(circle, transparent 0 18%, #000 20% 68%, transparent 70%);
-  mask-image: radial-gradient(circle, transparent 0 18%, #000 20% 68%, transparent 70%);
-  filter: drop-shadow(0 0 10px rgba(240,162,73,.14));
-}
-
+/* Larger background bursts provide the first impression. */
+html[data-season-theme="bonfire-night"] .seasonal-decor::before,
 html[data-season-theme="bonfire-night"] .seasonal-decor::after {
   content: "";
   position: absolute;
-  top: 116px;
-  right: 3.5vw;
-  width: 170px;
-  height: 170px;
-  opacity: .085;
+  border-radius: 50%;
+  opacity: .24;
+  filter: drop-shadow(0 0 14px rgba(240,162,73,.20));
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-decor::before {
+  top: 92px;
+  left: -26px;
+  width: 290px;
+  height: 290px;
   background:
-    repeating-conic-gradient(
-      from 11deg,
-      transparent 0deg 22deg,
-      rgba(242,199,184,.95) 23deg 24deg,
-      transparent 25deg 44deg
-    );
-  -webkit-mask-image: radial-gradient(circle, transparent 0 22%, #000 24% 64%, transparent 66%);
-  mask-image: radial-gradient(circle, transparent 0 22%, #000 24% 64%, transparent 66%);
-  filter: drop-shadow(0 0 10px rgba(213,160,143,.13));
+    repeating-conic-gradient(from 4deg, transparent 0deg 13deg, rgba(255,210,141,.92) 14deg 15deg, transparent 16deg 29deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 0 18%, #000 20% 69%, transparent 71%);
+  mask-image: radial-gradient(circle, transparent 0 18%, #000 20% 69%, transparent 71%);
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-decor::after {
+  top: 105px;
+  right: 1.4vw;
+  width: 230px;
+  height: 230px;
+  background:
+    repeating-conic-gradient(from 10deg, transparent 0deg 17deg, rgba(242,199,184,.94) 18deg 19deg, transparent 20deg 36deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 0 22%, #000 24% 65%, transparent 67%);
+  mask-image: radial-gradient(circle, transparent 0 22%, #000 24% 65%, transparent 67%);
+}
+
+/* Extra animated fireworks are theme-specific children created by seasonal-theme.js. */
+html[data-season-theme="bonfire-night"] .seasonal-firework {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  opacity: 0;
+  background:
+    radial-gradient(circle, rgba(255,224,167,.96) 0 2px, transparent 3px),
+    repeating-conic-gradient(from 0deg, transparent 0deg 12deg, rgba(240,162,73,.88) 13deg 14deg, transparent 15deg 29deg);
+  -webkit-mask-image: radial-gradient(circle, transparent 0 19%, #000 21% 66%, transparent 68%);
+  mask-image: radial-gradient(circle, transparent 0 19%, #000 21% 66%, transparent 68%);
+  filter: drop-shadow(0 0 16px rgba(240,162,73,.25));
+  animation: bonfire-firework 7.2s ease-out infinite;
+  transform-origin: center;
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework--one {
+  top: 20vh;
+  left: 14vw;
+  animation-delay: .7s;
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework--two {
+  top: 14vh;
+  right: 18vw;
+  width: 150px;
+  height: 150px;
+  animation-delay: 2.6s;
+  filter: drop-shadow(0 0 14px rgba(111,130,176,.28));
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework--three {
+  top: 42vh;
+  left: 4vw;
+  width: 130px;
+  height: 130px;
+  animation-delay: 4.6s;
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-firework--four {
+  top: 40vh;
+  right: 6vw;
+  width: 140px;
+  height: 140px;
+  animation-delay: 6.1s;
 }
 
 html[data-season-theme="bonfire-night"] .seasonal-badge {
-  border-color: rgba(240,162,73,.3);
+  padding: .5rem .82rem;
+  border-color: rgba(240,162,73,.44);
   background:
-    linear-gradient(135deg, rgba(240,162,73,.075), rgba(102,122,165,.055)),
-    rgba(17,19,26,.8);
+    linear-gradient(135deg, rgba(240,162,73,.15), rgba(111,130,176,.08)),
+    rgba(17,19,26,.88);
+  box-shadow:
+    0 10px 28px rgba(0,0,0,.18),
+    0 0 22px rgba(240,162,73,.07);
+}
+
+html[data-season-theme="bonfire-night"] .seasonal-badge strong {
+  color: #ffd69a;
 }
 
 html[data-season-theme="bonfire-night"] .seasonal-badge-mark {
   background: var(--season-accent);
   box-shadow:
-    0 0 0 5px rgba(240,162,73,.10),
-    0 0 18px rgba(240,162,73,.26);
+    0 0 0 5px rgba(240,162,73,.12),
+    0 0 20px rgba(240,162,73,.42);
 }
 
-/* Warm ember line on major section boundaries while preserving the original SGJ rose line system. */
 html[data-season-theme="bonfire-night"] .quick-strip,
 html[data-season-theme="bonfire-night"] .dark-panel,
 html[data-season-theme="bonfire-night"] .about-panel,
 html[data-season-theme="bonfire-night"] .site-footer {
-  border-color: color-mix(in srgb, var(--line) 72%, var(--season-line));
+  border-color: color-mix(in srgb, var(--line) 62%, var(--season-line));
+}
+
+@keyframes bonfire-firework {
+  0%, 68% {
+    opacity: 0;
+    transform: scale(.18) rotate(0deg);
+  }
+  73% {
+    opacity: .14;
+  }
+  78% {
+    opacity: .72;
+    transform: scale(1) rotate(6deg);
+  }
+  84% {
+    opacity: .34;
+    transform: scale(1.12) rotate(10deg);
+  }
+  92%, 100% {
+    opacity: 0;
+    transform: scale(1.24) rotate(14deg);
+  }
+}
+
+@keyframes bonfire-embers {
+  from {
+    background-position: 12% 110%, 61% 110%, 88% 110%;
+  }
+  to {
+    background-position: 10% -15%, 64% -25%, 84% -8%;
+  }
+}
+
+@media (max-width: 900px) {
+  html[data-season-theme="bonfire-night"] .seasonal-firework--one,
+  html[data-season-theme="bonfire-night"] .seasonal-firework--two {
+    opacity: .8;
+  }
+
+  html[data-season-theme="bonfire-night"] .seasonal-firework--three,
+  html[data-season-theme="bonfire-night"] .seasonal-firework--four {
+    display: none;
+  }
 }
 
 @media (max-width: 650px) {
   html[data-season-theme="bonfire-night"] .seasonal-decor::before {
-    top: 145px;
-    left: -30px;
-    width: 145px;
-    height: 145px;
-    opacity: .075;
+    top: 130px;
+    left: -58px;
+    width: 210px;
+    height: 210px;
+    opacity: .16;
   }
 
   html[data-season-theme="bonfire-night"] .seasonal-decor::after {
-    top: 160px;
-    right: -16px;
+    top: 150px;
+    right: -48px;
+    width: 170px;
+    height: 170px;
+    opacity: .13;
+  }
+
+  html[data-season-theme="bonfire-night"] .seasonal-firework {
     width: 120px;
     height: 120px;
-    opacity: .06;
+  }
+
+  html[data-season-theme="bonfire-night"] .hero::after {
+    opacity: .23;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html[data-season-theme="bonfire-night"] .seasonal-decor::before,
-  html[data-season-theme="bonfire-night"] .seasonal-decor::after {
+  html[data-season-theme="bonfire-night"] .seasonal-firework,
+  html[data-season-theme="bonfire-night"] .hero::after {
     animation: none;
+  }
+
+  html[data-season-theme="bonfire-night"] .seasonal-firework {
+    opacity: .18;
+    transform: scale(1);
   }
 }

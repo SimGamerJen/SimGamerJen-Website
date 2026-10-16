@@ -1,0 +1,144 @@
+html[data-season-theme="christmas"]{
+  --season-accent:#c7a24a;
+  --season-accent-soft:#f4df9a;
+  --season-secondary:#315947;
+  --season-night:#101713;
+}
+html[data-season-theme="christmas"] body{
+  background:
+    radial-gradient(circle at 10% 14%,rgba(49,89,71,.12),transparent 28rem),
+    radial-gradient(circle at 90% 20%,rgba(199,162,74,.10),transparent 30rem),
+    var(--ink);
+}
+html[data-season-theme="christmas"] .site-header{
+  background:rgba(16,23,19,.94);
+  box-shadow:0 12px 36px rgba(0,0,0,.23),0 1px 0 rgba(199,162,74,.14);
+}
+html[data-season-theme="christmas"] .header-wordmark{
+  text-shadow:0 0 22px rgba(213,160,143,.18),0 0 34px rgba(199,162,74,.12)!important;
+}
+html[data-season-theme="christmas"] .hero{
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 80% 18%,rgba(244,223,154,.12),transparent 20rem),
+    radial-gradient(circle at 18% 82%,rgba(49,89,71,.12),transparent 30rem);
+}
+html[data-season-theme="christmas"] .hero::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-150px;
+  width:min(900px,82vw);
+  height:300px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(244,223,154,.14),rgba(49,89,71,.07) 44%,transparent 72%);
+  filter:blur(16px);
+  pointer-events:none;
+}
+html[data-season-theme="christmas"] .hero-grid{position:relative;z-index:2}
+html[data-season-theme="christmas"] .hero-logo{
+  filter:drop-shadow(0 28px 44px rgba(0,0,0,.34)) drop-shadow(0 0 28px rgba(199,162,74,.10));
+}
+html[data-season-theme="christmas"] .quick-strip,
+html[data-season-theme="christmas"] .dark-panel,
+html[data-season-theme="christmas"] .ai-home-panel{
+  background-color:color-mix(in srgb,var(--ink-2) 86%,var(--season-night));
+}
+html[data-season-theme="christmas"] .seasonal-badge{
+  border-color:rgba(199,162,74,.42);
+  background:linear-gradient(135deg,rgba(199,162,74,.13),rgba(49,89,71,.12)),rgba(16,23,19,.88);
+  box-shadow:0 10px 28px rgba(0,0,0,.18),0 0 24px rgba(199,162,74,.08);
+}
+html[data-season-theme="christmas"] .seasonal-badge strong{color:#f3dfa0}
+html[data-season-theme="christmas"] .seasonal-badge-mark{
+  background:#d8b758;
+  box-shadow:0 0 0 5px rgba(199,162,74,.12),0 0 20px rgba(199,162,74,.40);
+}
+html[data-season-theme="christmas"] .christmas-lights{
+  position:absolute;
+  top:84px;
+  left:0;
+  right:0;
+  height:48px;
+  opacity:.72;
+  background:
+    radial-gradient(circle at 3% 52%,#f1c45a 0 4px,transparent 5px),
+    radial-gradient(circle at 10% 52%,#d5a08f 0 4px,transparent 5px),
+    radial-gradient(circle at 17% 52%,#6d9b7f 0 4px,transparent 5px),
+    radial-gradient(circle at 24% 52%,#f1c45a 0 4px,transparent 5px);
+  background-size:28% 100%;
+  background-repeat:repeat-x;
+  filter:drop-shadow(0 0 8px rgba(244,223,154,.32));
+  animation:christmas-twinkle 4.8s ease-in-out infinite;
+}
+html[data-season-theme="christmas"] .christmas-lights::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:8px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(199,162,74,.32),rgba(213,160,143,.32),rgba(49,89,71,.32),transparent);
+}
+html[data-season-theme="christmas"] .christmas-snow{
+  position:absolute;
+  inset:86px 0 0;
+  background-image:
+    radial-gradient(circle,rgba(247,240,236,.9) 0 2px,transparent 2.5px),
+    radial-gradient(circle,rgba(247,240,236,.64) 0 1.3px,transparent 1.8px),
+    radial-gradient(circle,rgba(244,223,154,.55) 0 1px,transparent 1.6px);
+  animation:christmas-snowfall linear infinite;
+}
+html[data-season-theme="christmas"] .christmas-snow--near{
+  opacity:.46;
+  background-size:110px 130px,170px 190px,230px 260px;
+  animation-duration:18s;
+}
+html[data-season-theme="christmas"] .christmas-snow--far{
+  opacity:.24;
+  background-size:170px 210px,250px 290px,330px 370px;
+  animation-duration:30s;
+  transform:translateX(3vw);
+}
+html[data-season-theme="christmas"] .christmas-glow{
+  position:absolute;
+  right:8vw;
+  top:145px;
+  width:190px;
+  height:190px;
+  border-radius:50%;
+  opacity:.16;
+  background:radial-gradient(circle,#f3dfa0 0 14%,rgba(199,162,74,.42) 35%,transparent 70%);
+  box-shadow:0 0 64px rgba(199,162,74,.24);
+}
+html[data-season-theme="christmas"] .christmas-star{
+  position:absolute;
+  top:135px;
+  right:13vw;
+  width:46px;
+  height:46px;
+  opacity:.5;
+  background:#f6e7b2;
+  clip-path:polygon(50% 0,60% 39%,100% 50%,60% 61%,50% 100%,40% 61%,0 50%,40% 39%);
+  filter:drop-shadow(0 0 12px rgba(244,223,154,.62));
+  animation:christmas-star-pulse 3.6s ease-in-out infinite;
+}
+html[data-season-theme="christmas"] .button:hover,
+html[data-season-theme="christmas"] .visual-card:hover,
+html[data-season-theme="christmas"] .mod-card:hover,
+html[data-season-theme="christmas"] .catalogue-card:hover,
+html[data-season-theme="christmas"] .project-banner:hover,
+html[data-season-theme="christmas"] .connect-grid a:hover{
+  border-color:color-mix(in srgb,var(--rose) 52%,#c7a24a);
+  box-shadow:0 16px 38px rgba(0,0,0,.2),0 0 28px rgba(199,162,74,.08);
+}
+@keyframes christmas-snowfall{from{background-position:0 -120px,40px -180px,80px -240px}to{background-position:40px 110vh,0 120vh,120px 130vh}}
+@keyframes christmas-twinkle{0%,100%{opacity:.52}50%{opacity:.88}}
+@keyframes christmas-star-pulse{0%,100%{transform:scale(.94);opacity:.38}50%{transform:scale(1.08);opacity:.72}}
+@media(max-width:650px){html[data-season-theme="christmas"] .christmas-star{right:8vw}.christmas-glow{display:none}}
+@media(prefers-reduced-motion:reduce){
+  html[data-season-theme="christmas"] .christmas-snow,
+  html[data-season-theme="christmas"] .christmas-lights,
+  html[data-season-theme="christmas"] .christmas-star{animation:none}
+}

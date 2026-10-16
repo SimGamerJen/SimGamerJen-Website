@@ -1,0 +1,94 @@
+html[data-season-theme="birthday"]{
+  --season-accent:#d9b66f;
+  --season-accent-soft:#f4dba2;
+  --season-secondary:#cf91a9;
+  --season-night:#171217;
+}
+html[data-season-theme="birthday"] body{
+  background:
+    radial-gradient(circle at 10% 15%,rgba(207,145,169,.12),transparent 28rem),
+    radial-gradient(circle at 90% 20%,rgba(217,182,111,.11),transparent 30rem),
+    var(--ink);
+}
+html[data-season-theme="birthday"] .site-header{
+  background:rgba(23,18,23,.94);
+  box-shadow:0 12px 36px rgba(0,0,0,.23),0 1px 0 rgba(217,182,111,.15);
+}
+html[data-season-theme="birthday"] .hero{
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 80% 18%,rgba(217,182,111,.14),transparent 22rem),
+    radial-gradient(circle at 18% 80%,rgba(207,145,169,.11),transparent 30rem);
+}
+html[data-season-theme="birthday"] .hero-grid{position:relative;z-index:2}
+html[data-season-theme="birthday"] .hero-logo{
+  filter:drop-shadow(0 28px 44px rgba(0,0,0,.34)) drop-shadow(0 0 30px rgba(217,182,111,.11));
+}
+html[data-season-theme="birthday"] .seasonal-badge{
+  border-color:rgba(217,182,111,.44);
+  background:linear-gradient(135deg,rgba(217,182,111,.15),rgba(207,145,169,.12)),rgba(23,18,23,.9);
+  box-shadow:0 10px 28px rgba(0,0,0,.18),0 0 24px rgba(217,182,111,.09);
+}
+html[data-season-theme="birthday"] .seasonal-badge strong{color:#f4dba2}
+html[data-season-theme="birthday"] .seasonal-badge-mark{
+  background:#d9b66f;
+  box-shadow:0 0 0 5px rgba(217,182,111,.12),0 0 20px rgba(217,182,111,.44);
+}
+html[data-season-theme="birthday"] .birthday-confetti{
+  position:absolute;
+  inset:90px 0 0;
+  opacity:.30;
+  background:
+    linear-gradient(70deg,transparent 49%,rgba(217,182,111,.92) 50% 52%,transparent 53%) 10% 10%/93px 117px,
+    linear-gradient(108deg,transparent 49%,rgba(213,160,143,.9) 50% 52%,transparent 53%) 55% 10%/127px 161px,
+    linear-gradient(82deg,transparent 49%,rgba(207,145,169,.85) 50% 52%,transparent 53%) 28% 10%/151px 181px;
+  animation:birthday-confetti 17s linear infinite;
+}
+html[data-season-theme="birthday"] .birthday-balloon{
+  position:absolute;
+  width:72px;
+  height:92px;
+  border-radius:50% 50% 46% 46%;
+  opacity:.26;
+  background:linear-gradient(145deg,rgba(255,255,255,.20),transparent 28%),#d9b66f;
+  box-shadow:0 0 20px rgba(217,182,111,.15);
+  animation:birthday-balloon 9s ease-in-out infinite;
+}
+html[data-season-theme="birthday"] .birthday-balloon::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:92px;
+  width:1px;
+  height:115px;
+  background:rgba(244,219,162,.38);
+}
+html[data-season-theme="birthday"] .birthday-balloon--one{top:150px;left:3vw}
+html[data-season-theme="birthday"] .birthday-balloon--two{top:115px;right:5vw;background:linear-gradient(145deg,rgba(255,255,255,.20),transparent 28%),#cf91a9;animation-delay:2s}
+html[data-season-theme="birthday"] .birthday-balloon--three{top:32vh;right:18vw;width:58px;height:74px;animation-delay:4.3s;opacity:.20}
+html[data-season-theme="birthday"] .birthday-sparkles{
+  position:absolute;
+  inset:95px 0 35vh;
+  opacity:.34;
+  background-image:
+    radial-gradient(circle,rgba(244,219,162,.95) 0 1px,transparent 1.7px),
+    radial-gradient(circle,rgba(242,199,184,.82) 0 1px,transparent 1.7px);
+  background-size:113px 137px,177px 213px;
+  animation:birthday-sparkles 15s linear infinite;
+}
+html[data-season-theme="birthday"] .button:hover,
+html[data-season-theme="birthday"] .visual-card:hover,
+html[data-season-theme="birthday"] .mod-card:hover,
+html[data-season-theme="birthday"] .catalogue-card:hover{
+  border-color:color-mix(in srgb,var(--rose) 54%,#d9b66f);
+  box-shadow:0 16px 38px rgba(0,0,0,.2),0 0 30px rgba(217,182,111,.09);
+}
+@keyframes birthday-confetti{from{background-position:10% -20%,55% -15%,28% -10%}to{background-position:16% 120%,50% 125%,34% 115%}}
+@keyframes birthday-balloon{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-18px) rotate(3deg)}}
+@keyframes birthday-sparkles{from{background-position:12% 100%,65% 100%}to{background-position:16% -12%,61% -18%}}
+@media(max-width:650px){html[data-season-theme="birthday"] .birthday-balloon--three{display:none}}
+@media(prefers-reduced-motion:reduce){
+  html[data-season-theme="birthday"] .birthday-confetti,
+  html[data-season-theme="birthday"] .birthday-balloon,
+  html[data-season-theme="birthday"] .birthday-sparkles{animation:none}
+}

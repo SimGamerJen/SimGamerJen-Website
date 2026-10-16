@@ -6,16 +6,36 @@
     halloween: {
       label: 'Halloween',
       stylesheet: '/assets/css/themes/halloween.css',
+      badgeTitle: 'Halloween at SGJ',
+      badgeTagline: 'Fun first. Frights later.',
       isActive(date) {
         const month = date.getMonth() + 1;
         const day = date.getDate();
         return (month === 10 && day >= 20) || (month === 11 && day <= 1);
       }
+    },
+    'bonfire-night': {
+      label: 'Guy Fawkes Night',
+      stylesheet: '/assets/css/themes/bonfire-night.css',
+      badgeTitle: 'Bonfire Night at SGJ',
+      badgeTagline: 'Fun first. Fireworks later.',
+      isActive(date) {
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return month === 11 && day >= 2 && day <= 6;
+      }
     }
   };
 
+  const themeAliases = {
+    'guy-fawkes': 'bonfire-night',
+    'guy-fawkes-night': 'bonfire-night',
+    'bonfire': 'bonfire-night'
+  };
+
   const params = new URLSearchParams(window.location.search);
-  const requested = (params.get(THEME_PARAM) || '').trim().toLowerCase();
+  const rawRequested = (params.get(THEME_PARAM) || '').trim().toLowerCase();
+  const requested = themeAliases[rawRequested] || rawRequested;
 
   let activeTheme = null;
   if (requested === 'default' || requested === 'off' || requested === 'none') {
@@ -60,7 +80,18 @@
       const badge = document.createElement('p');
       badge.className = 'seasonal-badge';
       badge.setAttribute('data-seasonal-badge', '');
-      badge.innerHTML = '<span class="seasonal-badge-mark" aria-hidden="true"></span><strong>Halloween at SGJ</strong><span>Fun first. Frights later.</span>';
+
+      const mark = document.createElement('span');
+      mark.className = 'seasonal-badge-mark';
+      mark.setAttribute('aria-hidden', 'true');
+
+      const title = document.createElement('strong');
+      title.textContent = config.badgeTitle || config.label;
+
+      const tagline = document.createElement('span');
+      tagline.textContent = config.badgeTagline || '';
+
+      badge.append(mark, title, tagline);
       eyebrow.insertAdjacentElement('afterend', badge);
     }
   }

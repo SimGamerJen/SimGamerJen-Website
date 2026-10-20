@@ -329,3 +329,103 @@ html[data-season-theme="halloween"] .site-footer {
     animation:none;
   }
 }
+
+
+/* Occasional witch-on-broom silhouette crossing the moonlit hero. */
+html[data-season-theme="halloween"] .halloween-witch {
+  position:absolute;
+  top:17vh;
+  right:-170px;
+  width:142px;
+  height:78px;
+  opacity:0;
+  transform-origin:center;
+  filter:
+    drop-shadow(0 0 7px rgba(139,99,168,.28))
+    drop-shadow(0 0 12px rgba(239,139,44,.08));
+  animation:halloween-witch-flight 32s linear infinite;
+}
+
+html[data-season-theme="halloween"] .halloween-witch::before {
+  content:"";
+  position:absolute;
+  left:18px;
+  top:3px;
+  width:78px;
+  height:61px;
+  background:rgba(9,7,11,.92);
+  clip-path:polygon(
+    14% 18%, 43% 18%, 50% 0%, 60% 18%, 86% 22%, 64% 31%,
+    61% 42%, 70% 52%, 63% 65%, 78% 89%, 55% 80%, 44% 100%,
+    36% 78%, 17% 84%, 29% 61%, 24% 49%, 33% 36%, 17% 31%
+  );
+}
+
+html[data-season-theme="halloween"] .halloween-witch::after {
+  content:"";
+  position:absolute;
+  left:0;
+  top:50px;
+  width:138px;
+  height:18px;
+  background:rgba(9,7,11,.9);
+  clip-path:polygon(
+    0 42%, 73% 42%, 73% 30%, 82% 36%, 100% 8%,
+    94% 39%, 100% 54%, 84% 48%, 73% 62%, 73% 52%, 0 52%
+  );
+  transform:rotate(3deg);
+}
+
+@keyframes halloween-witch-flight {
+  0%, 58% {
+    opacity:0;
+    transform:translate3d(0,0,0) scale(.78) rotate(-3deg);
+  }
+  61% {
+    opacity:.16;
+  }
+  67% {
+    opacity:.72;
+    transform:translate3d(-24vw,-4px,0) scale(.86) rotate(-1deg);
+  }
+  73% {
+    opacity:.9;
+    transform:translate3d(-45vw,7px,0) scale(.94) rotate(1deg);
+  }
+  79% {
+    opacity:.56;
+    transform:translate3d(-66vw,-3px,0) scale(1) rotate(-1deg);
+  }
+  85%, 100% {
+    opacity:0;
+    transform:translate3d(-92vw,-11px,0) scale(1.04) rotate(-3deg);
+  }
+}
+
+@media(max-width:900px) {
+  html[data-season-theme="halloween"] .halloween-witch {
+    top:20vh;
+    width:112px;
+    height:62px;
+    right:-135px;
+  }
+}
+
+@media(max-width:650px) {
+  html[data-season-theme="halloween"] .halloween-witch {
+    top:25vh;
+    width:96px;
+    height:54px;
+    right:-115px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce) {
+  html[data-season-theme="halloween"] .halloween-witch {
+    animation:none;
+    opacity:.12;
+    right:9vw;
+    top:19vh;
+    transform:scale(.84);
+  }
+}

@@ -16,7 +16,8 @@
         'halloween-bat halloween-bat--two',
         'halloween-bat halloween-bat--three',
         'halloween-bat halloween-bat--four',
-        'halloween-motes'
+        'halloween-motes',
+        'halloween-witch'
       ],
       isActive(date) {
         const month = date.getMonth() + 1;

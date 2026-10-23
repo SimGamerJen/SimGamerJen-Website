@@ -2,6 +2,14 @@
   const root = document.documentElement;
   const THEME_PARAM = 'theme';
 
+  // The Sunday strictly before 11 November; this is 8 November in 2026.
+  // This is the requested site activation rule, not necessarily the official
+  // Remembrance Sunday date (the second Sunday in November) in every year.
+  const remembranceStartDay = year => {
+    const weekday = new Date(year, 10, 11).getDay();
+    return 11 - (weekday === 0 ? 7 : weekday);
+  };
+
   const themes = {
     halloween: {
       label: 'Halloween',
@@ -43,7 +51,26 @@
       isActive(date) {
         const month = date.getMonth() + 1;
         const day = date.getDate();
-        return month === 11 && day >= 2 && day <= 9;
+        // Stop before the Remembrance skin begins. For 2026 this is 7 Nov.
+        const lastDay = Math.min(8, remembranceStartDay(date.getFullYear()) - 1);
+        return month === 11 && day >= 2 && day <= lastDay;
+      }
+    },
+    remembrance: {
+      label: 'Remembrance',
+      stylesheet: '/assets/css/themes/remembrance.css',
+      badgeTitle: 'Remembrance at SGJ',
+      badgeTagline: 'We will remember them.',
+      decorations: [
+        'remembrance-poppy remembrance-poppy--primary',
+        'remembrance-poppy remembrance-poppy--left',
+        'remembrance-poppy remembrance-poppy--right',
+        'remembrance-horizon'
+      ],
+      isActive(date) {
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return month === 11 && day >= remembranceStartDay(date.getFullYear()) && day <= 12;
       }
     },
     christmas: {
@@ -127,6 +154,9 @@
     'guy-fawkes': 'bonfire-night',
     'guy-fawkes-night': 'bonfire-night',
     'bonfire': 'bonfire-night',
+    'remembrance-day': 'remembrance',
+    'remembrance-sunday': 'remembrance',
+    'poppy': 'remembrance',
     'xmas': 'christmas',
     'newyear': 'new-year',
     'ny': 'new-year',

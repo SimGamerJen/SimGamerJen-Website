@@ -1,0 +1,200 @@
+/* Remembrance: quiet, respectful poppy accents within the existing SGJ identity.
+   Intentionally static: no celebratory particles or decorative animations. */
+html[data-season-theme="remembrance"] {
+  --season-accent: #bc8d84;
+  --season-accent-soft: #f2c7b8;
+  --season-secondary: #95464b;
+  --season-night: #141113;
+}
+
+html[data-season-theme="remembrance"] body {
+  background:
+    radial-gradient(circle at 8% 20%, rgba(149,70,75,.055), transparent 30rem),
+    radial-gradient(circle at 92% 16%, rgba(188,141,132,.075), transparent 31rem),
+    linear-gradient(180deg, #151213 0%, var(--ink) 42%, var(--ink) 100%);
+}
+
+html[data-season-theme="remembrance"] .site-header {
+  background: rgba(20,17,19,.96);
+  box-shadow: 0 12px 36px rgba(0,0,0,.23), 0 1px 0 rgba(188,141,132,.12);
+}
+
+html[data-season-theme="remembrance"] .header-wordmark {
+  text-shadow: 0 0 18px rgba(213,160,143,.12) !important;
+}
+
+html[data-season-theme="remembrance"] .hero {
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 80% 23%, rgba(149,70,75,.10), transparent 24rem),
+    radial-gradient(circle at 17% 85%, rgba(188,141,132,.06), transparent 31rem);
+}
+
+html[data-season-theme="remembrance"] .hero::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  bottom: -135px;
+  left: 50%;
+  width: min(850px, 80vw);
+  height: 260px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(149,70,75,.085), transparent 68%);
+  filter: blur(16px);
+  pointer-events: none;
+}
+
+html[data-season-theme="remembrance"] .hero-grid {
+  position: relative;
+  z-index: 2;
+}
+
+html[data-season-theme="remembrance"] .hero-glow {
+  background: radial-gradient(circle at 48% 47%, rgba(213,160,143,.16), transparent 62%);
+}
+
+html[data-season-theme="remembrance"] .hero-logo {
+  filter:
+    drop-shadow(0 28px 44px rgba(0,0,0,.34))
+    drop-shadow(0 0 20px rgba(213,160,143,.07));
+}
+
+html[data-season-theme="remembrance"] .quick-strip,
+html[data-season-theme="remembrance"] .dark-panel,
+html[data-season-theme="remembrance"] .ai-home-panel {
+  background-color: color-mix(in srgb, var(--ink-2) 90%, var(--season-night));
+}
+
+html[data-season-theme="remembrance"] .quick-strip {
+  box-shadow: inset 0 1px 0 rgba(188,141,132,.12);
+}
+
+html[data-season-theme="remembrance"] .site-footer {
+  background:
+    radial-gradient(circle at 13% 0, rgba(149,70,75,.045), transparent 22rem),
+    #100d0f;
+}
+
+html[data-season-theme="remembrance"] .seasonal-badge {
+  border: 1px solid rgba(188,141,132,.34);
+  background: linear-gradient(135deg, rgba(188,141,132,.10), rgba(149,70,75,.055)), rgba(20,17,19,.93);
+  box-shadow: 0 8px 22px rgba(0,0,0,.15);
+  color: #f2c7b8;
+}
+
+html[data-season-theme="remembrance"] .seasonal-badge strong {
+  color: #e7b1a4;
+}
+
+html[data-season-theme="remembrance"] .seasonal-badge > span:last-child {
+  color: #ddd1cb;
+  font-weight: 650;
+}
+
+html[data-season-theme="remembrance"] .seasonal-badge-mark {
+  background: #a93a43;
+  box-shadow: 0 0 0 5px rgba(169,58,67,.10);
+}
+
+/* Four gently overlapping petals and a dark centre, without an external image asset. */
+html[data-season-theme="remembrance"] .remembrance-poppy {
+  position: absolute;
+  display: block;
+  width: 158px;
+  height: 158px;
+  opacity: .27;
+  background:
+    radial-gradient(ellipse 38% 42% at 35% 35%, #ae333e 0 69%, transparent 72%),
+    radial-gradient(ellipse 38% 42% at 65% 35%, #962730 0 69%, transparent 72%),
+    radial-gradient(ellipse 38% 42% at 35% 65%, #9f2c35 0 69%, transparent 72%),
+    radial-gradient(ellipse 38% 42% at 65% 65%, #b53a42 0 69%, transparent 72%);
+  filter: drop-shadow(0 0 14px rgba(149,70,75,.12));
+  transform: rotate(-14deg);
+}
+
+html[data-season-theme="remembrance"] .remembrance-poppy::before {
+  content: "";
+  position: absolute;
+  inset: 35%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #151012 0 55%, #332326 60% 75%, transparent 79%);
+}
+
+html[data-season-theme="remembrance"] .remembrance-poppy--primary {
+  top: 141px;
+  right: 3.5vw;
+  width: 190px;
+  height: 190px;
+  opacity: .39;
+  transform: rotate(10deg);
+}
+
+html[data-season-theme="remembrance"] .remembrance-poppy--left {
+  top: 365px;
+  left: -37px;
+  width: 112px;
+  height: 112px;
+  opacity: .19;
+  transform: rotate(-18deg);
+}
+
+html[data-season-theme="remembrance"] .remembrance-poppy--right {
+  bottom: 18vh;
+  right: 2.4vw;
+  width: 86px;
+  height: 86px;
+  opacity: .13;
+  transform: rotate(16deg);
+}
+
+/* A single muted commemorative line rather than an animated effect. */
+html[data-season-theme="remembrance"] .remembrance-horizon {
+  position: absolute;
+  top: 85vh;
+  left: 0;
+  right: 0;
+  height: 1px;
+  opacity: .26;
+  background: linear-gradient(90deg, transparent, #a93a43 35%, #bc8d84 65%, transparent);
+}
+
+html[data-season-theme="remembrance"] .button:hover,
+html[data-season-theme="remembrance"] .visual-card:hover,
+html[data-season-theme="remembrance"] .mod-card:hover,
+html[data-season-theme="remembrance"] .catalogue-card:hover,
+html[data-season-theme="remembrance"] .project-banner:hover,
+html[data-season-theme="remembrance"] .connect-grid a:hover {
+  border-color: color-mix(in srgb, var(--rose) 78%, #95464b);
+  box-shadow: 0 16px 38px rgba(0,0,0,.20);
+}
+
+@media (max-width: 900px) {
+  html[data-season-theme="remembrance"] .remembrance-poppy--primary {
+    right: -28px;
+    top: 150px;
+    width: 125px;
+    height: 125px;
+    opacity: .27;
+  }
+  html[data-season-theme="remembrance"] .remembrance-poppy--right {
+    display: none;
+  }
+}
+
+@media (max-width: 650px) {
+  html[data-season-theme="remembrance"] .remembrance-poppy--primary {
+    top: 175px;
+    right: -30px;
+    width: 96px;
+    height: 96px;
+    opacity: .19;
+  }
+  html[data-season-theme="remembrance"] .remembrance-poppy--left {
+    top: 425px;
+    opacity: .12;
+  }
+  html[data-season-theme="remembrance"] .remembrance-horizon {
+    opacity: .16;
+  }
+}

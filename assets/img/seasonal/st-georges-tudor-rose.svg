@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" aria-hidden="true">
+  <!-- A traditional five-petalled red-and-white Tudor rose, with visible sepals. -->
+  <defs>
+    <linearGradient id="outerPetal" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#dc8583"/>
+      <stop offset=".55" stop-color="#bc525a"/>
+      <stop offset="1" stop-color="#8d3944"/>
+    </linearGradient>
+    <linearGradient id="innerPetal" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#fff8e9"/>
+      <stop offset=".52" stop-color="#efd8ca"/>
+      <stop offset="1" stop-color="#d7aaa1"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(110 110)">
+    <circle r="85" fill="#4e644f" opacity=".20"/>
+    <path transform="rotate(0)" d="M-9,-20 Q-18,-67 0,-95 Q18,-67 9,-20 Z" fill="#516954" stroke="#2d4035" stroke-width="1.6"/>
+    <path transform="rotate(72)" d="M-9,-20 Q-18,-67 0,-95 Q18,-67 9,-20 Z" fill="#516954" stroke="#2d4035" stroke-width="1.6"/>
+    <path transform="rotate(144)" d="M-9,-20 Q-18,-67 0,-95 Q18,-67 9,-20 Z" fill="#516954" stroke="#2d4035" stroke-width="1.6"/>
+    <path transform="rotate(216)" d="M-9,-20 Q-18,-67 0,-95 Q18,-67 9,-20 Z" fill="#516954" stroke="#2d4035" stroke-width="1.6"/>
+    <path transform="rotate(288)" d="M-9,-20 Q-18,-67 0,-95 Q18,-67 9,-20 Z" fill="#516954" stroke="#2d4035" stroke-width="1.6"/>
+    <g transform="rotate(0)">
+      <path d="M0,-10 C-27,-25 -43,-53 -26,-78 C-13,-95 12,-95 26,-78 C43,-53 27,-25 0,-10 Z" fill="url(#outerPetal)" stroke="#6d313a" stroke-width="2.7"/>
+      <path d="M0,-21 C-7,-38 -8,-60 0,-76" fill="none" stroke="#f1bcb4" stroke-opacity=".52" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <g transform="rotate(72)">
+      <path d="M0,-10 C-27,-25 -43,-53 -26,-78 C-13,-95 12,-95 26,-78 C43,-53 27,-25 0,-10 Z" fill="url(#outerPetal)" stroke="#6d313a" stroke-width="2.7"/>
+      <path d="M0,-21 C-7,-38 -8,-60 0,-76" fill="none" stroke="#f1bcb4" stroke-opacity=".52" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <g transform="rotate(144)">
+      <path d="M0,-10 C-27,-25 -43,-53 -26,-78 C-13,-95 12,-95 26,-78 C43,-53 27,-25 0,-10 Z" fill="url(#outerPetal)" stroke="#6d313a" stroke-width="2.7"/>
+      <path d="M0,-21 C-7,-38 -8,-60 0,-76" fill="none" stroke="#f1bcb4" stroke-opacity=".52" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <g transform="rotate(216)">
+      <path d="M0,-10 C-27,-25 -43,-53 -26,-78 C-13,-95 12,-95 26,-78 C43,-53 27,-25 0,-10 Z" fill="url(#outerPetal)" stroke="#6d313a" stroke-width="2.7"/>
+      <path d="M0,-21 C-7,-38 -8,-60 0,-76" fill="none" stroke="#f1bcb4" stroke-opacity=".52" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <g transform="rotate(288)">
+      <path d="M0,-10 C-27,-25 -43,-53 -26,-78 C-13,-95 12,-95 26,-78 C43,-53 27,-25 0,-10 Z" fill="url(#outerPetal)" stroke="#6d313a" stroke-width="2.7"/>
+      <path d="M0,-21 C-7,-38 -8,-60 0,-76" fill="none" stroke="#f1bcb4" stroke-opacity=".52" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <g transform="rotate(36)">
+      <path d="M0,-6 C-15,-15 -26,-31 -19,-48 C-12,-61 11,-61 19,-48 C26,-31 15,-15 0,-6 Z" fill="url(#innerPetal)" stroke="#9d5960" stroke-width="2.5"/>
+      <path d="M0,-16 C-3,-25 -4,-34 0,-44" fill="none" stroke="#fff9e9" stroke-opacity=".86" stroke-width="1.7"/>
+    </g>
+    <g transform="rotate(108)">
+      <path d="M0,-6 C-15,-15 -26,-31 -19,-48 C-12,-61 11,-61 19,-48 C26,-31 15,-15 0,-6 Z" fill="url(#innerPetal)" stroke="#9d5960" stroke-width="2.5"/>
+      <path d="M0,-16 C-3,-25 -4,-34 0,-44" fill="none" stroke="#fff9e9" stroke-opacity=".86" stroke-width="1.7"/>
+    </g>
+    <g transform="rotate(180)">
+      <path d="M0,-6 C-15,-15 -26,-31 -19,-48 C-12,-61 11,-61 19,-48 C26,-31 15,-15 0,-6 Z" fill="url(#innerPetal)" stroke="#9d5960" stroke-width="2.5"/>
+      <path d="M0,-16 C-3,-25 -4,-34 0,-44" fill="none" stroke="#fff9e9" stroke-opacity=".86" stroke-width="1.7"/>
+    </g>
+    <g transform="rotate(252)">
+      <path d="M0,-6 C-15,-15 -26,-31 -19,-48 C-12,-61 11,-61 19,-48 C26,-31 15,-15 0,-6 Z" fill="url(#innerPetal)" stroke="#9d5960" stroke-width="2.5"/>
+      <path d="M0,-16 C-3,-25 -4,-34 0,-44" fill="none" stroke="#fff9e9" stroke-opacity=".86" stroke-width="1.7"/>
+    </g>
+    <g transform="rotate(324)">
+      <path d="M0,-6 C-15,-15 -26,-31 -19,-48 C-12,-61 11,-61 19,-48 C26,-31 15,-15 0,-6 Z" fill="url(#innerPetal)" stroke="#9d5960" stroke-width="2.5"/>
+      <path d="M0,-16 C-3,-25 -4,-34 0,-44" fill="none" stroke="#fff9e9" stroke-opacity=".86" stroke-width="1.7"/>
+    </g>
+    <circle r="19" fill="#f3e4bb" stroke="#ab7772" stroke-width="2.6"/>
+    <circle cx="0.00" cy="16.00" r="2.1" fill="#dfb765"/>
+    <circle cx="9.40" cy="12.94" r="2.1" fill="#dfb765"/>
+    <circle cx="15.22" cy="4.94" r="2.1" fill="#dfb765"/>
+    <circle cx="15.22" cy="-4.94" r="2.1" fill="#dfb765"/>
+    <circle cx="9.40" cy="-12.94" r="2.1" fill="#dfb765"/>
+    <circle cx="0.00" cy="-16.00" r="2.1" fill="#dfb765"/>
+    <circle cx="-9.40" cy="-12.94" r="2.1" fill="#dfb765"/>
+    <circle cx="-15.22" cy="-4.94" r="2.1" fill="#dfb765"/>
+    <circle cx="-15.22" cy="4.94" r="2.1" fill="#dfb765"/>
+    <circle cx="-9.40" cy="12.94" r="2.1" fill="#dfb765"/>
+    <circle r="8" fill="#c7964d" stroke="#976037" stroke-width="1.8"/>
+    <path d="M-3 2 Q0 -3 4 1" stroke="#fae3ab" stroke-width="1.5" fill="none"/>
+  </g>
+</svg>

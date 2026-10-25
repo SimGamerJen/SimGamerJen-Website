@@ -138,7 +138,7 @@
       badgeTagline: 'Fun first. Dragons later.',
       decorations: [
         'george-shield',
-        'george-dragon',
+        'george-flag',
         'george-rose george-rose--one',
         'george-rose george-rose--two',
         'george-petals'

@@ -124,35 +124,31 @@ html[data-season-theme="st-georges-day"] .george-dragon {
   animation: george-dragon-hover 13s ease-in-out infinite;
 }
 
-/* Twin English roses use simple petals; sparse motion gives the page some life. */
+/* Traditional Tudor rose: five red outer petals, five ivory inner petals,
+   green sepals and a gold heart — visually distinct from Remembrance poppies. */
 html[data-season-theme="st-georges-day"] .george-rose {
   position: absolute;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  opacity: .27;
-  background:
-    radial-gradient(circle at 50% 50%, #efd8c9 0 8%, #8c343e 9% 17%, transparent 18%),
-    radial-gradient(ellipse 28% 37% at 50% 20%, #cc7174 0 95%, transparent 100%),
-    radial-gradient(ellipse 28% 37% at 80% 50%, #b54d55 0 95%, transparent 100%),
-    radial-gradient(ellipse 28% 37% at 50% 80%, #b54d55 0 95%, transparent 100%),
-    radial-gradient(ellipse 28% 37% at 20% 50%, #cc7174 0 95%, transparent 100%);
-  filter: drop-shadow(0 0 8px rgba(163,69,76,.15));
+  width: 108px;
+  height: 108px;
+  opacity: .46;
+  background: url('/assets/img/seasonal/st-georges-tudor-rose.svg') center/contain no-repeat;
+  filter: drop-shadow(0 0 11px rgba(163,69,76,.13));
+  transform-origin: 50% 50%;
   animation: george-rose-sway 12s ease-in-out infinite;
 }
 
 html[data-season-theme="st-georges-day"] .george-rose--one {
-  top: 48vh;
-  left: 3.4vw;
+  top: 45vh;
+  left: 1.8vw;
   animation-delay: -3s;
 }
 
 html[data-season-theme="st-georges-day"] .george-rose--two {
   top: 57vh;
-  right: 4.2vw;
-  width: 42px;
-  height: 42px;
-  opacity: .19;
+  right: 2.6vw;
+  width: 82px;
+  height: 82px;
+  opacity: .30;
   animation-delay: -8s;
 }
 

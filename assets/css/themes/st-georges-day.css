@@ -1,0 +1,254 @@
+/* St George's Day: English rose and St George's cross, with SGJ rose gold as the foundation. */
+html[data-season-theme="st-georges-day"] {
+  --season-accent: #c26965;
+  --season-accent-soft: #edbdaf;
+  --season-secondary: #a3454c;
+  --season-night: #171316;
+}
+
+html[data-season-theme="st-georges-day"] body {
+  background:
+    radial-gradient(circle at 7% 18%, rgba(163,69,76,.075), transparent 29rem),
+    radial-gradient(circle at 93% 17%, rgba(213,160,143,.085), transparent 32rem),
+    linear-gradient(180deg, #181315 0%, var(--ink) 40%, var(--ink) 100%);
+}
+
+html[data-season-theme="st-georges-day"] .site-header {
+  background: rgba(23,19,22,.94);
+  box-shadow: 0 12px 36px rgba(0,0,0,.24), 0 1px 0 rgba(194,105,101,.18);
+}
+
+html[data-season-theme="st-georges-day"] .header-wordmark {
+  text-shadow: 0 0 22px rgba(213,160,143,.22), 0 0 35px rgba(194,105,101,.10) !important;
+}
+
+html[data-season-theme="st-georges-day"] .hero {
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 80% 19%, rgba(194,105,101,.15), transparent 24rem),
+    radial-gradient(circle at 15% 83%, rgba(213,160,143,.09), transparent 30rem);
+}
+
+html[data-season-theme="st-georges-day"] .hero::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  bottom: -135px;
+  left: 50%;
+  width: min(860px,82vw);
+  height: 280px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(194,105,101,.12), transparent 68%);
+  filter: blur(15px);
+  pointer-events: none;
+}
+
+html[data-season-theme="st-georges-day"] .hero-grid {
+  position: relative;
+  z-index: 2;
+}
+
+html[data-season-theme="st-georges-day"] .hero-glow {
+  background:
+    radial-gradient(circle at 47% 45%, rgba(213,160,143,.20), transparent 48%),
+    radial-gradient(circle, rgba(194,105,101,.11), transparent 70%);
+}
+
+html[data-season-theme="st-georges-day"] .hero-logo {
+  filter: drop-shadow(0 28px 44px rgba(0,0,0,.34)) drop-shadow(0 0 27px rgba(213,160,143,.10));
+}
+
+html[data-season-theme="st-georges-day"] .quick-strip,
+html[data-season-theme="st-georges-day"] .dark-panel,
+html[data-season-theme="st-georges-day"] .ai-home-panel {
+  background-color: color-mix(in srgb, var(--ink-2) 88%, var(--season-night));
+}
+
+html[data-season-theme="st-georges-day"] .quick-strip {
+  box-shadow: inset 0 1px 0 rgba(194,105,101,.12);
+}
+
+html[data-season-theme="st-georges-day"] .site-footer {
+  background:
+    radial-gradient(circle at 13% 0, rgba(163,69,76,.07), transparent 22rem),
+    #120e11;
+}
+
+html[data-season-theme="st-georges-day"] .seasonal-badge {
+  border: 1px solid rgba(194,105,101,.43);
+  background:
+    linear-gradient(135deg,rgba(194,105,101,.15),rgba(213,160,143,.075)),
+    rgba(23,19,22,.89);
+  box-shadow: 0 9px 25px rgba(0,0,0,.18), 0 0 23px rgba(194,105,101,.07);
+}
+
+html[data-season-theme="st-georges-day"] .seasonal-badge strong {
+  color: #f0beb0;
+}
+
+html[data-season-theme="st-georges-day"] .seasonal-badge-mark {
+  background: #b74750;
+  box-shadow: 0 0 0 5px rgba(194,105,101,.12), 0 0 17px rgba(194,105,101,.34);
+}
+
+/* A heraldic St George's Cross shield sits at the outer left edge. */
+html[data-season-theme="st-georges-day"] .george-shield {
+  position: absolute;
+  top: 138px;
+  left: 3.2vw;
+  width: 124px;
+  height: 148px;
+  opacity: .34;
+  clip-path: polygon(0 0, 100% 0, 100% 76%, 50% 100%, 0 76%);
+  background:
+    linear-gradient(to right, transparent 0 37%, #ae3640 37% 63%, transparent 63%),
+    linear-gradient(to bottom, transparent 0 36%, #ae3640 36% 56%, transparent 56%),
+    #eee0d7;
+  filter: drop-shadow(0 0 12px rgba(194,105,101,.12));
+  transform: rotate(-7deg);
+  animation: george-shield-hover 10s ease-in-out infinite;
+}
+
+/* Subtle hand-drawn heraldic dragon; not large enough to compete with the SGJ mark. */
+html[data-season-theme="st-georges-day"] .george-dragon {
+  position: absolute;
+  top: 145px;
+  right: 1.4vw;
+  width: clamp(145px,16vw,235px);
+  aspect-ratio: 4 / 3;
+  opacity: .30;
+  background: url('/assets/img/seasonal/st-georges-dragon.svg') center/contain no-repeat;
+  filter: drop-shadow(0 0 12px rgba(194,105,101,.22));
+  transform-origin: center;
+  animation: george-dragon-hover 13s ease-in-out infinite;
+}
+
+/* Twin English roses use simple petals; sparse motion gives the page some life. */
+html[data-season-theme="st-georges-day"] .george-rose {
+  position: absolute;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  opacity: .27;
+  background:
+    radial-gradient(circle at 50% 50%, #efd8c9 0 8%, #8c343e 9% 17%, transparent 18%),
+    radial-gradient(ellipse 28% 37% at 50% 20%, #cc7174 0 95%, transparent 100%),
+    radial-gradient(ellipse 28% 37% at 80% 50%, #b54d55 0 95%, transparent 100%),
+    radial-gradient(ellipse 28% 37% at 50% 80%, #b54d55 0 95%, transparent 100%),
+    radial-gradient(ellipse 28% 37% at 20% 50%, #cc7174 0 95%, transparent 100%);
+  filter: drop-shadow(0 0 8px rgba(163,69,76,.15));
+  animation: george-rose-sway 12s ease-in-out infinite;
+}
+
+html[data-season-theme="st-georges-day"] .george-rose--one {
+  top: 48vh;
+  left: 3.4vw;
+  animation-delay: -3s;
+}
+
+html[data-season-theme="st-georges-day"] .george-rose--two {
+  top: 57vh;
+  right: 4.2vw;
+  width: 42px;
+  height: 42px;
+  opacity: .19;
+  animation-delay: -8s;
+}
+
+/* Sparse rose-toned flecks rather than a constant shower of particles. */
+html[data-season-theme="st-georges-day"] .george-petals {
+  position: absolute;
+  inset: 95px 0 22vh;
+  opacity: .13;
+  background-image:
+    radial-gradient(ellipse 2px 3px at center, rgba(194,105,101,.92) 0 97%, transparent 100%),
+    radial-gradient(ellipse 1.5px 2px at center, rgba(242,199,184,.84) 0 97%, transparent 100%);
+  background-size: 215px 245px, 301px 357px;
+  background-position: 8% 48%, 73% 14%;
+  animation: george-petals-drift 42s linear infinite;
+}
+
+html[data-season-theme="st-georges-day"] .button:hover,
+html[data-season-theme="st-georges-day"] .visual-card:hover,
+html[data-season-theme="st-georges-day"] .mod-card:hover,
+html[data-season-theme="st-georges-day"] .catalogue-card:hover,
+html[data-season-theme="st-georges-day"] .project-banner:hover,
+html[data-season-theme="st-georges-day"] .connect-grid a:hover {
+  border-color: color-mix(in srgb,var(--rose) 62%, #b74750);
+  box-shadow: 0 16px 38px rgba(0,0,0,.20), 0 0 25px rgba(194,105,101,.07);
+}
+
+@keyframes george-shield-hover {
+  0%,100% { transform: translateY(0) rotate(-7deg); }
+  50% { transform: translateY(5px) rotate(-5deg); }
+}
+
+@keyframes george-dragon-hover {
+  0%,100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-9px) rotate(1deg); }
+}
+
+@keyframes george-rose-sway {
+  0%,100% { transform: translateY(0) rotate(-10deg); }
+  50% { transform: translateY(-7px) rotate(7deg); }
+}
+
+@keyframes george-petals-drift {
+  from { background-position: 8% -14%, 73% -16%; }
+  to { background-position: 10% 115%, 71% 120%; }
+}
+
+@media (max-width: 900px) {
+  html[data-season-theme="st-georges-day"] .george-shield {
+    width: 96px;
+    height: 116px;
+    left: -12px;
+    opacity: .26;
+  }
+
+  html[data-season-theme="st-georges-day"] .george-dragon {
+    right: -20px;
+    width: 145px;
+    opacity: .23;
+  }
+
+  html[data-season-theme="st-georges-day"] .george-rose--two {
+    display: none;
+  }
+}
+
+@media (max-width: 650px) {
+  html[data-season-theme="st-georges-day"] .george-shield {
+    top: 164px;
+    left: -32px;
+    width: 83px;
+    height: 100px;
+    opacity: .16;
+  }
+
+  html[data-season-theme="st-georges-day"] .george-dragon {
+    top: 183px;
+    right: -36px;
+    width: 117px;
+    opacity: .14;
+  }
+
+  html[data-season-theme="st-georges-day"] .george-rose--one {
+    left: -18px;
+    opacity: .14;
+  }
+
+  html[data-season-theme="st-georges-day"] .george-petals {
+    opacity: .075;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-season-theme="st-georges-day"] .george-shield,
+  html[data-season-theme="st-georges-day"] .george-dragon,
+  html[data-season-theme="st-georges-day"] .george-rose,
+  html[data-season-theme="st-georges-day"] .george-petals {
+    animation: none;
+  }
+}

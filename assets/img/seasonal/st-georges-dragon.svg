@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" role="img" aria-label="Decorative heraldic dragon silhouette">
+  <g fill="#bf7973" stroke="#351a20" stroke-width="2.5" stroke-linejoin="round">
+    <!-- Curled tail -->
+    <path d="M111 162 C78 148 46 152 32 176 C16 202 35 229 61 221 C43 217 37 198 50 188 C63 180 79 195 105 182 L135 170 Z"/>
+    <!-- Great folded wing, visible behind the body -->
+    <path d="M121 147 Q82 113 53 41 L119 79 L138 24 L162 92 L205 51 Q203 103 188 140 Z" fill="#91565c"/>
+    <path d="M122 137 L117 80 L139 34 L157 98 M139 125 L190 64" fill="none" stroke="#d6a39a" stroke-width="4" opacity=".55"/>
+    <!-- Body and bent neck -->
+    <path d="M105 151 C120 127 147 124 164 132 C181 145 191 128 199 113 L219 93 L244 101 L239 127 C232 147 214 156 198 167 L180 182 C152 193 121 185 105 171 Z"/>
+    <!-- Head, horns and serrated crest -->
+    <path d="M214 107 L230 90 L234 68 L247 84 L258 77 L274 87 L286 92 L306 95 L295 104 L313 113 L284 117 L267 111 L252 121 L237 118 Z"/>
+    <path d="M246 88 L258 59 L263 82 L273 68 L274 91 Z" fill="#a46564"/>
+    <!-- Underjaw and eye -->
+    <path d="M281 111 L302 122 L275 119 L253 114 Z" fill="#8b494f"/>
+    <circle cx="282" cy="99" r="3.5" fill="#282024" stroke="none"/>
+    <!-- Foreleg -->
+    <path d="M195 163 L224 180 L234 195 L255 195 L247 201 L260 204 L240 207 L220 204 L207 193 L181 181 Z"/>
+    <!-- Hind leg and claws -->
+    <path d="M141 175 L129 204 L107 209 L98 222 L116 217 L123 224 L128 212 L151 210 L166 187 Z"/>
+    <!-- Raised spine details -->
+    <path d="M113 146 L105 130 L124 140 L126 126 L140 136 L145 127 L153 137" fill="#9f5e60"/>
+  </g>
+</svg>

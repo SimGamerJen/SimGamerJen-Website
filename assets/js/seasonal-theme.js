@@ -131,6 +131,24 @@
         return (month === 2 && day >= 27) || (month === 3 && day <= 2);
       }
     },
+    'st-georges-day': {
+      label: "St George's Day",
+      stylesheet: '/assets/css/themes/st-georges-day.css',
+      badgeTitle: "St George's Day at SGJ",
+      badgeTagline: 'Fun first. Dragons later.',
+      decorations: [
+        'george-shield',
+        'george-flag',
+        'george-rose george-rose--one',
+        'george-rose george-rose--two',
+        'george-petals'
+      ],
+      isActive(date) {
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return month === 4 && day >= 21 && day <= 24;
+      }
+    },
     birthday: {
       label: 'Birthday',
       stylesheet: '/assets/css/themes/birthday.css',
@@ -163,6 +181,10 @@
     'st-david': 'st-davids-day',
     'st-davids': 'st-davids-day',
     'stdavids': 'st-davids-day',
+    'st-george': 'st-georges-day',
+    'st-georges': 'st-georges-day',
+    'st-george-day': 'st-georges-day',
+    'st-georges-day': 'st-georges-day',
     'bday': 'birthday'
   };
 

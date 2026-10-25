@@ -110,18 +110,49 @@ html[data-season-theme="st-georges-day"] .george-shield {
   animation: george-shield-hover 10s ease-in-out infinite;
 }
 
-/* Subtle hand-drawn heraldic dragon; not large enough to compete with the SGJ mark. */
-html[data-season-theme="st-georges-day"] .george-dragon {
+/* A second St George's Cross flag balances the shield on the opposite edge.
+   Slightly waving fabric and a slim rose-gold flagpole keep it distinct from the shield. */
+html[data-season-theme="st-georges-day"] .george-flag {
   position: absolute;
-  top: 145px;
-  right: 1.4vw;
-  width: clamp(145px,16vw,235px);
-  aspect-ratio: 4 / 3;
-  opacity: .30;
-  background: url('/assets/img/seasonal/st-georges-dragon.svg') center/contain no-repeat;
-  filter: drop-shadow(0 0 12px rgba(194,105,101,.22));
-  transform-origin: center;
-  animation: george-dragon-hover 13s ease-in-out infinite;
+  top: 144px;
+  right: 2.3vw;
+  width: 187px;
+  height: 132px;
+  opacity: .38;
+  transform-origin: 13px 5px;
+  filter: drop-shadow(0 0 12px rgba(194,105,101,.15));
+  animation: george-flag-sway 12s ease-in-out infinite;
+}
+
+/* Flagpole with a small round finial. */
+html[data-season-theme="st-georges-day"] .george-flag::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: -12px;
+  width: 5px;
+  height: 163px;
+  border-radius: 3px;
+  background: linear-gradient(90deg,#926962,#e6b5a5 52%,#926962);
+  box-shadow: 0 -5px 0 2px #d7a393;
+}
+
+/* White flag with the red cross of St George; shaped like slightly rippling fabric. */
+html[data-season-theme="st-georges-day"] .george-flag::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 5px;
+  width: 168px;
+  height: 108px;
+  background:
+    linear-gradient(100deg, transparent 0 43%, #b6424b 43% 58%, transparent 58%),
+    linear-gradient(0deg, transparent 0 40%, #b6424b 40% 60%, transparent 60%),
+    linear-gradient(110deg, rgba(26,18,23,.12) 0%, transparent 31%, rgba(255,255,255,.18) 55%, rgba(26,18,23,.12) 100%),
+    #f1e7e1;
+  clip-path: polygon(0 0, 100% 1%, 97% 21%, 100% 44%, 97% 65%, 100% 99%, 0 100%);
+  border: 1px solid rgba(219,181,169,.28);
+  box-shadow: 0 10px 18px rgba(0,0,0,.16);
 }
 
 /* Traditional Tudor rose: five red outer petals, five ivory inner petals,
@@ -180,9 +211,9 @@ html[data-season-theme="st-georges-day"] .connect-grid a:hover {
   50% { transform: translateY(5px) rotate(-5deg); }
 }
 
-@keyframes george-dragon-hover {
-  0%,100% { transform: translateY(0) rotate(-3deg); }
-  50% { transform: translateY(-9px) rotate(1deg); }
+@keyframes george-flag-sway {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(4px) rotate(0deg); }
 }
 
 @keyframes george-rose-sway {
@@ -203,10 +234,15 @@ html[data-season-theme="st-georges-day"] .connect-grid a:hover {
     opacity: .26;
   }
 
-  html[data-season-theme="st-georges-day"] .george-dragon {
-    right: -20px;
-    width: 145px;
-    opacity: .23;
+  html[data-season-theme="st-georges-day"] .george-flag {
+    right: -25px;
+    width: 160px;
+    opacity: .27;
+    transform-origin: 13px 5px;
+  }
+  html[data-season-theme="st-georges-day"] .george-flag::after {
+    width: 143px;
+    height: 91px;
   }
 
   html[data-season-theme="st-georges-day"] .george-rose--two {
@@ -223,11 +259,19 @@ html[data-season-theme="st-georges-day"] .connect-grid a:hover {
     opacity: .16;
   }
 
-  html[data-season-theme="st-georges-day"] .george-dragon {
-    top: 183px;
-    right: -36px;
-    width: 117px;
-    opacity: .14;
+  html[data-season-theme="st-georges-day"] .george-flag {
+    top: 178px;
+    right: -45px;
+    width: 122px;
+    height: 94px;
+    opacity: .16;
+  }
+  html[data-season-theme="st-georges-day"] .george-flag::before {
+    height: 110px;
+  }
+  html[data-season-theme="st-georges-day"] .george-flag::after {
+    width: 108px;
+    height: 69px;
   }
 
   html[data-season-theme="st-georges-day"] .george-rose--one {
@@ -242,7 +286,7 @@ html[data-season-theme="st-georges-day"] .connect-grid a:hover {
 
 @media (prefers-reduced-motion: reduce) {
   html[data-season-theme="st-georges-day"] .george-shield,
-  html[data-season-theme="st-georges-day"] .george-dragon,
+  html[data-season-theme="st-georges-day"] .george-flag,
   html[data-season-theme="st-georges-day"] .george-rose,
   html[data-season-theme="st-georges-day"] .george-petals {
     animation: none;

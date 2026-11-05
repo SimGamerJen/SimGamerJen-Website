@@ -2,10 +2,11 @@
   const root = document.documentElement;
   const THEME_PARAM = 'theme';
 
-  // The Sunday strictly before 11 November; this is 8 November in 2026.
-  // This is the requested site activation rule, not necessarily the official
-  // Remembrance Sunday date (the second Sunday in November) in every year.
+  // The 2026 handover starts on Saturday 7 November, one day earlier than
+  // the previously configured window. Other years retain their existing rule:
+  // the Sunday strictly before 11 November (not necessarily Remembrance Sunday).
   const remembranceStartDay = year => {
+    if (year === 2026) return 7;
     const weekday = new Date(year, 10, 11).getDay();
     return 11 - (weekday === 0 ? 7 : weekday);
   };
@@ -51,7 +52,7 @@
       isActive(date) {
         const month = date.getMonth() + 1;
         const day = date.getDate();
-        // Stop before the Remembrance skin begins. For 2026 this is 7 Nov.
+        // Stop before the Remembrance skin begins. For 2026 this is 6 Nov.
         const lastDay = Math.min(8, remembranceStartDay(date.getFullYear()) - 1);
         return month === 11 && day >= 2 && day <= lastDay;
       }

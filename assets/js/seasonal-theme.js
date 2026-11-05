@@ -2,15 +2,6 @@
   const root = document.documentElement;
   const THEME_PARAM = 'theme';
 
-  // The 2026 handover starts on Saturday 7 November, one day earlier than
-  // the previously configured window. Other years retain their existing rule:
-  // the Sunday strictly before 11 November (not necessarily Remembrance Sunday).
-  const remembranceStartDay = year => {
-    if (year === 2026) return 7;
-    const weekday = new Date(year, 10, 11).getDay();
-    return 11 - (weekday === 0 ? 7 : weekday);
-  };
-
   const themes = {
     halloween: {
       label: 'Halloween',
@@ -52,9 +43,8 @@
       isActive(date) {
         const month = date.getMonth() + 1;
         const day = date.getDate();
-        // Stop before the Remembrance skin begins. For 2026 this is 6 Nov.
-        const lastDay = Math.min(8, remembranceStartDay(date.getFullYear()) - 1);
-        return month === 11 && day >= 2 && day <= lastDay;
+        // Fixed annual window: 2–6 November, inclusive.
+        return month === 11 && day >= 2 && day <= 6;
       }
     },
     remembrance: {
@@ -71,7 +61,8 @@
       isActive(date) {
         const month = date.getMonth() + 1;
         const day = date.getDate();
-        return month === 11 && day >= remembranceStartDay(date.getFullYear()) && day <= 12;
+        // Fixed annual window: 7–12 November, inclusive.
+        return month === 11 && day >= 7 && day <= 12;
       }
     },
     christmas: {

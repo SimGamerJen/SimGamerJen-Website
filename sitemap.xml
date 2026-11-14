@@ -18,4 +18,6 @@
   <url><loc>https://simgamerjen.com/about/</loc><priority>0.6</priority></url>
   <url><loc>https://simgamerjen.com/about/ai/</loc><priority>0.7</priority></url>
   <url><loc>https://simgamerjen.com/contact/</loc><priority>0.6</priority></url>
+  <url><loc>https://simgamerjen.com/privacy/</loc><priority>0.5</priority></url>
+  <url><loc>https://simgamerjen.com/terms/</loc><priority>0.5</priority></url>
 </urlset>

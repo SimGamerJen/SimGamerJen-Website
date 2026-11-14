@@ -6,7 +6,29 @@ function stripMarkup(v=''){return decodeXml(v.replace(/<[^>]+>/g,' ').replace(/\
 function decodeJsonText(v=''){try{return JSON.parse(`"${v.replace(/"/g,'\\"')}"`);}catch{return v.replace(/\\u0026/g,'&').replace(/\\\//g,'/').replace(/\\n/g,' ');}}
 function htmlEntityDecode(v=''){return v.replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>');}
 function metaContent(html,property){const esc=property.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');const a=html.match(new RegExp(`<meta[^>]+property=["']${esc}["'][^>]+content=["']([^"']+)["']`,'i'));const b=html.match(new RegExp(`<meta[^>]+content=["']([^"']+)["'][^>]+property=["']${esc}["']`,'i'));return htmlEntityDecode((a||b||[])[1]||'');}
-async function resolveChannelId(handle){const r=await fetch(`https://www.youtube.com/@${encodeURIComponent(handle)}`,{headers:YOUTUBE_HEADERS,cf:{cacheEverything:true,cacheTtl:21600}});if(!r.ok)throw new Error(`channel-page-${r.status}`);const html=await r.text();const rss=(html.match(/"rssUrl":"https:\/\/www\.youtube\.com\/feeds\/videos\.xml\?channel_id=(UC[\w-]{20,})"/)||[])[1];if(rss)return rss;const metadata=(html.match(/"channelMetadataRenderer":\{[\s\S]{0,8000}?"externalId":"(UC[\w-]{20,})"/)||[])[1];if(metadata)return metadata;const itemprop=(html.match(/itemprop="channelId"\s+content="(UC[\w-]{20,})"/)||html.match(/content="(UC[\w-]{20,})"\s+itemprop="channelId"/)||[])[1];if(itemprop)return itemprop;throw new Error(`channel-id-not-found-${handle}`);}
+async function resolveChannelId(handle){
+  const response=await fetch(`https://www.youtube.com/@${encodeURIComponent(handle)}`,{
+    headers:YOUTUBE_HEADERS,cf:{cacheEverything:true,cacheTtl:21600}
+  });
+  if(!response.ok)throw new Error(`channel-page-${handle}-${response.status}`);
+  const html=await response.text();
+  // YouTube has used several forms of these identifiers across its HTML.
+  // Prefer the channel's own metadata over arbitrary video-renderer channel IDs.
+  const patterns=[
+    /"channelMetadataRenderer":\{[\s\S]{0,8000}?"externalId":"(UC[\w-]{22})"/,
+    /"rssUrl":"[^"]*?channel_id=(UC[\w-]{22})"/,
+    /itemprop="channelId"\s+content="(UC[\w-]{22})"/,
+    /content="(UC[\w-]{22})"\s+itemprop="channelId"/,
+    /(?:https?:\\\/\\\/|https?:\/\/)www\.youtube\.com\\?\/feeds\\?\/videos\.xml\?channel_id=(UC[\w-]{22})/,
+    /"canonicalBaseUrl":"\\?\/channel\\?\/(UC[\w-]{22})"/,
+    /<meta[^>]*property="og:url"[^>]*content="https:\/\/www\.youtube\.com\/channel\/(UC[\w-]{22})"/
+  ];
+  for(const pattern of patterns){
+    const match=html.match(pattern);
+    if(match)return match[1];
+  }
+  throw new Error(`channel-id-not-found-${handle}`);
+}
 function parseFeed(xml,channel){const entries=xml.match(/<entry>[\s\S]*?<\/entry>/gi)||[];return entries.map(entry=>{const id=textTag(entry,'yt:videoId'),title=textTag(entry,'title'),published=textTag(entry,'published'),description=stripMarkup(textTag(entry,'media:description')).slice(0,220);if(!id||!title||!published)return null;return{id,title,published,description,channel:channel.label,handle:channel.handle,url:`https://www.youtube.com/watch?v=${encodeURIComponent(id)}`,thumbnail:`https://i.ytimg.com/vi/${encodeURIComponent(id)}/hqdefault.jpg`};}).filter(Boolean);}
 async function publicVideoLiveState(id){
   try{
@@ -29,7 +51,7 @@ async function enrichPublicFeedStates(items){
   const states=await Promise.all(items.slice(0,limit).map(item=>publicVideoLiveState(item.id)));
   return items.map((item,index)=>index<limit&&states[index]?{...item,...states[index]}:item);
 }
-async function fetchChannelItemsFromFeed(channel){const channelId=channel.channelId||await resolveChannelId(channel.handle);const r=await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${encodeURIComponent(channelId)}`,{headers:YOUTUBE_HEADERS,cf:{cacheEverything:true,cacheTtl:900}});if(!r.ok)throw new Error(`feed-${channel.handle}-${r.status}`);return enrichPublicFeedStates(parseFeed(await r.text(),channel));}
+async function fetchChannelItemsFromFeed(channel){const channelId=channel.channelId||await resolveChannelId(channel.handle);const r=await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${encodeURIComponent(channelId)}`,{headers:YOUTUBE_HEADERS,cf:{cacheEverything:true,cacheTtl:900}});if(!r.ok)throw new Error(`feed-${channel.handle}-${r.status}`);const items=parseFeed(await r.text(),channel);if(!items.length)throw new Error(`feed-${channel.handle}-empty`);return enrichPublicFeedStates(items);}
 async function youtubeTokenRequest(env,refreshToken){return fetch('https://oauth2.googleapis.com/token',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({client_id:env.YOUTUBE_CLIENT_ID,client_secret:env.YOUTUBE_CLIENT_SECRET,refresh_token:refreshToken,grant_type:'refresh_token'})});}
 async function getYouTubeFeedAccessToken(request,env,ctx,channel,force=false){const refreshToken=env[channel.refreshSecret];if(!env.YOUTUBE_CLIENT_ID||!env.YOUTUBE_CLIENT_SECRET||!refreshToken)throw new Error(`youtube-feed-${channel.key}-not-configured`);const cache=caches.default,key=new Request(new URL(`/api/internal/youtube-feed-token-v1?channel=${encodeURIComponent(channel.key)}`,request.url),{method:'GET'});if(!force){const cached=await cache.match(key);if(cached)return(await cached.json()).accessToken;}else await cache.delete(key);const response=await youtubeTokenRequest(env,refreshToken);if(!response.ok)throw new Error(`youtube-feed-token-${channel.key}-${response.status}`);const payload=await response.json();if(!payload.access_token)throw new Error(`youtube-feed-token-${channel.key}-missing`);const ttl=Math.max(120,Math.min(Number(payload.expires_in||3600)-120,3300));ctx.waitUntil(cache.put(key,Response.json({accessToken:payload.access_token},{headers:{'Cache-Control':`public, max-age=${ttl}, s-maxage=${ttl}`}})));return payload.access_token;}
 async function youtubeDataApi(url,token){return fetch(url,{headers:{Authorization:`Bearer ${token}`}});}

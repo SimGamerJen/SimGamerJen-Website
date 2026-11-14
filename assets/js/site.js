@@ -104,6 +104,20 @@
       partners.style.cssText = 'color:var(--muted);font-weight:750;text-decoration:none;';
       if (copyright) footerGrid.insertBefore(partners, copyright); else footerGrid.appendChild(partners);
     }
+    // The privacy and site terms must be reachable from every public page.
+    if (!footerGrid.querySelector('.footer-legal')) {
+      const legal = document.createElement('nav');
+      legal.className = 'footer-legal';
+      legal.setAttribute('aria-label', 'Legal information');
+      const privacy = document.createElement('a');
+      privacy.href = '/privacy/';
+      privacy.textContent = 'Privacy Policy';
+      const terms = document.createElement('a');
+      terms.href = '/terms/';
+      terms.textContent = 'Terms of Service';
+      legal.append(privacy, terms);
+      if (copyright) footerGrid.insertBefore(legal, copyright); else footerGrid.appendChild(legal);
+    }
     if (!footerGrid.querySelector('.footer-support')) {
       const support = document.createElement('a');
       support.className = 'footer-support';

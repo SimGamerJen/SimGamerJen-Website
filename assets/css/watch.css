@@ -17,3 +17,14 @@
 .watch-feed-links{display:flex;gap:1rem 1.4rem;flex-wrap:wrap;margin-top:.35rem}
 .watch-feed-links a{color:var(--rose-light);font-weight:800;text-decoration:none}
 .watch-feed-links a:hover,.watch-feed-links a:focus-visible{text-decoration:underline}
+
+/* A partially successful response should not silently imply both channels were checked. */
+.watch-partial-notice{
+  margin:0 0 1.2rem;
+  padding:.8rem 1rem;
+  border-left:3px solid var(--rose);
+  background:rgba(213,160,143,.08);
+  color:var(--muted);
+  font-size:.9rem;
+  line-height:1.6;
+}

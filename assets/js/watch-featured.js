@@ -60,6 +60,22 @@
       items=items.slice(0,3);
       if(!items.length)throw new Error('empty');
       grid.replaceChildren(...items.map(latestCard));
+      // A partly successful combined response must never imply that the newest
+      // uploads across BOTH channels were considered.
+      root.querySelector('[data-watch-partial-notice]')?.remove();
+      if(data.partial){
+        const missing=Object.entries(data.status||{})
+          .filter(([,status])=>status?.source==='unavailable')
+          .map(([name])=>name);
+        const note=document.createElement('p');
+        note.className='watch-partial-notice';
+        note.setAttribute('data-watch-partial-notice','');
+        note.setAttribute('role','status');
+        note.textContent=missing.length
+          ? `Showing available YouTube uploads only. ${missing.join(' and ')} could not be checked, so newer content may be missing.`
+          : 'Showing a partial YouTube feed. Newer uploads may be missing.';
+        grid.insertAdjacentElement('beforebegin',note);
+      }
       await loadPlaylists(items);
     }catch(error){
       console.warn('[SGJ] Live YouTube feed unavailable.',error);

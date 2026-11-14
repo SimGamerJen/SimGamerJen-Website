@@ -38,6 +38,32 @@
   function playlistCard(item){const href=safeHttpUrl(item.url),thumb=safeHttpUrl(item.thumbnail),card=document.createElement('a');card.className='playlist-card';card.href=href;card.target='_blank';card.rel='noopener noreferrer';const art=document.createElement('div');art.className='playlist-art';if(thumb){const img=document.createElement('img');img.src=thumb;img.alt='';img.loading='lazy';img.decoding='async';art.appendChild(img);}else{const fallback=document.createElement('span');fallback.className='playlist-fallback';fallback.textContent='PLAYLIST';art.appendChild(fallback);}const stack=document.createElement('span');stack.className='playlist-stack';stack.textContent='PLAYLIST';art.appendChild(stack);const copy=document.createElement('div');copy.className='playlist-copy';const channel=document.createElement('span');channel.className='status';channel.textContent=item.channel||'YouTube';const title=document.createElement('h3');title.textContent=item.title||'SGJ playlist';const cta=document.createElement('span');cta.className='series-cta';cta.textContent='Open playlist ↗';copy.append(channel,title,cta);card.append(art,copy);return card;}
   async function loadCuratedIds(){try{const response=await fetch('/assets/data/watch-playlist-selection.json',{cache:'no-store'});if(!response.ok)return[];const data=await response.json();return[...new Set((data.featured||[]).map(v=>String(v).trim()).filter(v=>/^PL[\w-]+$/.test(v)))].slice(0,6);}catch{return[];}}
   async function loadPlaylists(latestItems=[]){if(!playlistRoot)return;try{const curatedIds=await loadCuratedIds();const endpoint=curatedIds.length?`/api/youtube/playlists?ids=${encodeURIComponent(curatedIds.join(','))}`:'/api/youtube/playlists';const response=await fetch(endpoint,{cache:'no-store'});if(!response.ok)throw new Error(String(response.status));const data=await response.json();const all=(data.items||[]).filter(item=>safeHttpUrl(item.url)&&item.title);let selected;if(curatedIds.length){const byId=new Map(all.map(item=>[item.id,item]));selected=curatedIds.map(id=>byId.get(id)).filter(Boolean);}else{const ranked=all.map((item,index)=>({item,index,score:playlistScore(item,latestItems)})).sort((a,b)=>b.score-a.score||a.index-b.index);selected=[];for(const row of ranked){if(selected.length>=6)break;if(!selected.some(x=>x.id===row.item.id))selected.push(row.item);}}if(!selected.length)throw new Error('empty');playlistRoot.replaceChildren(...selected.map(playlistCard));}catch(error){console.warn('[SGJ] Playlist discovery unavailable.',error);playlistRoot.innerHTML='<div class="playlist-unavailable"><strong>Playlist shelf is temporarily unavailable.</strong><span>Use the browse-all links below to open either channel’s playlist library.</span></div>';}}
-  async function loadFallback(){const response=await fetch('/assets/data/watch-featured.json',{cache:'no-store'});if(!response.ok)throw new Error(String(response.status));const data=await response.json();grid.replaceChildren(...(data.items||[]).map(fallbackCard));await loadPlaylists([]);}
-  (async()=>{try{const [latestResponse,liveResponse]=await Promise.all([fetch('/api/youtube/latest',{cache:'no-store'}),fetch('/api/live-status',{cache:'no-store'})]);if(!latestResponse.ok)throw new Error(String(latestResponse.status));const data=await latestResponse.json();let items=data.items||[];if(liveResponse.ok){try{items=mergeUpcoming(items,await liveResponse.json());}catch(error){console.warn('[SGJ] Could not merge scheduled livestream state.',error);}}items=items.slice(0,3);if(!items.length)throw new Error('empty');grid.replaceChildren(...items.map(latestCard));await loadPlaylists(items);}catch(error){console.warn('[SGJ] Live YouTube feed unavailable; using editorial fallback.',error);try{await loadFallback();}catch{root.hidden=true;}}})();
+  async function loadFallback(){
+    // Never present the editorial series placeholders as though they were latest uploads.
+    grid.innerHTML='<div class="watch-feed-unavailable" role="status"><strong>Latest YouTube uploads are temporarily unavailable.</strong><span>The live feed could not be retrieved, so we cannot confirm which videos are newest. You can still open the channels directly:</span><div class="watch-feed-links"><a href="https://www.youtube.com/@SimGamerJen/videos" target="_blank" rel="noopener noreferrer">SimGamerJen videos ↗</a><a href="https://www.youtube.com/@StreamGamerJen/videos" target="_blank" rel="noopener noreferrer">StreamGamerJen videos ↗</a></div></div>';
+    await loadPlaylists([]);
+  }
+  (async()=>{
+    try{
+      // The feed is required, but live status is optional: a live-status outage must
+      // not suppress a healthy latest-uploads response.
+      const latestResponse=await fetch('/api/youtube/latest',{cache:'no-store'});
+      if(!latestResponse.ok)throw new Error('latest-feed-'+latestResponse.status);
+      const data=await latestResponse.json();
+      let items=Array.isArray(data.items)?data.items:[];
+      try{
+        const liveResponse=await fetch('/api/live-status',{cache:'no-store'});
+        if(liveResponse.ok)items=mergeUpcoming(items,await liveResponse.json());
+      }catch(error){
+        console.warn('[SGJ] Live status unavailable; showing latest uploads without live enrichment.',error);
+      }
+      items=items.slice(0,3);
+      if(!items.length)throw new Error('empty');
+      grid.replaceChildren(...items.map(latestCard));
+      await loadPlaylists(items);
+    }catch(error){
+      console.warn('[SGJ] Live YouTube feed unavailable.',error);
+      await loadFallback();
+    }
+  })();
 })();

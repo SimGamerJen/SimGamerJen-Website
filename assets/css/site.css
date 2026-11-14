@@ -5,3 +5,10 @@
 .footer-grid{flex-wrap:wrap;gap:1rem 1.5rem}
 .footer-shop{color:var(--rose-light);font-weight:800;text-decoration:none}
 @media(min-width:651px) and (max-width:1000px){.nav-wrap{flex-direction:column;align-items:flex-start;gap:1rem;padding-block:1rem}}
+
+/* Keep shared legal links visible without crowding the SGJ footer. */
+.site-footer .footer-grid{flex-wrap:wrap;gap:1rem 1.45rem}
+.site-footer .footer-legal{display:flex;align-items:center;gap:.6rem 1.2rem;flex-wrap:wrap;width:auto}
+.site-footer .footer-legal a{font-size:.86rem;font-weight:750;color:var(--muted);text-decoration:none;white-space:nowrap}
+.site-footer .footer-legal a:hover,.site-footer .footer-legal a:focus-visible{color:var(--rose-light);text-decoration:underline}
+@media(max-width:650px){.site-footer .footer-grid{justify-content:flex-start}.site-footer .footer-legal{width:100%}}

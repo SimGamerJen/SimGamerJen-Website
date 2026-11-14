@@ -51,3 +51,14 @@ The UI demo modes remain available on Preview without OAuth:
 - `/watch/?liveDemo=both-stream`
 
 After adding the real secrets, inspect `/api/live-status` on the Preview deployment. The response includes platform-specific `configured`, `live` and `unavailable` state so a bad YouTube token can be diagnosed without exposing any credential value.
+
+## Watch page feed troubleshooting
+
+If the Watch page's **Latest on YouTube** section shows an outage message instead of current video cards:
+
+1. Open `/api/youtube/health` on the corresponding Cloudflare deployment. It reports only source names, per-channel counts and upstream failure codes; it never returns credentials.
+2. `source: youtube-data-api` indicates that the authenticated uploads lookup succeeded. `source: public-rss-fallback` means public RSS is keeping that channel running while OAuth needs attention. `source: unavailable` and an error explain why neither route worked.
+3. Check the four Cloudflare YouTube secrets listed above and the Google OAuth consent screen's publishing status, separately for the preview and production deployments.
+4. **Important:** If the external Google OAuth app is in **Testing** status, Google generally expires refresh tokens for YouTube scopes after seven days. To avoid repeat outages, change its publishing status to **In production** where appropriate, then reauthorise and securely replace the channel refresh tokens if they have already expired. Never copy secrets into an issue, PR, screenshot or chat.
+
+The Watch page's latest uploads should remain independent of Twitch/YouTube live-status errors. It now shows a clear outage state with links to both channels instead of implying that the static editorial series cards are current uploads.

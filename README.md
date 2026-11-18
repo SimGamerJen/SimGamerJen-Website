@@ -41,3 +41,11 @@ Cloudflare will serve the repository root directly. A custom domain can be added
 - Partners / contact
 
 The architecture may evolve as the site is designed. The repository is intentionally kept simple at this stage rather than committing prematurely to a JavaScript framework or CMS.
+
+---
+
+## Licence and Permissions
+
+Copyright © 2026 SimGamerJen. All rights reserved.
+
+You may download and use this project for personal use. You may not modify, redistribute, re-upload, or publish this project, in whole or in part, or any derivative version without prior written permission from SimGamerJen.
